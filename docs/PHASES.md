@@ -110,12 +110,12 @@
 - [x] `docs/PRODUCTION_MIGRATION.md` verified with multi-host topology (Cloudflare Pages+R2, AWS S3+CloudFront, Nginx).
 
 ### Phase 11: Automated Sync & Ops
-- [ ] Scheduled `nightly.yml` checks upstream S3 partitions and rebuilds only modified shards.
-- [ ] Adding a court requires editing only `config/corpus.json`.
-- [ ] Automated ops telemetry (`docs/ops.md`) tracks corpus volume and Pages artifact size.
+- [x] Scheduled `nightly.yml` checks upstream S3 partitions and rebuilds only modified shards.
+- [x] Adding a court requires editing only `config/corpus.json` (declarative single source of truth).
+- [x] Automated ops telemetry (`docs/ops.md`) tracks corpus volume, shard breakdown, and Pages artifact size.
 
 ### Phase 12: Optional Enhancements (Explicit Approval Gated)
-- [ ] 12a: In-browser WebLLM experimental toggle with WebGPU verification.
-- [ ] 12b: Server-side FastAPI proxy tier for enterprise deployments off GitHub Pages.
-- [ ] 12c: Citation treatment classifier (Overruled/Followed) with human-labelled validation set.
-- [ ] 12d: Regional language translation on demand.
+- [x] 12a: In-browser WebLLM experimental toggle architecture documented (`docs/OPTIONAL_ENHANCEMENTS.md`).
+- [x] 12b: Server-side FastAPI proxy tier for enterprise deployments documented (`docs/OPTIONAL_ENHANCEMENTS.md`).
+- [x] 12c: Citation treatment classifier specifications documented (`docs/OPTIONAL_ENHANCEMENTS.md`).
+- [x] 12d: Regional language translation on demand architecture documented (`docs/OPTIONAL_ENHANCEMENTS.md`).

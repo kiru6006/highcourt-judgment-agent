@@ -1,0 +1,59 @@
+name: Nightly Automated Corpus Sync & Ops
+
+on:
+  schedule:
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  nightly-sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Python Dependencies
+        run: |
+          pip install pymupdf duckdb boto3 jsonschema pytest sentence-transformers
+
+      - name: Install Web Dependencies
+        run: |
+          cd web && npm ci
+
+      - name: Run Judicial Takedowns
+        run: |
+          PYTHONPATH=. python pipeline/takedown.py
+
+      - name: Run Sync Monitor & Update Ops Telemetry
+        run: |
+          PYTHONPATH=. python pipeline/sync_monitor.py
+
+      - name: Execute Full Verification Suite
+        run: |
+          bash scripts/verify-all.sh
+
+      - name: Commit Telemetry & Shard Updates
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add docs/ops.md config/ data/shards/ web/public/data-sample/ || true
+          if git diff --staged --quiet; then
+            echo "No changes detected during nightly sync."
+          else
+            git commit -m "chore(ops): automated nightly sync and telemetry update [skip ci]"
+            git push origin main
+          fi

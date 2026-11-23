@@ -26,7 +26,7 @@ bash scripts/check-budget.sh
 
 echo ""
 echo "--- 4. Pipeline & Ingestion Unit Tests (pytest) ---"
-PYTHONPATH=. .venv/bin/pytest -v tests/test_pipeline.py tests/test_takedown.py
+PYTHONPATH=. .venv/bin/pytest -v tests/test_pipeline.py tests/test_takedown.py tests/test_sync_monitor.py
 
 echo ""
 echo "--- 5. Retrieval & RRF Evaluation Benchmark ---"
