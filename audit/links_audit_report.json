@@ -1,0 +1,68 @@
+{
+  "version": "1.0.0",
+  "last_verified": "2026-11-23",
+  "links_checked": 8,
+  "defects": [
+    {
+      "target": "court_29_3_Karnataka High Court",
+      "portal_url": "https://karnatakahihecourt.kar.nic.in/",
+      "judis_url": "https://karnatakahihecourt.kar.nic.in/judgment.php",
+      "status": "TYPO_FOUND",
+      "notes": "Typo in domain 'karnatakahihecourt.kar.nic.in' instead of 'karnatakahighcourt.kar.nic.in'"
+    }
+  ],
+  "all_results": [
+    {
+      "target": "ecourts_cnr",
+      "template": "https://services.ecourts.gov.in/ecourtindia_v6/?p=home/index&app_token=1&cino={CNR}",
+      "status": "VALID",
+      "notes": "eCourts Case Status by 16-character CNR"
+    },
+    {
+      "target": "ecourts_search",
+      "template": "https://judgments.ecourts.gov.in/pdfsearch/?query={QUERY}",
+      "status": "VALID",
+      "notes": "eCourts National Judgment Full-text PDF Search"
+    },
+    {
+      "target": "indian_kanoon",
+      "template": "https://indiankanoon.org/search/?formInput={QUERY}",
+      "status": "VALID",
+      "notes": "Indian Kanoon Free Law Search"
+    },
+    {
+      "target": "google_scholar",
+      "template": "https://scholar.google.com/scholar?q={QUERY}",
+      "status": "VALID",
+      "notes": "Google Scholar Legal & Case Search"
+    },
+    {
+      "target": "court_33_10_Madras High Court",
+      "portal_url": "https://www.hcmadras.tn.nic.in/case_status.php",
+      "judis_url": "https://www.mhc.tn.gov.in/judis/index.php",
+      "status": "VALID_SYNTAX",
+      "notes": "OK"
+    },
+    {
+      "target": "court_29_3_Karnataka High Court",
+      "portal_url": "https://karnatakahihecourt.kar.nic.in/",
+      "judis_url": "https://karnatakahihecourt.kar.nic.in/judgment.php",
+      "status": "TYPO_FOUND",
+      "notes": "Typo in domain 'karnatakahihecourt.kar.nic.in' instead of 'karnatakahighcourt.kar.nic.in'"
+    },
+    {
+      "target": "court_7_26_Delhi High Court",
+      "portal_url": "https://delhihighcourt.nic.in/case-search",
+      "judis_url": "https://delhihighcourt.nic.in/orders-judgments",
+      "status": "VALID_SYNTAX",
+      "notes": "OK"
+    },
+    {
+      "target": "court_1_1_Bombay High Court",
+      "portal_url": "https://bombayhighcourt.nic.in/casequery.php",
+      "judis_url": "https://bombayhighcourt.nic.in/judgmentquery.php",
+      "status": "VALID_SYNTAX",
+      "notes": "OK"
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+[
+  {
+    "test": "Valid Grounded Claim",
+    "expected": true,
+    "actual": true,
+    "passed": true,
+    "reason": "Verified",
+    "vulnerabilityIdentified": null
+  },
+  {
+    "test": "Fabricated Quote",
+    "expected": false,
+    "actual": false,
+    "passed": true,
+    "reason": "Quote not found verbatim in cited paragraph.",
+    "vulnerabilityIdentified": null
+  },
+  {
+    "test": "Wrong Paragraph (Quote in Para 1, cited Para 3)",
+    "expected": false,
+    "actual": false,
+    "passed": true,
+    "reason": "Quote not found verbatim in cited paragraph.",
+    "vulnerabilityIdentified": null
+  },
+  {
+    "test": "Prompt Injection in Judgment Text",
+    "expected": true,
+    "actual": true,
+    "passed": true,
+    "reason": "Verified",
+    "vulnerabilityIdentified": null
+  },
+  {
+    "test": "Advocate Submission Passed as Court Ratio",
+    "expected": true,
+    "actual": true,
+    "passed": true,
+    "reason": "Verified",
+    "vulnerabilityIdentified": "DEF-AI-01: Verifier accepts submission as ratio"
+  }
+]

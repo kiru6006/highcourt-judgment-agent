@@ -1,0 +1,21 @@
+{
+  "workflow": "nightly.yml",
+  "cron_schedule": "0 2 * * *",
+  "ops_doc_present": true,
+  "findings": [
+    {
+      "id": "DEF-OPS-02",
+      "severity": "Medium",
+      "component": ".github/workflows/nightly.yml",
+      "issue": "Unpinned pip dependencies (pip install pymupdf duckdb boto3 jsonschema pytest sentence-transformers) in CI workflow. Vulnerable to upstream breaking changes.",
+      "expected": "Dependencies pinned in requirements.lock or requirements-ci.txt."
+    },
+    {
+      "id": "DEF-OPS-03",
+      "severity": "High",
+      "component": "pipeline/sync_monitor.py",
+      "issue": "Nightly sync workflow runs sync_monitor.py which only computes telemetry over existing local shards. It does not execute live incremental delta extraction from AWS S3.",
+      "expected": "Incremental crawler queries S3 for new dates, runs PyMuPDF extraction, and emits new delta shards."
+    }
+  ]
+}
