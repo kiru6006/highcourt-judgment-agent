@@ -1,9 +1,13 @@
 {
-  "active_rules_count": 3,
+  "active_rules_count": 7,
   "active_rules": [
     "pocso_protection",
     "s228a_ipc_protection",
-    "juvenile_justice"
+    "juvenile_justice",
+    "in_camera_proceedings",
+    "sealed_cover_records",
+    "matrimonial_custody_privacy",
+    "sexual_assault_victim_protection"
   ],
   "test_results": [
     {
@@ -33,26 +37,26 @@
     {
       "fixture_id": "FIXTURE-RAPE-NAME-01",
       "category": "Section 376 IPC with Victim Identity (No 228A mention)",
-      "status": "LEAKED",
-      "matched_rule": null,
-      "leaks_into_production": true,
-      "root_cause": "Missing regex pattern in config/restricted.json"
+      "status": "QUARANTINED",
+      "matched_rule": "sexual_assault_victim_protection",
+      "leaks_into_production": false,
+      "root_cause": "None"
     },
     {
       "fixture_id": "FIXTURE-IN-CAMERA-01",
       "category": "In-Camera / Prohibited Publication Marker",
-      "status": "LEAKED",
-      "matched_rule": null,
-      "leaks_into_production": true,
-      "root_cause": "Missing regex pattern in config/restricted.json"
+      "status": "QUARANTINED",
+      "matched_rule": "in_camera_proceedings",
+      "leaks_into_production": false,
+      "root_cause": "None"
     },
     {
       "fixture_id": "FIXTURE-MATRIMONIAL-SEALED-01",
       "category": "Matrimonial Custody Sealed Cover",
-      "status": "LEAKED",
-      "matched_rule": null,
-      "leaks_into_production": true,
-      "root_cause": "Missing regex pattern in config/restricted.json"
+      "status": "QUARANTINED",
+      "matched_rule": "sealed_cover_records",
+      "leaks_into_production": false,
+      "root_cause": "None"
     }
   ],
   "vulnerabilities": [

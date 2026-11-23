@@ -2,15 +2,7 @@
   "version": "1.0.0",
   "last_verified": "2026-11-23",
   "links_checked": 8,
-  "defects": [
-    {
-      "target": "court_29_3_Karnataka High Court",
-      "portal_url": "https://karnatakahihecourt.kar.nic.in/",
-      "judis_url": "https://karnatakahihecourt.kar.nic.in/judgment.php",
-      "status": "TYPO_FOUND",
-      "notes": "Typo in domain 'karnatakahihecourt.kar.nic.in' instead of 'karnatakahighcourt.kar.nic.in'"
-    }
-  ],
+  "defects": [],
   "all_results": [
     {
       "target": "ecourts_cnr",
@@ -45,10 +37,10 @@
     },
     {
       "target": "court_29_3_Karnataka High Court",
-      "portal_url": "https://karnatakahihecourt.kar.nic.in/",
-      "judis_url": "https://karnatakahihecourt.kar.nic.in/judgment.php",
-      "status": "TYPO_FOUND",
-      "notes": "Typo in domain 'karnatakahihecourt.kar.nic.in' instead of 'karnatakahighcourt.kar.nic.in'"
+      "portal_url": "https://karnatakahighcourt.kar.nic.in/",
+      "judis_url": "https://karnatakahighcourt.kar.nic.in/judgment.php",
+      "status": "VALID_SYNTAX",
+      "notes": "OK"
     },
     {
       "target": "court_7_26_Delhi High Court",

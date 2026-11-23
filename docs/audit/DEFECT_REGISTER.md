@@ -1,0 +1,10 @@
+# NyayaReader / Nyaya AI Reader: Defect Register
+
+| ID | Severity | Module | File / Line | Finding | Evidence | Root Cause | Fix | Test | Effort |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| **DEF-SEC-01** | High | Governance | Repo Root | Missing `LICENSE`, `NOTICE`, and `THIRD_PARTY.md` files at repository root | `audit/security_compliance_report.json` | Root compliance documents omitted during initial scaffold | Add CC-BY-4.0 / Apache-2.0 LICENSE, NOTICE, and THIRD_PARTY.md | `bash audit/08_security_audit.sh` | 1h |
+| **DEF-TAX-01** | Medium | Taxonomy | `web/src/types/schema.ts:15` | Category field is a flat string array rather than an 8-domain structured hierarchy | `schema.ts:15` | v1.0.0 simplified schema | Implement `shared/taxonomy/v1.ts` and `shared/court-codes/registry.ts` in v1.2.0 M2 | `npm test` | 3h |
+| **DEF-ANOM-01** | Medium | Pipeline | `pipeline/quarantine.py:42` | Statutory quarantine only evaluated first 3 paragraphs in legacy helper | `pipeline/quarantine.py:42` | Performance optimization on early spike | Scan all paragraphs for protected identities and in-camera markers | `pytest tests/test_pipeline.py` | 2h |
+| **DEF-OPS-01** | Medium | Workflows | `.github/workflows/nightly.yml:25` | Workflow fails if AWS credentials missing on non-secret forks | `nightly.yml:25` | Hard AWS S3 sync step without secret guard | Add conditional check `if: env.AWS_SECRET_ACCESS_KEY != ''` | CI execution | 1h |
+| **DEF-UI-01** | Low | Workspace | `web/src/pages/FoldersPage.tsx:575` | Textarea scrollable on paper without explicit print block | `FoldersPage.tsx` | Browser printing defaults | Added `hidden print:block font-serif text-xs` formatted view | Window print test | 1h |
+| **DEF-NAV-01** | Low | Search | `web/src/pages/SearchPage.tsx:35` | Bench and year parameters were previously omitted from URL query string sync | `SearchPage.tsx:35` | Initial URL sync covered courts only | Added `searchParams.getAll('bench')` and `year_from`/`year_to` | Unit test | 1h |
