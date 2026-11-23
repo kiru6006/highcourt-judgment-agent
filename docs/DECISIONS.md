@@ -50,11 +50,11 @@
 ---
 
 ### D-004: Client-Side BM25 Search Engine (Orama vs MiniSearch)
-- **Status**: Open (Benchmark-Gated in Phase 4)
+- **Status**: Accepted
 - **Date**: 2026-11-23
 - **Context**: Client-side full-text search requires a performant JavaScript/TypeScript search engine that can execute inside a Web Worker over pre-built inverted index shards.
-- **Decision**: Evaluate both **Orama** and **MiniSearch** during Phase 4 benchmarking against index size, serialization/deserialization time, memory usage, and p95 query latency. Select the winner based on empirical metrics. Vector embeddings remain decoupled in separate `.bin` files.
-- **Consequences**: Decision will be documented with real benchmark metrics in `docs/search-bench.md`.
+- **Decision**: Adopt **MiniSearch** as the primary client-side search engine. Empirical benchmarking in Phase 4 (`docs/search-bench.md`) demonstrated that MiniSearch delivers equivalent p95 query latency ($< 4\text{ ms}$) while offering a 3.5x smaller gzipped index footprint (117 KB vs 406 KB per 1,000 docs), 2.4x faster index construction, and a ~7 KB gzipped bundle impact compared to Orama's ~28 KB. Vector embeddings remain decoupled in separate `.bin` files.
+- **Consequences**: Minimal bundle size overhead, fast in-worker shard loading, low memory consumption on mobile devices. Details in `docs/search-bench.md`.
 
 ---
 

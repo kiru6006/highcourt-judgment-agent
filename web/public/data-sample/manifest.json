@@ -1,0 +1,24 @@
+{
+  "version": "1.0.0",
+  "generated_at": "2026-11-23T15:00:34.668238+00:00",
+  "total_shards": 1,
+  "total_docs": 46,
+  "shards": [
+    {
+      "shard_id": "33_10-2022",
+      "court": "33_10",
+      "year": 2022,
+      "doc_count": 46,
+      "search": {
+        "file": "search-33_10-2022.json.gz",
+        "bytes": 3220,
+        "sha256": "9d3fffe431d3f6a2314fcfca3c7d67dc3403caf7c2fc0ecfe46657c5d7103742"
+      },
+      "docs": {
+        "file": "docs-33_10-2022.json.gz",
+        "bytes": 25985,
+        "sha256": "57fcd82fe465cd3b2ea6f97c1caa1c38c7e22c450165509aa71909762fb22f32"
+      }
+    }
+  ]
+}

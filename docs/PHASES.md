@@ -48,21 +48,21 @@
 - [ ] Findings published in `docs/data-report.md`.
 
 ### Phase 3: Offline Ingestion Pipeline
-- [ ] Python streaming tar reader extracts judgments without writing multi-GB tars to disk.
-- [ ] Stable JID hash generated: `sha1(cnr|decision_date|order_number)`.
-- [ ] Deduplication via SHA-256 and MinHash near-duplicate detection.
-- [ ] Heuristic section tagger extracts Facts, Issues, Submissions, Ratio, Order (confidence thresholding).
-- [ ] Statutory pattern extractor normalizes citations (IPC, CrPC, CPC, BNS, BNSS, BSA, Constitution).
-- [ ] Deterministic taxonomy normalizer maps court codes and disposal types.
-- [ ] `config/restricted.json` rules exclude sensitive records to `review-queue.csv`.
-- [ ] Shards validated against JSON-Schema in CI; sample data $\le 5\text{ MB}$ committed to `web/public/data-sample/`.
+- [x] Python streaming tar reader extracts judgments without writing multi-GB tars to disk.
+- [x] Stable JID hash generated: `sha1(cnr|decision_date|order_number)`.
+- [x] Deduplication via SHA-256 and MinHash near-duplicate detection.
+- [x] Heuristic section tagger extracts Facts, Issues, Submissions, Ratio, Order (confidence thresholding).
+- [x] Statutory pattern extractor normalizes citations (IPC, CrPC, CPC, BNS, BNSS, BSA, Constitution).
+- [x] Deterministic taxonomy normalizer maps court codes and disposal types.
+- [x] `config/restricted.json` rules exclude sensitive records to `review-queue.csv`.
+- [x] Shards validated against JSON-Schema in CI; sample data $\le 5\text{ MB}$ committed to `web/public/data-sample/`.
 
 ### Phase 4: Client Search Core
-- [ ] Node index builder outputs `manifest.json` and BM25 shards.
-- [ ] `SearchWorker` executes BM25 search and computes facet distributions off the main thread.
-- [ ] Benchmark comparison between Orama and MiniSearch completed; metrics recorded in D-004.
-- [ ] Query parser accurately handles case numbers, party names, and section references.
-- [ ] Main thread long tasks remain $< 50\text{ ms}$ during search operations.
+- [x] Node/Python manifest builder outputs `manifest.json` and BM25 shards.
+- [x] `SearchWorker` executes BM25 search and computes facet distributions off the main thread.
+- [x] Benchmark comparison between Orama and MiniSearch completed; metrics recorded in D-004.
+- [x] Query parser accurately handles case numbers, party names, and section references.
+- [x] Main thread long tasks remain $< 50\text{ ms}$ during search operations.
 
 ### Phase 5: Real UI Integration & Web Links Generator
 - [ ] Left-rail facets bound to live shard counts with URL state synchronization.

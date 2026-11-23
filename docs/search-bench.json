@@ -1,0 +1,27 @@
+{
+  "docsCount": 1000,
+  "miniSearch": {
+    "indexTimeMs": 61.18,
+    "deserializationTimeMs": 18.88,
+    "serializedSizeBytes": 841415,
+    "serializedGzipBytes": 117171,
+    "latency": {
+      "avgMs": 1.46,
+      "p50Ms": 1.29,
+      "p95Ms": 3.74,
+      "p99Ms": 4.68
+    }
+  },
+  "orama": {
+    "indexTimeMs": 146.22,
+    "deserializationTimeMs": 7.7,
+    "serializedSizeBytes": 3401677,
+    "serializedGzipBytes": 406080,
+    "latency": {
+      "avgMs": 0.97,
+      "p50Ms": 0.36,
+      "p95Ms": 3.55,
+      "p99Ms": 4.26
+    }
+  }
+}
