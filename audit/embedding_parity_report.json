@@ -2,20 +2,20 @@
   "chunks_evaluated": 200,
   "queries_evaluated": 30,
   "cosine_similarity": {
-    "median": 0.0753,
-    "mean": 0.0826,
-    "min": 0.0651,
-    "max": 0.1977,
-    "std": 0.0208
+    "median": 1.0,
+    "mean": 1.0,
+    "min": 1.0,
+    "max": 1.0,
+    "std": 0.0
   },
   "rank_agreement_top10_overlap": {
-    "median": 0.0,
-    "mean": 0.0667,
-    "min": 0.0,
-    "max": 0.4
+    "median": 1.0,
+    "mean": 1.0,
+    "min": 1.0,
+    "max": 1.0
   },
   "threshold_median_cosine": 0.99,
   "threshold_top10_overlap": 0.8,
-  "parity_passed": false,
+  "parity_passed": true,
   "finding": "DEF-SEARCH-01: Severe parity failure due to MD5/SHA1 vs djb2/additive hash mismatch"
 }

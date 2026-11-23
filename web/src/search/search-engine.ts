@@ -22,12 +22,13 @@ export class SearchEngine {
   constructor() {
     this.miniSearch = new MiniSearch({
       idField: 'jid',
-      fields: ['title', 'case_no', 'statutes', 'category', 'disposal', 'excerpt', 'judges'],
-      storeFields: ['jid', 'title', 'case_no', 'court_code', 'year', 'date', 'category', 'disposal'],
+      fields: ['title', 'case_no', 'cnr', 'statutes', 'category', 'disposal', 'excerpt', 'judges'],
+      storeFields: ['jid', 'cnr', 'title', 'case_no', 'court_code', 'year', 'date', 'category', 'disposal'],
       searchOptions: {
         boost: {
-          title: 3.0,
+          cnr: 6.0,
           case_no: 3.5,
+          title: 3.0,
           statutes: 2.5,
           category: 1.5,
           excerpt: 1.0

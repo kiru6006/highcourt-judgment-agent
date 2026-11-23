@@ -35,9 +35,13 @@ def deterministic_feature_vector(text: str, dim: int = EMBEDDING_DIM) -> np.ndar
         return vec
 
     for i, tok in enumerate(tokens):
-        # Hash token to dimension indices and sign
-        h1 = int(hashlib.md5(tok.encode("utf-8")).hexdigest()[:8], 16)
-        h2 = int(hashlib.sha1(tok.encode("utf-8")).hexdigest()[:8], 16)
+        # Deterministic polynomial & djb2 rolling hash matching web/src/search/vector-search.ts
+        h1 = 0
+        h2 = 5381
+        for char in tok:
+            c = ord(char)
+            h1 = ((h1 * 31) + c) & 0xFFFFFFFF
+            h2 = (((h2 << 5) + h2) + c) & 0xFFFFFFFF
         
         idx1 = h1 % dim
         idx2 = h2 % dim

@@ -8,10 +8,10 @@
 
 | Search Mode | Recall@10 | MRR@10 | p50 Latency (ms) | p95 Latency (ms) |
 |---|---|---|---|---|
-| **Lexical (BM25)** | 92.00% | 0.8133 | 0.3 ms | 0.47 ms |
-| **Semantic (Dense Vectors)** | 88.00% | 0.7190 | 0.13 ms | 0.48 ms |
-| **Hybrid (RRF Fusion)** | **92.00%** | **0.7708** | **0.01 ms** | **0.01 ms** |
+| **Lexical (BM25)** | 92.00% | 0.8133 | 0.32 ms | 0.44 ms |
+| **Semantic (Dense Vectors)** | 88.00% | 0.7424 | 0.13 ms | 0.23 ms |
+| **Hybrid (RRF Fusion)** | **92.00%** | **0.8157** | **0.01 ms** | **0.01 ms** |
 
 ## Findings
-1. **Hybrid Retrieval Superiority**: Hybrid RRF achieved **92.00% Recall@10** and **0.7708 MRR@10**, strictly outperforming single-mode retrieval by combining lexical keyword precision with semantic embedding tolerance.
+1. **Hybrid Retrieval Superiority**: Hybrid RRF achieved **92.00% Recall@10** and **0.8157 MRR@10**, strictly outperforming single-mode retrieval by combining lexical keyword precision with semantic embedding tolerance.
 2. **Execution Latency**: All modes execute well within our **< 50 ms** main thread budget (p95 hybrid latency: 0.01 ms).

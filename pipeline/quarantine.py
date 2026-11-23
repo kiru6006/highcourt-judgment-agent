@@ -53,7 +53,7 @@ def is_quarantined(doc: Dict[str, Any]) -> Tuple[bool, str]:
     rules = load_restricted_rules()
     title = doc.get("parties", {}).get("petitioner", "") + " " + doc.get("parties", {}).get("respondent", "")
     acts = " ".join([s.get("act", "") + " " + s.get("section", "") for s in doc.get("statutes", [])])
-    text_sample = " ".join([p.get("text", "") for p in doc.get("paragraphs", [])[:3]])
+    text_sample = " ".join([p.get("text", "") for p in doc.get("paragraphs", [])])
     blob = f"{title} {acts} {text_sample}"
 
     for r in rules:

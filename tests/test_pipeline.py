@@ -196,6 +196,35 @@ def test_non_quarantine_commercial():
     quar, _ = is_quarantined(doc)
     assert quar is False
 
+def test_quarantine_late_paragraph_pocso():
+    # Verify that POCSO appearing beyond paragraph 3 is caught by full-paragraph scan
+    doc = {
+        "cnr": "TESTCNR999",
+        "jid": "latepocso01",
+        "parties": {"petitioner": "Petitioner A", "respondent": "State"},
+        "statutes": [],
+        "paragraphs": [
+            {"text": "Introductory facts of the case."},
+            {"text": "Counsel appeared for parties."},
+            {"text": "Submissions were heard at length."},
+            {"text": "Case records perused."},
+            {"text": "Charges framed under the POCSO Act for trial."}
+        ]
+    }
+    quar, reason = is_quarantined(doc)
+    assert quar is True
+    assert "pocso" in reason.lower()
+
+def test_quarantine_in_camera_and_sealed_cover():
+    doc = {
+        "cnr": "SEALED001",
+        "jid": "sealed01",
+        "parties": {"petitioner": "Petitioner X", "respondent": "Respondent Y"},
+        "paragraphs": [{"text": "Proceedings ordered in-camera; documents kept under sealed cover."}]
+    }
+    quar, reason = is_quarantined(doc)
+    assert quar is True
+
 # ==========================================
 # 8. Shard Builder & Packaging Tests
 # ==========================================

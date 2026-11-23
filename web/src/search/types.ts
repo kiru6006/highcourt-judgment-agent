@@ -4,6 +4,7 @@ export type SearchMode = 'keyword' | 'semantic' | 'hybrid';
 
 export interface SearchShardRecord {
   jid: string;
+  cnr?: string;
   title: string;
   case_no: string;
   court_code: string;

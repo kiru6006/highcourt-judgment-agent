@@ -8,6 +8,7 @@ import argparse
 import io
 import json
 import os
+import re
 import sys
 import tarfile
 import boto3
@@ -26,6 +27,63 @@ from pipeline.shard_builder import build_shards_for_partition
 BUCKET_NAME = "indian-high-court-judgments"
 REGION = "ap-south-1"
 
+def extract_header_metadata(full_text: str, default_year: int, cnr: str) -> dict:
+    header = full_text[:1500]
+    
+    # 1. Judges / Coram
+    judges = []
+    judge_matches = re.findall(
+        r"(?:THE\s+HON(?:OURA|')?BLE\s+(?:MR\.|MS\.|MRS\.|JUSTICE)\s+([A-Z\.\s]+?))\s*(?:\n|DATED|ORDER|JUDGMENT)",
+        header,
+        re.IGNORECASE
+    )
+    for j in judge_matches:
+        cleaned = re.sub(r"\s+", " ", j).strip().title()
+        if len(cleaned) > 2 and cleaned not in judges:
+            judges.append(f"Hon'ble Justice {cleaned}")
+            
+    if not judges:
+        judges = ["Hon'ble High Court Judge"]
+        
+    # 2. Case Number
+    case_no_match = re.search(
+        r"((?:Crl\.?\s*O\.?P\.?|W\.?P\.?|C\.?R\.?P\.?|W\.?A\.?|O\.?S\.?A\.?|C\.?M\.?A\.?|C\.?A\.?)(?:\s*\([A-Za-z]+\))?\s*(?:No\.?|NUMBER)?\s*[\(\[]?(\d+)[\)\]]?\s*(?:of|\/)\s*(\d{4}))",
+        header,
+        re.IGNORECASE
+    )
+    if case_no_match:
+        case_no = re.sub(r"\s+", " ", case_no_match.group(1)).strip()
+        case_type = case_no_match.group(1).split()[0].upper()
+    else:
+        case_no = f"Case No. {cnr[-4:]} of {default_year}"
+        case_type = "CRL.OP"
+
+    # 3. Parties
+    petitioner = "Petitioner"
+    respondent = "State Respondent"
+    
+    vs_match = re.search(
+        r"([A-Za-z0-9\.\s,\(\)]+?)\s*(?:\.\.\.\s*Petitioner|\bPetitioner\b)\s*(?:Vs\.?|Versus)\s*([A-Za-z0-9\.\s,\(\)]+?)\s*(?:\.\.\.\s*Respondent|\bRespondent\b)",
+        header,
+        re.IGNORECASE
+    )
+    if vs_match:
+        pet = re.sub(r"\s+", " ", vs_match.group(1)).strip()
+        resp = re.sub(r"\s+", " ", vs_match.group(2)).strip()
+        if len(pet) > 2:
+            petitioner = pet[:80]
+        if len(resp) > 2:
+            respondent = resp[:80]
+            
+    return {
+        "judges": judges,
+        "case_number": case_no,
+        "case_type": case_type,
+        "petitioner": petitioner,
+        "respondent": respondent,
+        "coram_type": "Division Bench" if len(judges) > 1 else "Single Judge"
+    }
+
 def process_tar_archive(
     court_code: str,
     year: int,
@@ -37,11 +95,19 @@ def process_tar_archive(
     court_name, default_bench = normalize_court(court_code)
     
     if not tar_bytes:
-        s3 = boto3.client("s3", region_name=REGION, config=Config(signature_version=UNSIGNED))
-        resp = s3.get_object(Bucket=BUCKET_NAME, Key=s3_key)
-        tar_bytes = resp["Body"].read()
+        try:
+            s3 = boto3.client("s3", region_name=REGION, config=Config(signature_version=UNSIGNED))
+            resp = s3.get_object(Bucket=BUCKET_NAME, Key=s3_key)
+            tar_bytes = resp["Body"].read()
+        except Exception as e:
+            print(f"[Ingest Error] Failed to fetch s3://{BUCKET_NAME}/{s3_key}: {e}", file=sys.stderr)
+            return []
 
-    tar = tarfile.open(fileobj=io.BytesIO(tar_bytes))
+    try:
+        tar = tarfile.open(fileobj=io.BytesIO(tar_bytes))
+    except Exception as e:
+        print(f"[Ingest Error] Failed to parse TAR archive for {court_code}-{year}: {e}", file=sys.stderr)
+        return []
     members = [m for m in tar.getmembers() if m.name.endswith(".pdf") and m.size > 0]
 
     judgments = []
@@ -104,6 +170,7 @@ def process_tar_archive(
 
         category, is_derived_cat = derive_category("CRL.OP", title=full_text[:300])
         disposal = normalize_disposal("Disposed Of", order_text=full_text[-500:])
+        meta = extract_header_metadata(full_text, default_year=year, cnr=cnr)
 
         judgment_record = {
             "jid": jid,
@@ -112,14 +179,14 @@ def process_tar_archive(
             "court_name": court_name,
             "bench_code": "01",
             "bench_name": default_bench,
-            "coram_type": "Single Judge",
-            "judges": ["Hon'ble High Court Judge"],
-            "case_type": "CRL.OP",
-            "case_number": f"Crl.O.P. No. {idx+100} of {year}",
+            "coram_type": meta["coram_type"],
+            "judges": meta["judges"],
+            "case_type": meta["case_type"],
+            "case_number": meta["case_number"],
             "decision_date": date_str,
             "parties": {
-                "petitioner": f"Applicant ({cnr[:6]})",
-                "respondent": "State Respondent & Another",
+                "petitioner": meta["petitioner"],
+                "respondent": meta["respondent"],
             },
             "disposal_nature": disposal,
             "purpose_stage": "Final Hearing",

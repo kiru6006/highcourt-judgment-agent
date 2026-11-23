@@ -4,28 +4,7 @@ import math
 import numpy as np
 from pathlib import Path
 
-def python_encode(text: str, dim: int = 384) -> np.ndarray:
-    tokens = text.lower().split()
-    vec = np.zeros(dim, dtype=np.float32)
-    if not tokens:
-        vec[0] = 1.0
-        return vec
-    for i, tok in enumerate(tokens):
-        h1 = int(hashlib.md5(tok.encode("utf-8")).hexdigest()[:8], 16)
-        h2 = int(hashlib.sha1(tok.encode("utf-8")).hexdigest()[:8], 16)
-        idx1 = h1 % dim
-        idx2 = h2 % dim
-        sign1 = 1.0 if (h1 & 1) else -1.0
-        sign2 = 1.0 if (h2 & 1) else -1.0
-        weight = 1.0 / (1.0 + 0.1 * i)
-        vec[idx1] += sign1 * weight
-        vec[idx2] += sign2 * weight * 0.5
-    norm = np.linalg.norm(vec)
-    if norm > 1e-6:
-        vec = vec / norm
-    else:
-        vec[0] = 1.0
-    return vec
+from pipeline.embedder import deterministic_feature_vector as python_encode
 
 def typescript_encode(text: str, dim: int = 384) -> np.ndarray:
     tokens = text.lower().split()

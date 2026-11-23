@@ -63,13 +63,17 @@ export class SearchClient {
     }
     const manifest: Manifest = await manifestRes.json();
 
-    // Fetch and decompress search shards
+    // Fetch and decompress search shards with mobile fault-tolerance
     const allRecords: SearchShardRecord[] = [];
     for (const shard of manifest.shards) {
       if (shard.search?.file) {
         const shardUrl = `${cleanBase}data-sample/${shard.search.file}`;
-        const records = await this.fetchShard(shardUrl);
-        allRecords.push(...records);
+        try {
+          const records = await this.fetchShard(shardUrl);
+          allRecords.push(...records);
+        } catch (err) {
+          console.warn(`[SearchClient] Failed to load shard ${shardUrl}, continuing with available shards:`, err);
+        }
       }
     }
 
@@ -120,20 +124,29 @@ export class SearchClient {
   }
 
   private async fetchShard(url: string): Promise<SearchShardRecord[]> {
-    const res = await fetch(url);
-    if (!res.ok) {
-      throw new Error(`Failed to fetch shard ${url}`);
-    }
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 12000); // 12s timeout for slow mobile networks
 
-    // Use DecompressionStream if available in modern browsers
-    if (typeof DecompressionStream !== 'undefined' && res.body) {
-      const decompressedStream = res.body.pipeThrough(new DecompressionStream('gzip'));
-      const decompressedResponse = new Response(decompressedStream);
-      return await decompressedResponse.json();
-    } else {
-      // Fallback for environment without DecompressionStream
-      const text = await res.text();
-      return JSON.parse(text);
+    try {
+      const res = await fetch(url, { signal: controller.signal });
+      clearTimeout(timeoutId);
+      if (!res.ok) {
+        throw new Error(`Failed to fetch shard ${url} (status ${res.status})`);
+      }
+
+      // Use DecompressionStream if available in modern browsers
+      if (typeof DecompressionStream !== 'undefined' && res.body) {
+        const decompressedStream = res.body.pipeThrough(new DecompressionStream('gzip'));
+        const decompressedResponse = new Response(decompressedStream);
+        return await decompressedResponse.json();
+      } else {
+        // Fallback for environment without DecompressionStream
+        const text = await res.text();
+        return JSON.parse(text);
+      }
+    } catch (err) {
+      clearTimeout(timeoutId);
+      throw err;
     }
   }
 

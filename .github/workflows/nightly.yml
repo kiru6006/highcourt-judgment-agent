@@ -28,7 +28,7 @@ jobs:
 
       - name: Install Python Dependencies
         run: |
-          pip install pymupdf duckdb boto3 jsonschema pytest sentence-transformers
+          pip install -r requirements-ci.txt
 
       - name: Install Web Dependencies
         run: |

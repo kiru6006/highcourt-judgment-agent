@@ -17,6 +17,30 @@
       "description": "Juvenile Justice Act child in conflict with law proceedings",
       "pattern": "\\b(?:Juvenile\\s+Justice\\s+Act|Child\\s+in\\s+Conflict\\s+with\\s+Law)\\b",
       "action": "quarantine"
+    },
+    {
+      "rule_id": "in_camera_proceedings",
+      "description": "Proceedings in camera or explicit publication ban",
+      "pattern": "\\b(?:in-camera|in\\s+camera\\s+proceedings|prohibited\\s+from\\s+publication|publication\\s+prohibited)\\b",
+      "action": "quarantine"
+    },
+    {
+      "rule_id": "sealed_cover_records",
+      "description": "Sealed cover and confidential judicial submissions",
+      "pattern": "\\b(?:sealed\\s+cover|sealed\\s+envelope|confidential\\s+cover)\\b",
+      "action": "quarantine"
+    },
+    {
+      "rule_id": "matrimonial_custody_privacy",
+      "description": "Matrimonial and child custody in-camera statutory protections",
+      "pattern": "\\b(?:Family\\s+Courts\\s+Act\\s+Section\\s+11|in-camera\\s+matrimonial|child\\s+custody\\s+in-camera)\\b",
+      "action": "quarantine"
+    },
+    {
+      "rule_id": "sexual_assault_victim_protection",
+      "description": "Sexual assault victim name disclosure protection",
+      "pattern": "\\b(?:prosecutrix\\s+Kumari|victim\\s+identity\\s+protected|name\\s+of\\s+the\\s+victim\\s+is\\s+withheld)\\b",
+      "action": "quarantine"
     }
   ]
 }
