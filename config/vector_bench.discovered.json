@@ -1,0 +1,7 @@
+{
+  "dimensions": 384,
+  "vector_count": 10000,
+  "elapsed_ms": 11.98,
+  "vectors_per_second": 834828,
+  "latency_per_10k_vectors_ms": 11.98
+}

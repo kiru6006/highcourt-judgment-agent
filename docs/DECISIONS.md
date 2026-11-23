@@ -36,11 +36,16 @@
 ---
 
 ### D-003: Shard Distribution & Hosting Strategy
-- **Status**: Accepted (Pending Phase 2 Empirical Spike)
+- **Status**: Accepted (Empirically Verified in Phase 2)
 - **Date**: 2026-11-23
-- **Context**: Browser search requires fetching court-year metadata and index shards. Distribution options include: (a) Pages same-origin artifact, (b) GitHub Releases via jsDelivr, (c) External Cloudflare R2 / AWS S3 bucket.
-- **Decision**: Default to **Pages artifact same-origin (`data/shards/`)** under a strict 500 MB budget cap. This eliminates browser CORS hazards entirely. External R2/S3 is retained as a migration target if the corpus budget is exceeded in Phase 10.
-- **Consequences**: Zero cross-origin failures. Shards must remain compressed and strictly budgeted.
+- **Context**: Browser search requires fetching court-year metadata and index shards. Options evaluated in Phase 2 probe: (a) Pages same-origin artifact, (b) GitHub Releases via jsDelivr, (c) External Cloudflare R2 / AWS S3 bucket.
+- **Empirical Findings**:
+  - Pages same-origin: 0.32s latency, byte-range supported, 100% zero browser CORS risk.
+  - GitHub Releases: Redirects to AWS S3 without browser CORS headers; rejected.
+  - jsDelivr: Lacks HTTP Range request support for vector chunks and has 50MB limits; rejected.
+  - 30,000 judgment pilot requires only 66.12 MB (13.2% of 500 MB budget).
+- **Decision**: Locked to **Pages artifact same-origin (`data/shards/`)** within the 500 MB budget. External R2/S3 retained only as Phase 10 commercial SaaS exit path.
+- **Consequences**: Zero cross-origin failures, fast loading, zero external storage expenses.
 
 ---
 

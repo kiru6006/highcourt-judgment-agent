@@ -1,0 +1,246 @@
+{
+  "verified_at": "2026-11-23",
+  "sample_parquet_url": "s3://indian-high-court-judgments/metadata/parquet/year=2022/court=33_10/bench=hc_cis_mas/metadata.parquet",
+  "sample_rows_analyzed": 500,
+  "duplicate_rate_cnr_decision_date": 0.0,
+  "null_rates": {
+    "court_code": 0.0,
+    "title": 0.0,
+    "description": 0.0,
+    "judge": 0.0,
+    "pdf_link": 0.0,
+    "cnr": 0.0,
+    "date_of_registration": 0.0,
+    "decision_date": 0.0,
+    "disposal_nature": 0.0,
+    "court": 0.0,
+    "raw_html": 0.0,
+    "pdf_exists": 0.0,
+    "bench": 0.0,
+    "year": 0.0
+  },
+  "columns": [
+    {
+      "column": "court_code",
+      "type": "VARCHAR",
+      "nullable": "YES"
+    },
+    {
+      "column": "title",
+      "type": "VARCHAR",
+      "nullable": "YES"
+    },
+    {
+      "column": "description",
+      "type": "VARCHAR",
+      "nullable": "YES"
+    },
+    {
+      "column": "judge",
+      "type": "VARCHAR",
+      "nullable": "YES"
+    },
+    {
+      "column": "pdf_link",
+      "type": "VARCHAR",
+      "nullable": "YES"
+    },
+    {
+      "column": "cnr",
+      "type": "VARCHAR",
+      "nullable": "YES"
+    },
+    {
+      "column": "date_of_registration",
+      "type": "VARCHAR",
+      "nullable": "YES"
+    },
+    {
+      "column": "decision_date",
+      "type": "TIMESTAMP_NS",
+      "nullable": "YES"
+    },
+    {
+      "column": "disposal_nature",
+      "type": "VARCHAR",
+      "nullable": "YES"
+    },
+    {
+      "column": "court",
+      "type": "VARCHAR",
+      "nullable": "YES"
+    },
+    {
+      "column": "raw_html",
+      "type": "VARCHAR",
+      "nullable": "YES"
+    },
+    {
+      "column": "pdf_exists",
+      "type": "BOOLEAN",
+      "nullable": "YES"
+    },
+    {
+      "column": "bench",
+      "type": "VARCHAR",
+      "nullable": "YES"
+    },
+    {
+      "column": "year",
+      "type": "BIGINT",
+      "nullable": "YES"
+    }
+  ],
+  "sample_records": [
+    {
+      "court_code": "33~10",
+      "title": "WP/34824/2019 of N.A.Seethalakshmi Vs Tax Recovery Officer-8",
+      "description": "& 4472 of 2019 & WMP.Nos.5033, 5035, 5044",
+      "judge": "HONOURABLE DR JUSTICE ANITA SUMANTH",
+      "pdf_link": "court/cnrorders/hc_cis_mas/orders/HCMA012174422019_1_2022-08-23.pdf",
+      "cnr": "HCMA012174422019",
+      "date_of_registration": "13-12-2019",
+      "decision_date": "2022-08-23 00:00:00",
+      "disposal_nature": "DISPOSED OF",
+      "court": "33_10",
+      "raw_html": "<button type='button' role='link' class='btn btn-link p-0 text-start' id='link_447' aria-label=\"WP/34824/2019 of N.A.Seethalakshmi .Array[93]. Tax Recovery Officer-8 pdf\"  class='noToken' href='#' onclick=javascript:open_pdf('447','','court/cnrorders/hc_cis_mas/orders/HCMA012174422019_1_2022-08-23.pdf#page=&search=%20'); ><font size='3'>WP/34824/2019 of N.A.Seethalakshmi Vs Tax Recovery Officer-8</button></font><br><strong>Judge : HONOURABLE DR JUSTICE ANITA SUMANTH</strong><br> &amp; 4472 of 2019 &amp; WMP.Nos.5033, 5035, 5044<br><strong class='caseDetailsTD' ><span style='color:#212F3D'> CNR :</span><font color='green'> HCMA012174422019</font><span style='color:#212F3D' > | Date of registration :</span><font color='green'> 13-12-2019</font><span style='color:#212F3D' > | Decision Date :</span><font color='green'> 23-08-2022</font><span style='color:#212F3D' > | Disposal Nature :</span><font color='green'> DISPOSED OF</font><br><span style='opacity: 0.5;'>Court : Madras High Court</span></strong>",
+      "pdf_exists": false,
+      "bench": "hc_cis_mas",
+      "year": 2022
+    },
+    {
+      "court_code": "33~10",
+      "title": "CRL RC/904/2022 of V.VASUMATHI Vs STATE REP BY",
+      "description": "IN THE HIGH COURT OF JUDICATURE",
+      "judge": "HONOURABLE MR JUSTICE D.BHARATHA CHAKRAVARTHY",
+      "pdf_link": "court/cnrorders/hc_cis_mas/orders/HCMA010982322022_1_2022-07-14.pdf",
+      "cnr": "HCMA010982322022",
+      "date_of_registration": "12-07-2022",
+      "decision_date": "2022-07-14 00:00:00",
+      "disposal_nature": "DISMISSED",
+      "court": "33_10",
+      "raw_html": "<button type='button' role='link' class='btn btn-link p-0 text-start' id='link_2530' aria-label=\"CRL RC/904/2022 of V.VASUMATHI .Array[93]. STATE REP BY pdf\"  class='noToken' href='#' onclick=javascript:open_pdf('2530','','court/cnrorders/hc_cis_mas/orders/HCMA010982322022_1_2022-07-14.pdf#page=&search=%20'); ><font size='3'>CRL RC/904/2022 of V.VASUMATHI Vs STATE REP BY</button></font><br><strong>Judge : HONOURABLE MR JUSTICE D.BHARATHA CHAKRAVARTHY</strong><br> IN THE HIGH COURT OF JUDICATURE<br><strong class='caseDetailsTD' ><span style='color:#212F3D'> CNR :</span><font color='green'> HCMA010982322022</font><span style='color:#212F3D' > | Date of registration :</span><font color='green'> 12-07-2022</font><span style='color:#212F3D' > | Decision Date :</span><font color='green'> 14-07-2022</font><span style='color:#212F3D' > | Disposal Nature :</span><font color='green'> DISMISSED</font><br><span style='opacity: 0.5;'>Court : Madras High Court</span></strong>",
+      "pdf_exists": false,
+      "bench": "hc_cis_mas",
+      "year": 2022
+    },
+    {
+      "court_code": "33~10",
+      "title": "CONT P/2477/2022 of S.Syed Akbar Vs Mr.T.Pandian",
+      "description": "No.2477 of 2022 IN THE HIGH COURT OF JUDICATURE AT MADRAS DATED:",
+      "judge": "HONOURABLE MR JUSTICE M.DHANDAPANI",
+      "pdf_link": "court/cnrorders/hc_cis_mas/orders/HCMA011280222022_1_2022-11-25.pdf",
+      "cnr": "HCMA011280222022",
+      "date_of_registration": "07-11-2022",
+      "decision_date": "2022-11-25 00:00:00",
+      "disposal_nature": "CLOSED",
+      "court": "33_10",
+      "raw_html": "<button type='button' role='link' class='btn btn-link p-0 text-start' id='link_2430' aria-label=\"CONT P/2477/2022 of S.Syed Akbar .Array[93]. Mr.T.Pandian pdf\"  class='noToken' href='#' onclick=javascript:open_pdf('2430','','court/cnrorders/hc_cis_mas/orders/HCMA011280222022_1_2022-11-25.pdf#page=&search=%20'); ><font size='3'>CONT P/2477/2022 of S.Syed Akbar Vs Mr.T.Pandian</button></font><br><strong>Judge : HONOURABLE MR JUSTICE M.DHANDAPANI</strong><br> No.2477 of 2022 IN THE HIGH COURT OF JUDICATURE AT MADRAS DATED:<br><strong class='caseDetailsTD' ><span style='color:#212F3D'> CNR :</span><font color='green'> HCMA011280222022</font><span style='color:#212F3D' > | Date of registration :</span><font color='green'> 07-11-2022</font><span style='color:#212F3D' > | Decision Date :</span><font color='green'> 25-11-2022</font><span style='color:#212F3D' > | Disposal Nature :</span><font color='green'> CLOSED</font><br><span style='opacity: 0.5;'>Court : Madras High Court</span></strong>",
+      "pdf_exists": false,
+      "bench": "hc_cis_mas",
+      "year": 2022
+    }
+  ],
+  "case_details_columns": [
+    {
+      "column": "cnr",
+      "type": "VARCHAR"
+    },
+    {
+      "column": "case_no",
+      "type": "VARCHAR"
+    },
+    {
+      "column": "case_type",
+      "type": "VARCHAR"
+    },
+    {
+      "column": "court",
+      "type": "VARCHAR"
+    },
+    {
+      "column": "bench",
+      "type": "VARCHAR"
+    },
+    {
+      "column": "judge",
+      "type": "VARCHAR"
+    },
+    {
+      "column": "bench_name",
+      "type": "VARCHAR"
+    },
+    {
+      "column": "judicial_section",
+      "type": "VARCHAR"
+    },
+    {
+      "column": "petitioner",
+      "type": "VARCHAR"
+    },
+    {
+      "column": "respondent",
+      "type": "VARCHAR"
+    },
+    {
+      "column": "pet_advocate",
+      "type": "VARCHAR"
+    },
+    {
+      "column": "res_advocate",
+      "type": "VARCHAR"
+    },
+    {
+      "column": "date_of_filing",
+      "type": "VARCHAR"
+    },
+    {
+      "column": "date_of_registration",
+      "type": "VARCHAR"
+    },
+    {
+      "column": "date_of_decision",
+      "type": "VARCHAR"
+    },
+    {
+      "column": "disposal_nature",
+      "type": "VARCHAR"
+    },
+    {
+      "column": "purpose_name",
+      "type": "VARCHAR"
+    },
+    {
+      "column": "fir_no",
+      "type": "VARCHAR"
+    },
+    {
+      "column": "fir_year",
+      "type": "VARCHAR"
+    },
+    {
+      "column": "lower_court",
+      "type": "VARCHAR"
+    },
+    {
+      "column": "acts",
+      "type": "STRUCT(act VARCHAR, section VARCHAR)[]"
+    },
+    {
+      "column": "hearings",
+      "type": "STRUCT(cause_list_type VARCHAR, judge VARCHAR, business_on_date VARCHAR, hearing_date VARCHAR, purpose_of_listing VARCHAR)[]"
+    },
+    {
+      "column": "linked_cases",
+      "type": "STRUCT(filing_number VARCHAR, case_number VARCHAR)[]"
+    },
+    {
+      "column": "documents",
+      "type": "STRUCT(sr_no VARCHAR, document_no VARCHAR, date_of_receiving VARCHAR, filed_by VARCHAR, name_of_advocate VARCHAR, document_filed VARCHAR)[]"
+    },
+    {
+      "column": "source",
+      "type": "VARCHAR"
+    }
+  ]
+}

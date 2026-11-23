@@ -1,0 +1,29 @@
+{
+  "pilot_corpus": {
+    "courts": [
+      {
+        "court_code": "33_10",
+        "name": "Madras High Court",
+        "benches": ["hc_cis_mas", "mdubench"],
+        "max_docs": 12000
+      },
+      {
+        "court_code": "29_3",
+        "name": "Karnataka High Court",
+        "benches": ["karhc"],
+        "max_docs": 10000
+      },
+      {
+        "court_code": "7_26",
+        "name": "Delhi High Court",
+        "benches": ["delhi"],
+        "max_docs": 8000
+      }
+    ],
+    "year_from": 2014,
+    "year_to": 2024,
+    "total_max_docs": 30000,
+    "projected_size_mb": 66.12,
+    "pages_budget_mb": 500
+  }
+}

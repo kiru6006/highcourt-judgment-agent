@@ -1,0 +1,37 @@
+{
+  "measured_inputs": {
+    "avg_pages_per_doc": 3.28,
+    "avg_chars_per_doc": 3326.0,
+    "avg_tokens_per_doc": 831.0,
+    "avg_chunks_per_doc": 2.77
+  },
+  "per_document_footprint": {
+    "doc_text_json_gz_bytes": 1033.0,
+    "search_index_json_gz_bytes": 203.0,
+    "int8_vectors_bin_bytes": 1075.0,
+    "total_bytes_per_judgment": 2311.0,
+    "total_kb_per_judgment": 2.26
+  },
+  "limits": {
+    "pages_budget_mb": 500,
+    "max_judgments_under_pages_budget": 226850,
+    "max_judgments_per_25mb_shard": 5728
+  },
+  "scenarios": {
+    "pilot_conservative_10k": {
+      "document_count": 10000,
+      "projected_total_mb": 22.04,
+      "pct_of_500mb_budget": 4.4
+    },
+    "pilot_standard_30k": {
+      "document_count": 30000,
+      "projected_total_mb": 66.12,
+      "pct_of_500mb_budget": 13.2
+    },
+    "pilot_extended_50k": {
+      "document_count": 50000,
+      "projected_total_mb": 110.2,
+      "pct_of_500mb_budget": 22.0
+    }
+  }
+}

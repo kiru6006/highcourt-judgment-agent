@@ -1,0 +1,64 @@
+{
+  "source_tar": "data/tar/year=2022/court=33_10/bench=hc_cis_mas/part-20260429T170059Z.tar",
+  "pdf_count": 71,
+  "total_pages": 233,
+  "avg_pdf_kb": 68.57170169454226,
+  "avg_pages_per_doc": 3.2816901408450705,
+  "avg_chars_per_page": 1013.6437768240344,
+  "empty_page_pct": 0.0,
+  "non_ascii_pct": 0.02963853687245691,
+  "avg_paragraphs_per_doc": 3.2816901408450705,
+  "avg_tokens_per_doc": 831.2957746478874,
+  "sample_docs": [
+    {
+      "filename": "HCMA010314552022_1_2025-12-10.pdf",
+      "bytes": 55586,
+      "pages": 1,
+      "chars": 166,
+      "empty_pages": 0,
+      "non_ascii_ratio": 0.0,
+      "paragraphs_count": 1,
+      "tokens_est": 41
+    },
+    {
+      "filename": "HCMA011764202022_1_2026-03-11.pdf",
+      "bytes": 60589,
+      "pages": 1,
+      "chars": 128,
+      "empty_pages": 0,
+      "non_ascii_ratio": 0.0,
+      "paragraphs_count": 1,
+      "tokens_est": 32
+    },
+    {
+      "filename": "HCMA010700562016_1_2022-06-21.pdf",
+      "bytes": 52390,
+      "pages": 1,
+      "chars": 473,
+      "empty_pages": 0,
+      "non_ascii_ratio": 0.0,
+      "paragraphs_count": 1,
+      "tokens_est": 118
+    },
+    {
+      "filename": "HCMA011221372022_1_2025-06-10.pdf",
+      "bytes": 67903,
+      "pages": 1,
+      "chars": 666,
+      "empty_pages": 0,
+      "non_ascii_ratio": 0.0,
+      "paragraphs_count": 1,
+      "tokens_est": 166
+    },
+    {
+      "filename": "HCMA010525702016_1_2022-03-10.pdf",
+      "bytes": 49816,
+      "pages": 1,
+      "chars": 839,
+      "empty_pages": 0,
+      "non_ascii_ratio": 0.0,
+      "paragraphs_count": 1,
+      "tokens_est": 209
+    }
+  ]
+}
