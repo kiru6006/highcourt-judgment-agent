@@ -1,0 +1,22 @@
+{
+  "restricted_rules": [
+    {
+      "rule_id": "pocso_protection",
+      "description": "Protection of Children from Sexual Offences (POCSO) Act cases",
+      "pattern": "\\b(?:POCSO|Protection\\s+of\\s+Children\\s+from\\s+Sexual\\s+Offences)\\b",
+      "action": "quarantine"
+    },
+    {
+      "rule_id": "s228a_ipc_protection",
+      "description": "Sexual offense identity protection under Section 228A IPC / Section 73 BNS",
+      "pattern": "\\b(?:Section\\s+228A|s\\.\\s*228A|Section\\s+73\\s+BNS)\\b",
+      "action": "quarantine"
+    },
+    {
+      "rule_id": "juvenile_justice",
+      "description": "Juvenile Justice Act child in conflict with law proceedings",
+      "pattern": "\\b(?:Juvenile\\s+Justice\\s+Act|Child\\s+in\\s+Conflict\\s+with\\s+Law)\\b",
+      "action": "quarantine"
+    }
+  ]
+}

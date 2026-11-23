@@ -1,0 +1,11 @@
+{
+  "court_code": "33_10",
+  "year": 2022,
+  "count": 46,
+  "search_shard_url": "data/shards/search-33_10-2022.json.gz",
+  "search_shard_bytes": 6508,
+  "search_shard_sha256": "5e58987156514808d5943ce37f8d4fce3a9e5bf57611c86e81e83539bf8dc8c1",
+  "docs_shard_url": "data/shards/docs-33_10-2022.json.gz",
+  "docs_shard_bytes": 51573,
+  "docs_shard_sha256": "96d7fec7a6f6acf259f079daea1541fb70a9d895469121a91435011b3143c91e"
+}

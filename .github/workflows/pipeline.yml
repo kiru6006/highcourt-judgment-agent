@@ -1,0 +1,52 @@
+name: Ingestion Pipeline (Offline Shards)
+
+on:
+  workflow_dispatch:
+    inputs:
+      court:
+        description: 'Court Code (e.g. 33_10)'
+        required: true
+        default: '33_10'
+      year:
+        description: 'Target Year'
+        required: true
+        default: '2022'
+      max_docs:
+        description: 'Maximum judgments to process'
+        required: true
+        default: '500'
+
+jobs:
+  ingest:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install Ingestion Dependencies
+        run: |
+          pip install pymupdf duckdb boto3 jsonschema pytest
+
+      - name: Run Pipeline Ingestion Tests
+        run: |
+          PYTHONPATH=. pytest -v tests/test_pipeline.py
+
+      - name: Execute Offline Ingestion
+        run: |
+          PYTHONPATH=. python -m pipeline.ingest \
+            --court "${{ github.event.inputs.court }}" \
+            --year "${{ github.event.inputs.year }}" \
+            --max-docs "${{ github.event.inputs.max_docs }}" \
+            --output-dir data/shards
+
+      - name: Upload Shard Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: shards-${{ github.event.inputs.court }}-${{ github.event.inputs.year }}
+          path: data/shards/
