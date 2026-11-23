@@ -1,0 +1,29 @@
+name: Feature Request
+description: Propose an idea or enhancement for NyayaReader
+title: "[FEATURE]: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please verify that your suggestion complies with NyayaReader's static-first, zero-server architecture.
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem Statement
+      description: Is your feature request related to a specific legal research workflow or user friction?
+      placeholder: "When reading complex criminal orders, I need..."
+    validations:
+      required: true
+  - type: textarea
+    id: proposed_solution
+    attributes:
+      label: Proposed Solution
+      description: Describe your proposed feature and how it should behave in the UI.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives Considered
+      description: Any alternative implementations or existing tools you considered.

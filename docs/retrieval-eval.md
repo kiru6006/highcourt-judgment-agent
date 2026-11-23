@@ -8,8 +8,8 @@
 
 | Search Mode | Recall@10 | MRR@10 | p50 Latency (ms) | p95 Latency (ms) |
 |---|---|---|---|---|
-| **Lexical (BM25)** | 92.00% | 0.8133 | 0.29 ms | 1.52 ms |
-| **Semantic (Dense Vectors)** | 88.00% | 0.7190 | 0.13 ms | 0.51 ms |
+| **Lexical (BM25)** | 92.00% | 0.8133 | 0.3 ms | 0.47 ms |
+| **Semantic (Dense Vectors)** | 88.00% | 0.7190 | 0.13 ms | 0.48 ms |
 | **Hybrid (RRF Fusion)** | **92.00%** | **0.7708** | **0.01 ms** | **0.01 ms** |
 
 ## Findings

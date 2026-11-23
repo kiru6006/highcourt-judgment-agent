@@ -1,0 +1,33 @@
+name: Data Quality / Document Correction
+description: Report an extraction error, OCR failure, or metadata inaccuracy in a judgment
+title: "[DATA]: "
+labels: ["data-quality"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Help maintain high standards of judicial data integrity. Report incorrect case numbers, misattributed judges, corrupted paragraphs, or missing text.
+  - type: input
+    id: judgment_id
+    attributes:
+      label: Judgment ID / CNR / URL
+      description: URL of the affected judgment on NyayaReader or its CNR / Case Number.
+      placeholder: "e.g. HCMA01-CRL-OP-2022-101 or full URL"
+    validations:
+      required: true
+  - type: textarea
+    id: issue_details
+    attributes:
+      label: Data Inaccuracy Details
+      description: Specify which paragraph, section, or metadata attribute is incorrect.
+      placeholder: "Paragraph 14 has missing lines compared to the Madras High Court original order."
+    validations:
+      required: true
+  - type: input
+    id: official_source
+    attributes:
+      label: Official Source Link
+      description: Link to the authentic PDF on eCourts, High Court portal, or AWS Open Data.
+      placeholder: "https://hcservices.ecourts.gov.in/..."
+    validations:
+      required: true

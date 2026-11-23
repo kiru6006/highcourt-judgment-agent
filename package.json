@@ -5,5 +5,9 @@
   "type": "module",
   "scripts": {
     "verify": "bash scripts/verify-all.sh"
+  },
+  "devDependencies": {
+    "playwright": "^1.65.1",
+    "tsx": "^4.23.15"
   }
 }

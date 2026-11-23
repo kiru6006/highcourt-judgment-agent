@@ -1,0 +1,14 @@
+title: "Show & Tell: "
+labels: ["community"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Did you use NyayaReader for legal research, an academic paper, or build an integration? Share it here!
+  - type: textarea
+    id: project
+    attributes:
+      label: What did you build / research?
+      placeholder: "Here is what I researched using NyayaReader..."
+    validations:
+      required: true

@@ -1,0 +1,38 @@
+# Declarative GitHub Labels Configuration for NyayaReader
+# Apply manually via GitHub CLI (`gh label create ...`) or GitHub Action sync.
+
+- name: "good first issue"
+  color: "7057ff"
+  description: "Good for newcomers to the project"
+
+- name: "help wanted"
+  color: "008672"
+  description: "Extra attention is needed from the community"
+
+- name: "data-quality"
+  color: "d93f0b"
+  description: "Issues related to document extraction, OCR quality, or metadata accuracy"
+
+- name: "pipeline"
+  color: "fbca04"
+  description: "Issues with data ingestion, Python processing, or shard generation"
+
+- name: "search"
+  color: "1d76db"
+  description: "Lexical BM25, semantic vector search, or RRF ranking issues"
+
+- name: "ai-grounding"
+  color: "5319e7"
+  description: "Gemini copilot, verbatim claim verification, or hallucination prevention"
+
+- name: "docs"
+  color: "0075ca"
+  description: "Improvements or additions to documentation, ADRs, or guides"
+
+- name: "bug"
+  color: "d73a4a"
+  description: "Something isn't working as expected"
+
+- name: "enhancement"
+  color: "a2eeef"
+  description: "New feature or request"

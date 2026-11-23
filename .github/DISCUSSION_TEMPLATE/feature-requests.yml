@@ -1,0 +1,14 @@
+title: "Feature Idea: "
+labels: ["enhancement", "discussion"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Share your ideas for new NyayaReader features or workflows. Please explain how it aids legal practice or research!
+  - type: textarea
+    id: idea
+    attributes:
+      label: Idea Description
+      placeholder: "I'd love to see a feature that..."
+    validations:
+      required: true

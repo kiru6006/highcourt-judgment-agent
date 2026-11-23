@@ -1,11 +1,41 @@
 # NyayaReader (न्याय Reader)
 
-> **AI-native Indian High Court judgment search and reader platform for legal professionals.**
+> **Static-first Indian High Court judgment search engine and grounded AI legal reader built for advocates, clerks, and legal researchers.**
 
 [![Deployment Status](https://img.shields.io/badge/Deployment-GitHub%20Pages-blue)](https://kiru6006.github.io/highcourt-judgment-agent/)
+[![Live Demo](https://img.shields.io/badge/Demo-Live%20on%20Web-success)](https://kiru6006.github.io/highcourt-judgment-agent/)
 [![License: CC-BY-4.0](https://img.shields.io/badge/Data%20License-CC--BY--4.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
 [![Architecture](https://img.shields.io/badge/Architecture-Static--First%20%7C%20Web%20Worker-emerald)](#3-technology-stack)
 [![Verification Suite](https://img.shields.io/badge/Verification-5%2F5%20Gates%20Passed-brightgreen)](scripts/verify-all.sh)
+
+[👉 **Launch Live Demo (GitHub Pages)**](https://kiru6006.github.io/highcourt-judgment-agent/)
+
+> **Static-First • Zero-Server • Zero-Mandatory-Key**: Runs 100% statically in your browser on GitHub Pages with pre-computed demo answers and optional BYOK Gemini API key stored in local memory only.
+
+---
+
+### Core Capabilities:
+- **In-Browser Hybrid Retrieval**: Sub-4ms BM25 keyword search + 384-dimensional dense vector similarity fused via Reciprocal Rank Fusion (RRF) directly inside a client Web Worker over compact pre-indexed shards.
+- **Distraction-Free 3-Pane Reader**: Navigable judicial sections (Facts, Issues, Submissions, Ratio Decidendi, Final Order), deep paragraph anchors (`#para-N`), statute chips, and instant IPC $\to$ BNS / CrPC $\to$ BNSS / IEA $\to$ BSA transition tables.
+- **Grounded AI Copilot with Verbatim Verification**: Client-side claim verifier mathematically drops any AI statement that lacks exact verbatim quote evidence from retrieved judgment paragraphs.
+
+> **Verifiable Legal AI**: Wondering how hallucinations are eliminated? Read our technical breakdown on [How NyayaReader Grounds AI Answers](docs/HOW_AI_GROUNDS.md) (or live at [`/how-ai-grounds`](https://kiru6006.github.io/highcourt-judgment-agent/#/how-ai-grounds)).
+
+---
+
+### Application Preview
+
+#### 1. Instant Faceted & Hybrid Search
+![Search Screen](docs/assets/screenshots/01-search.png)
+*Client-side search with instant BM25 + dense vector ranking, facet filters (Court, Bench, Year, Category, Disposal), and sub-4ms response latency.*
+
+#### 2. Structured 3-Pane Legal Reader
+![3-Pane Reader](docs/assets/screenshots/02-reader.png)
+*Extractive brief outline, verbatim paragraph anchors, clean typography, reading progress, and side-by-side legal notes.*
+
+#### 3. Grounded AI Copilot & Citation Verification
+![AI Copilot](docs/assets/screenshots/03-copilot.png)
+*Zero-hallucination legal Q&A with clickable paragraph citation chips and strict verbatim evidence gating.*
 
 ---
 

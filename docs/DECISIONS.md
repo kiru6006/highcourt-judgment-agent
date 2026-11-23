@@ -12,6 +12,7 @@
 - [D-009: Rule-Based Section Tagging vs CI LLM Calls](#d-009-rule-based-section-tagging-vs-ci-llm-calls)
 - [D-010: Pilot Corpus Boundary & Court Coverage](#d-010-pilot-corpus-boundary--court-coverage)
 - [D-011: Project Brand Name & Configuration Constant](#d-011-project-brand-name--configuration-constant)
+- [D-012: Headless Playwright Screenshot & Social Preview Automation](#d-012-headless-playwright-screenshot--social-preview-automation)
 
 ---
 
@@ -124,3 +125,13 @@
 - **Context**: Early documentation used both "NyayaLens" and "NyayaReader".
 - **Decision**: The official brand is **NyayaReader**, stored as an exported configuration constant in the web application (`web/src/constants/app.constants.ts`).
 - **Consequences**: Unified product identity across all user interfaces, documentation, and metadata.
+
+---
+
+### D-012: Headless Playwright Screenshot & Social Preview Automation
+- **Status**: Accepted
+- **Date**: 2026-11-23
+- **Context**: Phase 13 Milestone M1 requires reproducible repository visual artifacts (annotated screenshots and OpenGraph social cards) without fake or hand-edited image files.
+- **Decision**: Adopt **Playwright with Chromium headless-shell** via scripted journey (`scripts/screenshots.ts` and `scripts/generate-social-preview.ts`). Screenshots execute against the compiled `web/dist` static production build served on an ephemeral local server with SPA fallback. Social preview is generated via high-DPI HTML canvas rendering.
+- **Consequences**: Automated screenshot regeneration in CI (`.github/workflows/screenshots.yml`), 100% reproducible visual assets, zero manually edited graphic files.
+
