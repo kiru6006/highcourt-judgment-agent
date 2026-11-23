@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import {
   List,
-  Sparkles,
   ExternalLink,
   ChevronRight,
   Share2,
@@ -20,6 +19,7 @@ import { fetchJudgmentDocument } from '../reader/doc-loader';
 import { ExtractiveBrief } from '../components/ExtractiveBrief';
 import { StatuteBridgeDrawer } from '../components/StatuteBridgeDrawer';
 import { CitationsDrawer } from '../components/CitationsDrawer';
+import { GroundedCopilot } from '../components/GroundedCopilot';
 
 export const ReaderPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -388,36 +388,10 @@ export const ReaderPage: React.FC = () => {
           )}
 
           {activeRightTab === 'copilot' && (
-            <div className="space-y-4">
-              <div className="flex items-center justify-between pb-2 border-b border-slate-100 dark:border-slate-800">
-                <span className="font-bold text-slate-800 dark:text-slate-200 flex items-center gap-1.5">
-                  <Sparkles className="w-4 h-4 text-amber-600" /> Grounded AI Copilot
-                </span>
-                <span className="text-[10px] bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 font-semibold px-2 py-0.5 rounded">
-                  Demo Mode
-                </span>
-              </div>
-
-              <div className="space-y-2">
-                <h6 className="font-bold text-[11px] uppercase tracking-wider text-slate-400">
-                  One-Click Actions
-                </h6>
-                <button
-                  onClick={() => setViewMode('brief')}
-                  className="w-full text-left p-2.5 rounded-lg border border-slate-200 dark:border-slate-800 hover:border-amber-500/50 bg-slate-50 dark:bg-slate-800/50 text-slate-800 dark:text-slate-200 transition"
-                >
-                  <div className="font-semibold">Generate Extractive Brief</div>
-                  <div className="text-[11px] text-slate-500 mt-0.5">Ratio and holding sections extracted verbatim</div>
-                </button>
-                <button
-                  onClick={() => setActiveRightTab('statutes')}
-                  className="w-full text-left p-2.5 rounded-lg border border-slate-200 dark:border-slate-800 hover:border-amber-500/50 bg-slate-50 dark:bg-slate-800/50 text-slate-800 dark:text-slate-200 transition"
-                >
-                  <div className="font-semibold">Review BNS/BNSS/BSA Mapping</div>
-                  <div className="text-[11px] text-slate-500 mt-0.5">Inspect statutory transition table</div>
-                </button>
-              </div>
-            </div>
+            <GroundedCopilot
+              judgment={judgment}
+              onJumpToPara={scrollToPara}
+            />
           )}
         </aside>
 
@@ -452,13 +426,26 @@ export const ReaderPage: React.FC = () => {
         <div className="xl:hidden fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex justify-end">
           <div className="w-80 bg-white dark:bg-slate-900 h-full p-4 overflow-y-auto space-y-4 shadow-xl">
             <div className="flex items-center justify-between pb-2 border-b border-slate-200 dark:border-slate-800">
-              <span className="font-bold text-sm">Legal Context</span>
+              <span className="font-bold text-sm">Legal Context & Copilot</span>
               <button onClick={() => setShowRightMobile(false)} className="p-1"><X className="w-4 h-4" /></button>
             </div>
-            <StatuteBridgeDrawer
-              statutes={judgment.statutes || []}
-              onJumpToPara={scrollToPara}
-            />
+            {activeRightTab === 'copilot' ? (
+              <GroundedCopilot
+                judgment={judgment}
+                onJumpToPara={scrollToPara}
+              />
+            ) : activeRightTab === 'citations' ? (
+              <CitationsDrawer
+                citations={judgment.citations || []}
+                courtCode={judgment.court_code}
+                onJumpToPara={scrollToPara}
+              />
+            ) : (
+              <StatuteBridgeDrawer
+                statutes={judgment.statutes || []}
+                onJumpToPara={scrollToPara}
+              />
+            )}
           </div>
         </div>
       )}

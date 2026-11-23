@@ -89,11 +89,12 @@
 - [x] Evaluation on `eval/queries.jsonl` reports Recall@10 (92%) and MRR@10 (0.77).
 
 ### Phase 8: Grounded AI Copilot & Demo Mode
-- [ ] Provider adapters implemented for Gemini, Anthropic, and OpenAI-compatible endpoints.
-- [ ] Client-side verifier drops claims lacking verbatim paragraph quote support.
-- [ ] Unverified claims dropped; abstention triggered if zero claims survive.
-- [ ] Pre-computed Demo Mode (`demo/answers.json`) enables instant, zero-key analysis on pilot judgments.
-- [ ] Memory-first API key storage policy strictly enforced; explicit user consent required for persistent storage.
+- [x] Provider adapter implemented for Gemini 2.0 Flash / 1.5 Flash via direct client HTTPS fetch.
+- [x] Client-side verifier drops claims lacking verbatim paragraph quote support.
+- [x] Unverified claims dropped; abstention triggered if zero claims survive ("Insufficient Evidence in Judgment").
+- [x] Pre-computed Demo Mode (`web/src/copilot/demo-answers.ts`) enables instant, zero-key analysis on pilot judgments.
+- [x] Memory-first API key storage policy strictly enforced; explicit user consent required for persistent storage (ADR D-006).
+- [x] IndexedDB persistent caching keyed by `(jid, task, model, promptVersion)`.
 
 ### Phase 9: Advocate Research Workspace & Verification Suite
 - [ ] Local case folders in `IndexedDB` (save judgments, notes, web links, import/export JSON).
