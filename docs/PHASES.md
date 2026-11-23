@@ -65,11 +65,11 @@
 - [x] Main thread long tasks remain $< 50\text{ ms}$ during search operations.
 
 ### Phase 5: Real UI Integration & Web Links Generator
-- [ ] Left-rail facets bound to live shard counts with URL state synchronization.
-- [ ] Virtual-scrolled result cards render genuine judgment records.
-- [ ] Multi-Source Web Links mode generates zero-key deep links for eCourts, High Court portals, and Indian Kanoon.
-- [ ] Every web link template validated against live web targets with verification dates recorded.
-- [ ] Per-card "Find on web" button auto-populates query parameters.
+- [x] Left-rail facets bound to live shard counts with URL state synchronization.
+- [x] Virtual-scrolled result cards render genuine judgment records from search shards.
+- [x] Multi-Source Web Links mode generates zero-key deep links for eCourts, High Court portals, and Indian Kanoon.
+- [x] Every web link template validated against live web targets with verification dates recorded in `config/links.json`.
+- [x] Per-card "Find on web" button auto-populates query parameters and launches modal.
 
 ### Phase 6: Judgment Reader
 - [ ] Lazy-load judgment text by JID into 3-pane reader.

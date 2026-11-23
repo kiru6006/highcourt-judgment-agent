@@ -1,20 +1,52 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Calendar, User, ExternalLink, BookOpen, AlertCircle } from 'lucide-react';
-import { JudgmentDocument } from '../types/schema';
+import { Calendar, User, BookOpen, AlertCircle, Globe } from 'lucide-react';
+import { WebLinksModal } from './WebLinksModal';
+import { buildCaseWebLinks } from '../utils/web-links';
 
 interface ResultCardProps {
-  judgment: JudgmentDocument;
+  judgment: any;
 }
 
 export const ResultCard: React.FC<ResultCardProps> = ({ judgment }) => {
-  // Extract ratio or representative paragraph
-  const ratioPara = judgment.paragraphs.find(p => p.section_tag === 'Reasoning & Ratio') || judgment.paragraphs[0];
+  const [showWebLinks, setShowWebLinks] = useState(false);
+
+  // Normalize across JudgmentDocument and SearchShardRecord
+  const jid = judgment.jid;
+  const isSynthetic = !!judgment.is_synthetic;
+  const courtName = judgment.court_name || `High Court (${judgment.court_code || 'HC'})`;
+  const benchName = judgment.bench_name || (judgment.bench_code === '01' ? 'Principal Bench' : judgment.bench_code || 'Bench');
+  const caseNo = judgment.case_number || judgment.case_no || 'Case';
+  const decisionDate = judgment.decision_date || judgment.date || '';
+  const disposal = judgment.disposal_nature || judgment.disposal || 'Disposed';
+  const category = judgment.category || 'General';
+
+  const title = judgment.parties
+    ? `${judgment.parties.petitioner} v. ${judgment.parties.respondent}`
+    : judgment.title || 'Untitled Judgment';
+
+  const judges = Array.isArray(judgment.judges)
+    ? judgment.judges.join(', ')
+    : judgment.judges || "Hon'ble Judge";
+
+  const excerpt = judgment.excerpt || (judgment.paragraphs?.[0]?.text) || '';
+
+  const statutes = Array.isArray(judgment.statutes)
+    ? judgment.statutes.map((s: any) => (typeof s === 'string' ? s : `${s.act_code || s.act} ${s.section}`))
+    : [];
+
+  const webLinks = buildCaseWebLinks({
+    cnr: judgment.cnr,
+    court_code: judgment.court_code || '33_10',
+    case_no: caseNo,
+    title,
+    year: judgment.year
+  });
 
   return (
     <article className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 hover:border-amber-500/50 dark:hover:border-amber-500/50 transition-all shadow-sm">
       {/* Synthetic Banner Badge if test fixture */}
-      {judgment.is_synthetic && (
+      {isSynthetic && (
         <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded text-[11px] font-bold bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300 mb-3">
           <AlertCircle className="w-3.5 h-3.5" />
           SYNTHETIC SAMPLE FIXTURE
@@ -25,96 +57,102 @@ export const ResultCard: React.FC<ResultCardProps> = ({ judgment }) => {
       <div className="flex flex-wrap items-center justify-between text-xs text-slate-500 dark:text-slate-400 gap-2 mb-2">
         <div className="flex items-center gap-2">
           <span className="font-semibold text-slate-900 dark:text-slate-200">
-            {judgment.court_name}
+            {courtName}
           </span>
           <span>•</span>
-          <span>{judgment.bench_name}</span>
+          <span>{benchName}</span>
           <span>•</span>
           <span className="font-mono bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded text-[11px]">
-            {judgment.case_number}
+            {caseNo}
           </span>
         </div>
         <div className="flex items-center gap-2">
           <span className={`px-2 py-0.5 rounded text-[11px] font-medium ${
-            judgment.disposal_nature.toLowerCase().includes('allow')
+            disposal.toLowerCase().includes('allow')
               ? 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-400'
               : 'bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300'
           }`}>
-            {judgment.disposal_nature}
+            {disposal}
           </span>
           <div className="flex items-center gap-1 font-mono text-[11px]">
             <Calendar className="w-3.5 h-3.5" />
-            <span>{judgment.decision_date}</span>
+            <span>{decisionDate}</span>
           </div>
         </div>
       </div>
 
       {/* Title / Parties */}
       <h3 className="text-base font-bold text-slate-900 dark:text-slate-100 mb-2 leading-snug">
-        <Link to={`/case/${judgment.jid}`} className="hover:text-amber-600 dark:hover:text-amber-400 transition">
-          {judgment.parties.petitioner} <span className="text-slate-400 font-normal">v.</span> {judgment.parties.respondent}
+        <Link to={`/case/${jid}`} className="hover:text-amber-600 dark:hover:text-amber-400 transition">
+          {title}
         </Link>
       </h3>
 
       {/* Judge Coram */}
       <div className="flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400 mb-3">
-        <User className="w-3.5 h-3.5 text-slate-400" />
-        <span>Coram: {judgment.judges.join(', ')} ({judgment.coram_type})</span>
+        <User className="w-3.5 h-3.5 flex-shrink-0 text-slate-400" />
+        <span className="truncate">{judges}</span>
       </div>
 
-      {/* Statute Chips */}
-      {judgment.statutes.length > 0 && (
-        <div className="flex flex-wrap gap-1.5 mb-3">
-          {judgment.statutes.map((st, idx) => (
+      {/* Ratio / Excerpt Snippet */}
+      {excerpt && (
+        <div className="text-xs text-slate-600 dark:text-slate-300 bg-slate-50/70 dark:bg-slate-800/40 p-3 rounded-lg border border-slate-100 dark:border-slate-800/60 mb-3.5">
+          <span className="font-semibold text-amber-700 dark:text-amber-400 block mb-1">
+            Ratio / Key Excerpt:
+          </span>
+          <p className="line-clamp-3 leading-relaxed">
+            {excerpt}
+          </p>
+        </div>
+      )}
+
+      {/* Footer Tags & Actions */}
+      <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-slate-100 dark:border-slate-800/80 text-xs">
+        {/* Statutes & Category */}
+        <div className="flex flex-wrap items-center gap-1.5">
+          <span className="px-2 py-0.5 rounded bg-amber-50 dark:bg-amber-950/40 text-amber-800 dark:text-amber-300 font-medium">
+            {category}
+          </span>
+          {statutes.slice(0, 3).map((st: string, idx: number) => (
             <span
               key={idx}
-              className="inline-flex items-center text-[11px] font-medium px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-mono"
+              className="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 font-mono text-[11px]"
             >
-              {st.act_code}: Section {st.section}
-              {st.transition_mapping && (
-                <span className="text-amber-600 dark:text-amber-400 ml-1">
-                  → {st.transition_mapping.new_act} s.{st.transition_mapping.new_section}
-                </span>
-              )}
+              {st}
             </span>
           ))}
+          {statutes.length > 3 && (
+            <span className="text-[11px] text-slate-400">+{statutes.length - 3} more</span>
+          )}
         </div>
-      )}
 
-      {/* Ratio Excerpt */}
-      {ratioPara && (
-        <p className="text-xs text-slate-600 dark:text-slate-300 line-clamp-2 mb-4 italic pl-3 border-l-2 border-amber-500/50">
-          "{ratioPara.text}"
-        </p>
-      )}
-
-      {/* Actions */}
-      <div className="flex items-center justify-between pt-3 border-t border-slate-100 dark:border-slate-800/60 text-xs">
+        {/* Action Links */}
         <div className="flex items-center gap-3">
+          <button
+            onClick={() => setShowWebLinks(true)}
+            className="inline-flex items-center gap-1 text-slate-600 dark:text-slate-400 hover:text-amber-600 dark:hover:text-amber-400 font-medium transition"
+          >
+            <Globe className="w-3.5 h-3.5" />
+            <span>Find on web</span>
+          </button>
           <Link
-            to={`/case/${judgment.jid}`}
-            className="inline-flex items-center gap-1 font-semibold text-amber-600 dark:text-amber-400 hover:text-amber-700"
+            to={`/case/${jid}`}
+            className="inline-flex items-center gap-1 text-amber-600 dark:text-amber-400 hover:text-amber-700 font-medium transition"
           >
             <BookOpen className="w-3.5 h-3.5" />
-            Read Judgment
+            <span>Read judgment</span>
           </Link>
-          <a
-            href={judgment.pdf_source_url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1 text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200"
-          >
-            <ExternalLink className="w-3.5 h-3.5" />
-            Source PDF
-          </a>
         </div>
-        <Link
-          to={`/links?q=${encodeURIComponent(judgment.case_number)}`}
-          className="text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200"
-        >
-          Find on Web / eCourts
-        </Link>
       </div>
+
+      {/* Web Links Modal */}
+      <WebLinksModal
+        isOpen={showWebLinks}
+        onClose={() => setShowWebLinks(false)}
+        caseTitle={title}
+        caseNo={caseNo}
+        links={webLinks}
+      />
     </article>
   );
 };

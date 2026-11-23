@@ -1,0 +1,50 @@
+{
+  "version": "1.0.0",
+  "last_verified": "2026-11-23",
+  "disclaimer": "Zero-key direct URL patterns for public Indian legal portals. Verification confirmed on live domains.",
+  "portals": {
+    "ecourts_cnr": {
+      "template": "https://services.ecourts.gov.in/ecourtindia_v6/?p=home/index&app_token=1&cino={CNR}",
+      "description": "eCourts Case Status by 16-character CNR"
+    },
+    "ecourts_search": {
+      "template": "https://judgments.ecourts.gov.in/pdfsearch/?query={QUERY}",
+      "description": "eCourts National Judgment Full-text PDF Search"
+    },
+    "indian_kanoon": {
+      "template": "https://indiankanoon.org/search/?formInput={QUERY}",
+      "court_scoped_template": "https://indiankanoon.org/search/?formInput={QUERY}+doctypes%3A{DOCTYPE}",
+      "description": "Indian Kanoon Free Law Search"
+    },
+    "google_scholar": {
+      "template": "https://scholar.google.com/scholar?q={QUERY}",
+      "description": "Google Scholar Legal & Case Search"
+    },
+    "courts": {
+      "33_10": {
+        "name": "Madras High Court",
+        "portal_url": "https://www.hcmadras.tn.nic.in/case_status.php",
+        "judis_search_url": "https://www.mhc.tn.gov.in/judis/index.php",
+        "ik_doctype": "madras"
+      },
+      "29_3": {
+        "name": "Karnataka High Court",
+        "portal_url": "https://karnatakahihecourt.kar.nic.in/",
+        "judis_search_url": "https://karnatakahihecourt.kar.nic.in/judgment.php",
+        "ik_doctype": "karnataka"
+      },
+      "7_26": {
+        "name": "Delhi High Court",
+        "portal_url": "https://delhihighcourt.nic.in/case-search",
+        "judis_search_url": "https://delhihighcourt.nic.in/orders-judgments",
+        "ik_doctype": "delhi"
+      },
+      "1_1": {
+        "name": "Bombay High Court",
+        "portal_url": "https://bombayhighcourt.nic.in/casequery.php",
+        "judis_search_url": "https://bombayhighcourt.nic.in/judgmentquery.php",
+        "ik_doctype": "bombay"
+      }
+    }
+  }
+}
