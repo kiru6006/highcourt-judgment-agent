@@ -1,4 +1,4 @@
-# NyayaReader — Phase Roadmap & Acceptance Criteria
+# Nyaya AI Reader — Phase Roadmap & Acceptance Criteria
 
 ## Summary Roadmap
 

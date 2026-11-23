@@ -1,4 +1,4 @@
-# NyayaReader — Operational Runbook
+# Nyaya AI Reader — Operational Runbook
 
 ## 1. Local Developer Setup
 
@@ -138,7 +138,7 @@ When total corpus exceeds GitHub Pages' 500 MB ceiling:
 
 ## 5. Advocate, Law Clerk & Student 5-Minute Runbook
 
-This section guides practicing advocates, judicial law clerks, and students on using NyayaReader for live case research, hearing prep, and memo generation.
+This section guides practicing advocates, judicial law clerks, and students on using Nyaya AI Reader for live case research, hearing prep, and memo generation.
 
 ### 5.1 Instant Zero-Install Launch
 1. Open the [Live Web App](https://kiru6006.github.io/highcourt-judgment-agent/).

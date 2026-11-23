@@ -1,4 +1,4 @@
-# NyayaReader v1.0.0 — Independent Code Audit, Legal Accuracy Evaluation & Architectural Review
+# Nyaya AI Reader v1.0.0 — Independent Code Audit, Legal Accuracy Evaluation & Architectural Review
 
 **Audit Date:** 2026-11-23  
 **Audited Version:** v1.0.0 (Commit `186ddfa` / `cf51a35`, Tag `v1.0.0`)  
@@ -10,7 +10,7 @@
 
 ## 1. Executive Summary
 
-NyayaReader is engineered as a **100% static-first legal research and judgment reader platform** deployed to GitHub Pages. It successfully eliminates server-side runtime infrastructure costs and implements a clean, distraction-free 3-pane legal reader, offline compression pipelines, and local advocate research workspaces.
+Nyaya AI Reader is engineered as a **100% static-first legal research and judgment reader platform** deployed to GitHub Pages. It successfully eliminates server-side runtime infrastructure costs and implements a clean, distraction-free 3-pane legal reader, offline compression pipelines, and local advocate research workspaces.
 
 However, an exhaustive, multi-disciplinary technical audit across source code, pipeline artifacts, and legal sources reveals **three critical defects** that currently undermine its legal and technical integrity in v1.0.0:
 

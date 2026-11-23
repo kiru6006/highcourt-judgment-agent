@@ -1,7 +1,7 @@
-# NyayaReader — Product Requirements Document (PRD)
+# Nyaya AI Reader — Product Requirements Document (PRD)
 
 ## 1. Product Mission & Vision
-**NyayaReader** is an open-access, AI-native Indian High Court judgment search and reading platform designed for advocates, legal researchers, judicial clerks, law students, and litigants.
+**Nyaya AI Reader** is an open-access, AI-native Indian High Court judgment search and reading platform designed for advocates, legal researchers, judicial clerks, law students, and litigants.
 
 The platform provides:
 - Clean, fast, zero-ad readability for Indian High Court orders and judgments.

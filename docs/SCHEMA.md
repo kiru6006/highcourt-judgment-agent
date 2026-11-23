@@ -1,7 +1,7 @@
 # Canonical Data Schemas (VERIFIED — Post-Phase 2 Empirical Spike)
 
 ## 1. Overview
-This document defines the canonical JSON Schemas and TypeScript interfaces for the NyayaReader pipeline, static shard artifacts, and client application.
+This document defines the canonical JSON Schemas and TypeScript interfaces for the Nyaya AI Reader pipeline, static shard artifacts, and client application.
 
 Status: **VERIFIED against s3://indian-high-court-judgments metadata and real PDF extraction metrics**.
 

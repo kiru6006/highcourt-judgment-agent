@@ -1,7 +1,7 @@
 # Comprehensive Test Strategy & Quality Gates
 
 ## 1. Testing Philosophy & Quality Pyramid
-NyayaReader employs multi-layered verification spanning data integrity, search correctness, accessibility, and AI grounding. Every phase includes executable test gates; no claim of functionality is valid without executed tests.
+Nyaya AI Reader employs multi-layered verification spanning data integrity, search correctness, accessibility, and AI grounding. Every phase includes executable test gates; no claim of functionality is valid without executed tests.
 
 ```
                   ┌────────────────────────┐

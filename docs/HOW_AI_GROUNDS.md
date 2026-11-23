@@ -1,4 +1,4 @@
-# How NyayaReader Grounds AI Answers: Verifiable Legal AI
+# How Nyaya AI Reader Grounds AI Answers: Verifiable Legal AI
 
 > **Mathematical Verbatim Claim Verification for Indian Case Law**
 
@@ -11,9 +11,9 @@ Traditional RAG (Retrieval-Augmented Generation) systems send retrieved text to 
 
 ---
 
-## 2. The NyayaReader Grounding Contract
+## 2. The Nyaya AI Reader Grounding Contract
 
-NyayaReader enforces a strict, four-stage zero-trust pipeline executed directly in the client browser:
+Nyaya AI Reader enforces a strict, four-stage zero-trust pipeline executed directly in the client browser:
 
 ```
 [User Query]

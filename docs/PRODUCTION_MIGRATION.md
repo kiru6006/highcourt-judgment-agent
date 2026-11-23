@@ -1,17 +1,17 @@
-# NyayaReader Production Migration Playbook
+# Nyaya AI Reader Production Migration Playbook
 **Version 1.0 — Architecture & Runbook for Scaling Beyond GitHub Pages Limits**
 
 ---
 
 ## 1. Executive Summary & Migration Drivers
 
-GitHub Pages serves as NyayaReader's zero-cost, static-first hosting platform for the 30,000 judgment pilot. However, GitHub Pages imposes two hard physical constraints:
+GitHub Pages serves as Nyaya AI Reader's zero-cost, static-first hosting platform for the 30,000 judgment pilot. However, GitHub Pages imposes two hard physical constraints:
 1. **Repository / Site Size Limit**: 1 GB maximum repository size, 500 MB recommended Pages artifact.
 2. **Monthly Bandwidth Soft Limit**: 100 GB/month.
 
-When scaling NyayaReader to the full **3,000,000+ judgment pan-India corpus** across all 25 High Courts (estimated ~6.8 GB compressed text shards and ~1.2 GB quantized vector shards), the static shards must be offloaded to an enterprise object storage and edge CDN tier.
+When scaling Nyaya AI Reader to the full **3,000,000+ judgment pan-India corpus** across all 25 High Courts (estimated ~6.8 GB compressed text shards and ~1.2 GB quantized vector shards), the static shards must be offloaded to an enterprise object storage and edge CDN tier.
 
-Crucially, **no application architecture rewrite is needed**. Because NyayaReader is 100% client-side (search engine in Web Workers, vector dot-products in JS, doc loading over HTTP), scaling requires only re-pointing the base shard URL.
+Crucially, **no application architecture rewrite is needed**. Because Nyaya AI Reader is 100% client-side (search engine in Web Workers, vector dot-products in JS, doc loading over HTTP), scaling requires only re-pointing the base shard URL.
 
 ---
 

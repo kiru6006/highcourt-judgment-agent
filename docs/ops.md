@@ -1,4 +1,4 @@
-# NyayaReader Fleet Operations & Telemetry Dashboard
+# Nyaya AI Reader Fleet Operations & Telemetry Dashboard
 **Last Sync Check:** `2026-11-23 18:02:15 UTC` | **Environment:** Production GitHub Pages
 
 ---

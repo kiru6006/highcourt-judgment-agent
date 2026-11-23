@@ -1,7 +1,7 @@
-# NyayaReader — User Experience & Interface Specification
+# Nyaya AI Reader — User Experience & Interface Specification
 
 ## 1. Design Philosophy & Visual Tokens
-NyayaReader provides an uncluttered, high-contrast, distraction-free environment optimized for long hours of legal reading, precedent discovery, and court preparation.
+Nyaya AI Reader provides an uncluttered, high-contrast, distraction-free environment optimized for long hours of legal reading, precedent discovery, and court preparation.
 
 ### 1.1 Color Palette
 - **Paper Canvas**: `#F8FAFC` (Slate-50) — Soft off-white to eliminate glare.
@@ -27,7 +27,7 @@ NyayaReader provides an uncluttered, high-contrast, distraction-free environment
 ## 2. Layouts & Responsive Breakpoints
 
 ### 2.1 Global Top Bar
-- **Brand Title**: "NyayaReader" (config constant) with subtitle "Indian High Court Judgments".
+- **Brand Title**: "Nyaya AI Reader" (config constant) with subtitle "Indian High Court Judgments".
 - **Unified Search Bar**:
   - Placeholder: "Search party, case number, section (e.g. 482 CrPC), or issue..."
   - Clear button (`×`), keyboard shortcut indicator (`/` or `Cmd+K`).

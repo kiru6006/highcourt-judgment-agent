@@ -1,8 +1,8 @@
-# NyayaReader — Architecture Specification
+# Nyaya AI Reader — Architecture Specification
 
 ## 1. Static-First 3-Layer Architecture
 
-NyayaReader operates strictly on a static-first, zero-server architecture designed for GitHub Pages hosting, delegating all compute-heavy extraction, indexing, and embedding workloads to GitHub Actions offline runners.
+Nyaya AI Reader operates strictly on a static-first, zero-server architecture designed for GitHub Pages hosting, delegating all compute-heavy extraction, indexing, and embedding workloads to GitHub Actions offline runners.
 
 ```mermaid
 flowchart TD

@@ -1,7 +1,7 @@
 # Data Sources, Licensing & Legal Attribution
 
 ## 1. Upstream Data Source
-NyayaReader utilizes the open-access Indian High Court Judgments dataset curated and maintained by Vanga:
+Nyaya AI Reader utilizes the open-access Indian High Court Judgments dataset curated and maintained by Vanga:
 - **Repository**: `https://github.com/vanga/indian-high-court-judgments`
 - **AWS Open Data Registry**: `s3://indian-high-court-judgments` (AWS Region: `ap-south-1`, anonymous access permitted).
 - **Format**:
@@ -35,7 +35,7 @@ Under Section 52(1)(q) of the Indian Copyright Act, 1957, the reproduction or pu
 
 ## 4. Hosting Platform Restrictions (GitHub Pages Terms of Service)
 - **The Issue**: GitHub Pages Terms of Service explicitly prohibit using GitHub Pages for commercial SaaS, payment processing, or running business applications.
-- **The Stance**: NyayaReader is deployed on GitHub Pages strictly as an **open-access, free educational and non-commercial public research platform**.
+- **The Stance**: Nyaya AI Reader is deployed on GitHub Pages strictly as an **open-access, free educational and non-commercial public research platform**.
 - **Commercial Migration Path**: If commercial monetization, paid API keys, or private advocate tiers are introduced in future phases, the frontend and shard artifacts must migrate off GitHub Pages to Cloudflare Pages, Vercel, or AWS S3 + CloudFront as specified in `docs/PRODUCTION_MIGRATION.md`.
 
 ---

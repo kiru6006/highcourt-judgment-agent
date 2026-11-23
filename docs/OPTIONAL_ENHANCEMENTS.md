@@ -1,4 +1,4 @@
-# NyayaReader Optional Enhancements & Enterprise Extension Specifications
+# Nyaya AI Reader Optional Enhancements & Enterprise Extension Specifications
 **Document Status:** Gated Extension Reference (Phase 12)  
 **Governing ADRs:** D-001 (Pure Static Runtime), D-002 (Offline Indexing), D-006 (Client Grounding & Privacy)
 
@@ -6,7 +6,7 @@
 
 ## 1. Overview & Gating Principles
 
-All core capabilities of NyayaReader (search, facets, reading, extractive structuring, int8 semantic retrieval, advocate workspace, grounded claims verification) execute 100% client-side on GitHub Pages without servers.
+All core capabilities of Nyaya AI Reader (search, facets, reading, extractive structuring, int8 semantic retrieval, advocate workspace, grounded claims verification) execute 100% client-side on GitHub Pages without servers.
 
 Phase 12 outlines optional extensions designed for enterprise, private intranet, or experimental research deployments. Per project governance, these extensions remain decoupled from the production static build:
 

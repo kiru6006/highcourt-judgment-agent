@@ -1,6 +1,6 @@
 export const APP_CONFIG = {
-  BRAND_NAME: 'NyayaReader',
-  SUBTITLE: 'Indian High Court Judgment Search & AI Reader',
+  BRAND_NAME: 'Nyaya AI Reader',
+  SUBTITLE: 'Indian High Court Judgment Search & Grounded AI Reader',
   FOOTER_DISCLAIMER: 'Data: Indian High Court Judgments, CC-BY-4.0, source eCourts. Not legal advice. Verify against the certified copy.',
   DEFAULT_COURTS: [
     { code: '33_10', name: 'Madras High Court' },

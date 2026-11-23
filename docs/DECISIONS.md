@@ -122,8 +122,8 @@
 ### D-011: Project Brand Name & Configuration Constant
 - **Status**: Accepted
 - **Date**: 2026-11-23
-- **Context**: Early documentation used both "NyayaLens" and "NyayaReader".
-- **Decision**: The official brand is **NyayaReader**, stored as an exported configuration constant in the web application (`web/src/constants/app.constants.ts`).
+- **Context**: Early documentation used both "NyayaLens" and "Nyaya AI Reader".
+- **Decision**: The official brand is **Nyaya AI Reader**, stored as an exported configuration constant in the web application (`web/src/constants/app.constants.ts`).
 - **Consequences**: Unified product identity across all user interfaces, documentation, and metadata.
 
 ---

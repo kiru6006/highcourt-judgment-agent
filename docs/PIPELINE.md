@@ -1,7 +1,7 @@
-# NyayaReader — Offline Data Ingestion Pipeline
+# Nyaya AI Reader — Offline Data Ingestion Pipeline
 
 ## 1. Architecture & Principles
-The NyayaReader offline ingestion pipeline converts upstream judicial archives from `s3://indian-high-court-judgments` into validated, compressed search and reader shards for client-side consumption.
+The Nyaya AI Reader offline ingestion pipeline converts upstream judicial archives from `s3://indian-high-court-judgments` into validated, compressed search and reader shards for client-side consumption.
 
 ```
    s3://indian-high-court-judgments (ap-south-1)

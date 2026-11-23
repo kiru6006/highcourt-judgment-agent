@@ -1,4 +1,4 @@
-# NyayaReader — Phase 2 Empirical Data Spike Report
+# Nyaya AI Reader — Phase 2 Empirical Data Spike Report
 
 ## 1. Executive Summary
 This report documents the empirical measurements conducted against `s3://indian-high-court-judgments` (AWS region: `ap-south-1`, anonymous access), real PDF document extraction metrics via PyMuPDF, vector similarity throughput, browser hosting CORS validation, and size budget projections.

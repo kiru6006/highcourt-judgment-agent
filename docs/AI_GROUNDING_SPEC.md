@@ -3,7 +3,7 @@
 ## 1. Grounding Mandate & Core Principle
 In legal research, an inaccurate hallucination presented as precedent or case holding is a critical failure. 
 
-**NyayaReader Mandate**:
+**Nyaya AI Reader Mandate**:
 1. The AI model is strictly prohibited from answering legal queries using internal parametric recall alone.
 2. Every generated legal claim must be anchored to a specific paragraph index and supported by an exact, verbatim quotation from the cited judgment text.
 3. A client-side deterministic verification engine validates all claims before they can be rendered in the user interface.

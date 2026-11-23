@@ -1,4 +1,4 @@
-# NyayaReader: Final Comprehensive Platform Audit Report
+# Nyaya AI Reader: Final Comprehensive Platform Audit Report
 **Repository:** `https://github.com/kiru6006/highcourt-judgment-agent`  
 **Deployment Target:** `https://kiru6006.github.io/highcourt-judgment-agent/`  
 **Audit Timestamp:** 2026-11-23 21:56:00 UTC  
@@ -8,7 +8,7 @@
 
 ## 1. Executive Summary
 
-NyayaReader has been fully engineered, validated, and verified across all phases (Phase 0 through Phase 12). The repository constitutes a **100% static-first legal research and judgment reader platform** designed to run purely client-side on GitHub Pages without requiring any backend application server or runtime database.
+Nyaya AI Reader has been fully engineered, validated, and verified across all phases (Phase 0 through Phase 12). The repository constitutes a **100% static-first legal research and judgment reader platform** designed to run purely client-side on GitHub Pages without requiring any backend application server or runtime database.
 
 ### Key Performance & Quality Verification Metrics
 | Verification Gate | Required Threshold | Measured Result | Status |
@@ -50,7 +50,7 @@ NyayaReader has been fully engineered, validated, and verified across all phases
 ## 3. Detailed Architectural & Technical Audit
 
 ### 3.1 Static-First Runtime (ADR D-001 & D-002)
-- **Zero Server Footprint**: NyayaReader runs 100% in the user's browser. The web application is served from GitHub Pages as static HTML, CSS, JavaScript, and gzip-compressed JSON/binary shards.
+- **Zero Server Footprint**: Nyaya AI Reader runs 100% in the user's browser. The web application is served from GitHub Pages as static HTML, CSS, JavaScript, and gzip-compressed JSON/binary shards.
 - **Decoupled Heavy Compute**: PDF text extraction, OCR, regex normalization, vector embedding generation, and shard creation execute entirely offline in Python pipelines or GitHub Actions runners.
 - **Decoupled Search & Vector Shards**:
   - BM25 search indexes (`search-*.json.gz`) are partitioned by `{court_code}-{year}`.
@@ -74,7 +74,7 @@ The root verification command `bash scripts/verify-all.sh` automates the 5 manda
 ```bash
 $ bash scripts/verify-all.sh
 ========================================================
-   NyayaReader: Full Platform Verification Suite
+   Nyaya AI Reader: Full Platform Verification Suite
 ========================================================
 --- 1. Client Unit & Integration Tests (vitest) ---
 Test Files  8 passed (8)

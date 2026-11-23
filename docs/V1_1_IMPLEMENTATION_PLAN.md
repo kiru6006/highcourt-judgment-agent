@@ -1,7 +1,7 @@
-# NyayaReader v1.1.0 Implementation Plan & Engineering Backlog
+# Nyaya AI Reader v1.1.0 Implementation Plan & Engineering Backlog
 
 ## Executive Summary
-This document specifies the prioritized remediation and feature backlog for **NyayaReader v1.1.0**, transitioning the repository from a mock-metadata pilot to a production-grade static legal research platform. All items directly resolve verified findings from `docs/V1_0_INDEPENDENT_AUDIT.md`.
+This document specifies the prioritized remediation and feature backlog for **Nyaya AI Reader v1.1.0**, transitioning the repository from a mock-metadata pilot to a production-grade static legal research platform. All items directly resolve verified findings from `docs/V1_0_INDEPENDENT_AUDIT.md`.
 
 ---
 
