@@ -122,5 +122,5 @@
 - **Status**: Accepted
 - **Date**: 2026-11-23
 - **Context**: Early documentation used both "NyayaLens" and "NyayaReader".
-- **Decision**: The official brand is **NyayaReader**, stored as an exported configuration constant in the web application (`src/app/core/constants/app.constants.ts`).
+- **Decision**: The official brand is **NyayaReader**, stored as an exported configuration constant in the web application (`web/src/constants/app.constants.ts`).
 - **Consequences**: Unified product identity across all user interfaces, documentation, and metadata.

@@ -62,30 +62,25 @@ flowchart TD
 ### 2.2 Layer 2: Published Artifacts Layout
 Artifacts reside within the GitHub Pages build output under the base path:
 ```
-dist/web/
+web/dist/
 ├── index.html
-├── 404.html (SPA redirect fallback)
 ├── assets/
-├── data/
+├── data-sample/
 │   ├── manifest.json
-│   ├── court-codes.json
-│   ├── mappings/ (BNS/BNSS/BSA static CSVs)
-│   ├── shards/
-│   │   ├── search-33_10-2023.json.gz
-│   │   ├── docs-33_10-2023.json.gz
-│   │   └── vec-33_10-2023.bin
-│   └── demo/
-│       └── answers.json
+│   ├── search-33_10-2022.json.gz
+│   ├── docs-33_10-2022.json.gz
+│   └── vectors-33_10-2022.bin
 ```
 
 ### 2.3 Layer 3: Client Browser Execution
 - **Zero Server Overhead**: The client loads static assets from GitHub Pages.
 - **Web Worker Concurrency**:
   - `SearchWorker`: Loads `manifest.json`, evaluates active UI filters (court, year, bench, category), lazy-fetches only the required shard JSONs, executes BM25 search, computes real-time facet distributions, and returns paginated result cards.
-  - `EmbeddingWorker`: Lazy-loads ONNX runtime web / transformers.js query encoder, encodes the user's search query, and computes dot-product similarity against active vector shards.
+  - `VectorEngine`: Lazy-loads compact `.bin` int8 quantized shards (388 B/vec) and computes dot-product similarity against active query embeddings.
+  - `HybridSearch`: Reciprocal Rank Fusion combines BM25 keyword rankings with dense vector similarities.
 - **Client Cache Strategy**:
-  - Shard responses cached via the browser `Cache API` with SHA-256 verification against the manifest.
-  - User research folders, recent searches, and AI answer cache stored in `IndexedDB`.
+  - Shard responses cached via browser in-memory LRU and Cache API.
+  - Advocate case folders, notes, and AI response cache stored in `IndexedDB`/`localStorage`.
 
 ---
 
@@ -93,9 +88,9 @@ dist/web/
 
 | Option | Architecture | Browser CORS | Shard Range / Chunking | Cost | Status / Caveat |
 |---|---|---|---|---|---|
-| **A. Pages Artifact (Default)** | Static files deployed in same artifact as Angular app | **Zero CORS issues** (same-origin `data/`) | Supported by GitHub Pages CDN | Free | **Primary Plan**: Hard cap $\le 500\text{ MB}$ (Pages limit 1 GB). |
+| **A. Pages Artifact (Default)** | Static files deployed in same artifact as React app | **Zero CORS issues** (same-origin `data-sample/`) | Supported by GitHub Pages CDN | Free | **Primary Plan**: Hard cap $\le 500\text{ MB}$ (Pages limit 1 GB). |
 | **B. Data Branch + jsDelivr** | Shards committed to separate orphan branch and served via jsDelivr CDN | Permissive CORS headers | Unreliable byte-range requests; 50 MB per-file limit | Free | **Rejected**: CDN rate limits and per-file caps risk breaking larger shards. |
 | **C. GitHub Release Assets** | Shards uploaded as release assets | **Fails browser CORS** (browser cross-origin downloads blocked) | Redirects to AWS S3 without browser CORS headers | Free | **Rejected**: Unusable directly from web applications without proxy. |
-| **D. Cloudflare R2 / AWS S3** | External object storage with public custom domain | Explicit CORS configuration (`Access-Control-Allow-Origin: *`) | Full HTTP Range request support | Negligible ($\sim \$0.015/\text{GB}$) | **Migration Target (Phase 10)**: Activated if corpus exceeds 500 MB budget. |
+| **D. Cloudflare R2 / AWS S3** | External object storage with public custom domain | Explicit CORS configuration (`Access-Control-Allow-Origin: *`) | Full HTTP Range request support | Negligible ($\sim \$0.015/\text{GB}$) | **Migration Target (Phase 10)**: Documented in `docs/PRODUCTION_MIGRATION.md` for scaling beyond 500 MB. |
 
-*Note: All hosting assumptions will be empirically measured and verified in Phase 2 via the live hosting spike test suite.*
+*Verified: Phase 2 empirical spike validated same-origin Pages hosting (see `docs/data-report.md`). Phase 10 migration runbook established in `docs/PRODUCTION_MIGRATION.md`.*

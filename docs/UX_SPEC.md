@@ -48,7 +48,7 @@ NyayaReader provides an uncluttered, high-contrast, distraction-free environment
     - Active Filter Summary Bar with "Clear All" chip and total match count.
   - **Main Content Area (Fluid)**:
     - Result count and active sort toggle (Relevance / Date Descending / Date Ascending).
-    - Virtual-scrolled results list using `@angular/cdk/scrolling`.
+    - Virtual-scrolled results list using `@tanstack/react-virtual`.
     - Result Card Component:
       - Title: Party names formatted with bold typography.
       - Meta header: Court name, Bench, Date, Coram, Disposal status.

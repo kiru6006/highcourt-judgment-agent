@@ -122,7 +122,7 @@ export const ReaderPage: React.FC = () => {
 
   return (
     <div className="flex-1 flex flex-col h-[calc(100vh-4rem)] overflow-hidden">
-      
+
       {/* Top Reader Subheader Bar */}
       <div className="h-12 border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-4 flex items-center justify-between text-xs flex-shrink-0">
         <div className="flex items-center gap-2 overflow-hidden">
@@ -156,21 +156,19 @@ export const ReaderPage: React.FC = () => {
           <div className="hidden sm:flex items-center bg-slate-100 dark:bg-slate-800 rounded-lg p-0.5">
             <button
               onClick={() => setViewMode('original')}
-              className={`px-2.5 py-1 rounded text-xs font-medium transition ${
-                viewMode === 'original'
-                  ? 'bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 shadow-sm'
-                  : 'text-slate-600 dark:text-slate-400'
-              }`}
+              className={`px-2.5 py-1 rounded text-xs font-medium transition ${viewMode === 'original'
+                ? 'bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 shadow-sm'
+                : 'text-slate-600 dark:text-slate-400'
+                }`}
             >
               Original Text
             </button>
             <button
               onClick={() => setViewMode('brief')}
-              className={`px-2.5 py-1 rounded text-xs font-medium transition ${
-                viewMode === 'brief'
-                  ? 'bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 shadow-sm'
-                  : 'text-slate-600 dark:text-slate-400'
-              }`}
+              className={`px-2.5 py-1 rounded text-xs font-medium transition ${viewMode === 'brief'
+                ? 'bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 shadow-sm'
+                : 'text-slate-600 dark:text-slate-400'
+                }`}
             >
               Structured Brief
             </button>
@@ -216,7 +214,7 @@ export const ReaderPage: React.FC = () => {
 
       {/* Main 3-Pane Body */}
       <div className="flex-1 flex overflow-hidden">
-        
+
         {/* Pane 1: Left Outline (Desktop: 260px fixed) */}
         <aside className="hidden lg:block w-64 border-r border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 overflow-y-auto text-xs flex-shrink-0">
           <div className="flex items-center gap-2 font-bold text-slate-900 dark:text-slate-100 uppercase tracking-wider mb-3">
@@ -251,11 +249,10 @@ export const ReaderPage: React.FC = () => {
                 <button
                   key={p.index}
                   onClick={() => scrollToPara(p.index)}
-                  className={`px-1.5 py-0.5 rounded text-[10px] font-mono transition ${
-                    highlightedPara === p.index
-                      ? 'bg-amber-600 text-white font-bold'
-                      : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700'
-                  }`}
+                  className={`px-1.5 py-0.5 rounded text-[10px] font-mono transition ${highlightedPara === p.index
+                    ? 'bg-amber-600 text-white font-bold'
+                    : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700'
+                    }`}
                 >
                   {p.index}
                 </button>
@@ -267,7 +264,7 @@ export const ReaderPage: React.FC = () => {
         {/* Pane 2: Center Judgment Text Stream */}
         <main className="flex-1 overflow-y-auto p-4 sm:p-8 bg-paper-canvas dark:bg-paper-darkCanvas">
           <div className="max-w-3xl mx-auto bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-6 sm:p-10 shadow-sm">
-            
+
             {/* Synthetic Banner in Document if synthetic */}
             {judgment.is_synthetic && (
               <div className="mb-6 p-3 rounded-lg bg-amber-50 dark:bg-amber-950/40 border border-amber-300 dark:border-amber-800 flex items-center gap-2 text-xs font-semibold text-amber-800 dark:text-amber-300">
@@ -310,9 +307,8 @@ export const ReaderPage: React.FC = () => {
                   <div
                     key={para.index}
                     id={`para-${para.index}`}
-                    className={`group relative pl-10 transition-colors rounded-lg p-2 ${
-                      highlightedPara === para.index ? 'bg-amber-50 dark:bg-amber-950/40 border border-amber-300 dark:border-amber-800' : ''
-                    }`}
+                    className={`group relative pl-10 transition-colors rounded-lg p-2 ${highlightedPara === para.index ? 'bg-amber-50 dark:bg-amber-950/40 border border-amber-300 dark:border-amber-800' : ''
+                      }`}
                   >
                     {/* Anchor Chip */}
                     <button
@@ -364,31 +360,28 @@ export const ReaderPage: React.FC = () => {
           <div className="flex border-b border-slate-200 dark:border-slate-800 pb-2 mb-4 gap-1">
             <button
               onClick={() => setActiveRightTab('statutes')}
-              className={`flex-1 py-1 text-center font-semibold rounded transition ${
-                activeRightTab === 'statutes'
-                  ? 'bg-amber-600 text-white'
-                  : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'
-              }`}
+              className={`flex-1 py-1 text-center font-semibold rounded transition ${activeRightTab === 'statutes'
+                ? 'bg-amber-600 text-white'
+                : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'
+                }`}
             >
               Statute Bridge
             </button>
             <button
               onClick={() => setActiveRightTab('citations')}
-              className={`flex-1 py-1 text-center font-semibold rounded transition ${
-                activeRightTab === 'citations'
-                  ? 'bg-amber-600 text-white'
-                  : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'
-              }`}
+              className={`flex-1 py-1 text-center font-semibold rounded transition ${activeRightTab === 'citations'
+                ? 'bg-amber-600 text-white'
+                : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'
+                }`}
             >
               Citations
             </button>
             <button
               onClick={() => setActiveRightTab('copilot')}
-              className={`flex-1 py-1 text-center font-semibold rounded transition ${
-                activeRightTab === 'copilot'
-                  ? 'bg-amber-600 text-white'
-                  : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'
-              }`}
+              className={`flex-1 py-1 text-center font-semibold rounded transition ${activeRightTab === 'copilot'
+                ? 'bg-amber-600 text-white'
+                : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'
+                }`}
             >
               Copilot
             </button>

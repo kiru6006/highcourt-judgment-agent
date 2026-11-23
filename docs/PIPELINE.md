@@ -38,6 +38,10 @@ search-{court}-{year}.json.gz          docs-{court}-{year}.json.gz
 | `pipeline/extractors/citations.py` | Case citation parser for AIR, SCC, SCR, ILR, and precedential party titles. |
 | `pipeline/taxonomy.py` | Deterministic court code mapping and case type prefix to category normalization (`derived: true`). |
 | `pipeline/quarantine.py` | Scans against `config/restricted.json` and `config/takedown.json`; quarantines matches to `review-queue.csv`. |
+| `pipeline/takedown.py` | Automated statutory purge engine removing expunged records from shards, rebuilding manifests, and logging audit trail. |
+| `pipeline/sync_monitor.py` | Monitors upstream S3 partitions against `config/corpus.json` and updates `docs/ops.md` telemetry dashboard. |
+| `pipeline/embedder.py` | Offline dense vector embedder generating symmetric int8 quantized shards (`vectors-*.bin`, 388 B/vec). |
+| `pipeline/manifest_builder.py` | Compiles global `manifest.json` with SHA-256 hashes, document counts, and embedding model hashes. |
 | `pipeline/shard_builder.py` | Compresses search and full document shards ($\le 25\text{ MB}$) with SHA-256 checksums and manifest fragments. |
 | `pipeline/ingest.py` | Main CLI entry point orchestrating S3 streaming and artifact generation. |
 
@@ -57,6 +61,7 @@ PYTHONPATH=. .venv/bin/python -m pipeline.ingest \
 
 ### Running Test Suite:
 ```bash
-PYTHONPATH=. .venv/bin/pytest -v tests/test_pipeline.py
+PYTHONPATH=. .venv/bin/pytest -v tests/test_pipeline.py tests/test_takedown.py tests/test_sync_monitor.py
+```
 ```
 All 47 pipeline verification tests run in $<0.1\text{s}$.

@@ -21,7 +21,7 @@ Total Requirements Audited: **54**
 | **R-008** | Left-rail facet: Dynamic Case Type prefix per court | PRD3 §5.B, Playbook Phase 1 | Phase 1 (UI), Phase 5 (Live) | Accepted | Dynamically adapts options based on selected High Court |
 | **R-009** | Left-rail facet: Purpose / Stage / Disposal status | PRD3 §5.B, Playbook Phase 1 | Phase 1 (UI), Phase 5 (Live) | Accepted | Bail, Quashing, Stay, Allowed, Dismissed, Partly Allowed |
 | **R-010** | Live facet counts & Clear-all chips | Playbook Phase 1 | Phase 1 (UI), Phase 5 (Live) | Accepted | Real-time counts computed in Web Worker |
-| **R-011** | Virtual-scroll results card list | PRD3 §5.C, Playbook Phase 1 | Phase 1 (UI), Phase 5 (Live) | Accepted | Angular CDK Virtual Scroll for 60fps performance |
+| **R-011** | Virtual-scroll results card list | PRD3 §5.C, Playbook Phase 1 | Phase 1 (UI), Phase 5 (Live) | Accepted | @tanstack/react-virtual for 60fps performance |
 | **R-012** | Direct card action: "Find on web / eCourts / Indian Kanoon" | PRD3 §5.C, Playbook Phase 5 | Phase 5 | Accepted | Client-side deep link prefilled from case number & parties |
 | **R-013** | 3-pane desktop judgment reader layout | PRD3 §5.D, Playbook Phase 1 | Phase 1 (UI), Phase 6 (Live) | Accepted | Outline left, text center, AI copilot right |
 | **R-014** | Mobile collapsible reader drawers/tabs | PRD3 §5.D, Playbook Phase 1 | Phase 1 (UI), Phase 6 (Live) | Accepted | 375px responsive layout verified |
@@ -70,10 +70,10 @@ Total Requirements Audited: **54**
 
 ## 3. Conflict Analysis & Key Decisions
 1. **Hosting Runtime Conflict**: Prompt Set A mandated FastAPI + DuckDB; GitHub Pages supports only static files.
-   - *Resolution*: Architecture locked to 100% static client-side (Angular + Web Workers). All data processing occurs offline in GitHub Actions.
+   - *Resolution*: Architecture locked to 100% static client-side (React + Vite + Web Workers). All data processing occurs offline in GitHub Actions.
 2. **UI Framework Conflict**: Previous prompts alternated between React+Vite and Angular.
-   - *Resolution*: Locked to Angular standalone + Tailwind + CDK under ADR D-001. React remains documented as evaluated alternative.
+   - *Resolution*: Locked to React 18+ with Vite, strict TypeScript, and Tailwind CSS under ADR D-001 per explicit user directive ("no angular - react is for frontend").
 3. **Data Distribution Conflict**: Spec B proposed GitHub Release assets via jsDelivr.
-   - *Resolution*: Defaulting to same-origin Pages artifact ($\le 500\text{ MB}$) to eliminate browser CORS and CDN rate-limit hazards (ADR D-003). External object storage (R2/S3) is an emergency fallback.
+   - *Resolution*: Defaulting to same-origin Pages artifact ($\le 500\text{ MB}$) to eliminate browser CORS and CDN rate-limit hazards (ADR D-003). External object storage (R2/S3) is documented in `docs/PRODUCTION_MIGRATION.md`.
 4. **AI Citation Risk**: Prompt Set A permitted generative summaries without strict quotation bounds.
    - *Resolution*: Strict evidence verifier mandates exact paragraph references and verbatim substring matching before displaying any claim to users.
