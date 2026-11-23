@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import {
   List,
@@ -9,23 +9,64 @@ import {
   Calendar,
   AlertTriangle,
   X,
+  Scale,
+  BookOpen,
+  ArrowLeft,
+  Loader2,
+  Tag
 } from 'lucide-react';
-import { SYNTHETIC_JUDGMENTS } from '../fixtures/synthetic-judgments';
+import { JudgmentDocument } from '../types/schema';
+import { fetchJudgmentDocument } from '../reader/doc-loader';
+import { ExtractiveBrief } from '../components/ExtractiveBrief';
+import { StatuteBridgeDrawer } from '../components/StatuteBridgeDrawer';
+import { CitationsDrawer } from '../components/CitationsDrawer';
 
 export const ReaderPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
+  const [judgment, setJudgment] = useState<JudgmentDocument | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [loadError, setLoadError] = useState<string | null>(null);
+
   const [viewMode, setViewMode] = useState<'original' | 'brief'>('original');
+  const [activeRightTab, setActiveRightTab] = useState<'statutes' | 'citations' | 'copilot'>('statutes');
   const [fontSize, setFontSize] = useState<number>(16);
   const [highlightedPara, setHighlightedPara] = useState<number | null>(null);
-  const [showCopilotMobile, setShowCopilotMobile] = useState(false);
+  const [showRightMobile, setShowRightMobile] = useState(false);
   const [showOutlineMobile, setShowOutlineMobile] = useState(false);
 
-  const judgment = SYNTHETIC_JUDGMENTS.find(j => j.jid === id) || SYNTHETIC_JUDGMENTS[0];
+  useEffect(() => {
+    let isMounted = true;
+    async function loadDoc() {
+      if (!id) return;
+      setLoading(true);
+      setLoadError(null);
+      try {
+        const doc = await fetchJudgmentDocument(id);
+        if (isMounted) {
+          if (doc) {
+            setJudgment(doc);
+          } else {
+            setLoadError('Judgment not found in local index or shards.');
+          }
+        }
+      } catch (err: any) {
+        if (isMounted) {
+          setLoadError(err?.message || 'Error loading judgment');
+        }
+      } finally {
+        if (isMounted) {
+          setLoading(false);
+        }
+      }
+    }
+    loadDoc();
+    return () => { isMounted = false; };
+  }, [id]);
 
   const scrollToPara = (paraIndex: number) => {
     setHighlightedPara(paraIndex);
     setShowOutlineMobile(false);
-    setShowCopilotMobile(false);
+    setShowRightMobile(false);
     const element = document.getElementById(`para-${paraIndex}`);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -37,10 +78,43 @@ export const ReaderPage: React.FC = () => {
     navigator.clipboard.writeText(url);
   };
 
-  // Structured extractive brief paragraphs
-  const briefSections = judgment.sections.filter(s =>
-    ['Facts', 'Issues', 'Reasoning & Ratio', 'Final Order'].includes(s.tag)
-  );
+  if (loading) {
+    return (
+      <div className="flex-1 flex items-center justify-center min-h-[calc(100vh-4rem)]">
+        <div className="text-center space-y-3">
+          <Loader2 className="w-8 h-8 text-amber-600 animate-spin mx-auto" />
+          <p className="text-xs text-slate-500 font-mono">Loading judgment record...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (loadError || !judgment) {
+    return (
+      <div className="flex-1 flex items-center justify-center min-h-[calc(100vh-4rem)] p-4">
+        <div className="max-w-md w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-6 text-center space-y-4">
+          <Scale className="w-10 h-10 text-slate-400 mx-auto" />
+          <h2 className="text-base font-bold text-slate-800 dark:text-slate-100">
+            Judgment Not Found
+          </h2>
+          <p className="text-xs text-slate-500">
+            {loadError || 'The requested judgment identifier does not exist in the active corpus.'}
+          </p>
+          <Link
+            to="/search"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-600 text-white text-xs font-semibold hover:bg-amber-700 transition"
+          >
+            <ArrowLeft className="w-3.5 h-3.5" />
+            <span>Return to Search</span>
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
+  const caseTitle = judgment.parties
+    ? `${judgment.parties.petitioner} v. ${judgment.parties.respondent}`
+    : judgment.case_number;
 
   return (
     <div className="flex-1 flex flex-col h-[calc(100vh-4rem)] overflow-hidden">
@@ -53,7 +127,7 @@ export const ReaderPage: React.FC = () => {
           </Link>
           <ChevronRight className="w-3.5 h-3.5 text-slate-400 flex-shrink-0" />
           <span className="font-semibold text-slate-800 dark:text-slate-200 truncate">
-            {judgment.case_number}: {judgment.parties.petitioner} v. {judgment.parties.respondent}
+            {judgment.case_number}: {caseTitle}
           </span>
         </div>
 
@@ -68,11 +142,11 @@ export const ReaderPage: React.FC = () => {
             <span>Outline</span>
           </button>
           <button
-            onClick={() => setShowCopilotMobile(!showCopilotMobile)}
+            onClick={() => setShowRightMobile(!showRightMobile)}
             className="xl:hidden p-1.5 rounded-lg bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-400 text-xs font-semibold flex items-center gap-1"
           >
-            <Sparkles className="w-3.5 h-3.5" />
-            <span>Copilot</span>
+            <BookOpen className="w-3.5 h-3.5" />
+            <span>Context</span>
           </button>
 
           <div className="hidden sm:flex items-center bg-slate-100 dark:bg-slate-800 rounded-lg p-0.5">
@@ -94,7 +168,7 @@ export const ReaderPage: React.FC = () => {
                   : 'text-slate-600 dark:text-slate-400'
               }`}
             >
-              Structured Brief (Extractive)
+              Structured Brief
             </button>
           </div>
 
@@ -104,15 +178,17 @@ export const ReaderPage: React.FC = () => {
             <button onClick={() => setFontSize(f => Math.min(22, f + 1))} className="px-1 hover:text-amber-600 font-bold">+</button>
           </div>
 
-          <a
-            href={judgment.pdf_source_url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hidden sm:flex items-center gap-1 text-slate-500 hover:text-slate-700 dark:hover:text-slate-200 font-medium"
-          >
-            <ExternalLink className="w-3.5 h-3.5" />
-            PDF
-          </a>
+          {judgment.pdf_source_url && (
+            <a
+              href={judgment.pdf_source_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden sm:flex items-center gap-1 text-slate-500 hover:text-slate-700 dark:hover:text-slate-200 font-medium"
+            >
+              <ExternalLink className="w-3.5 h-3.5" />
+              PDF
+            </a>
+          )}
         </div>
       </div>
 
@@ -125,46 +201,52 @@ export const ReaderPage: React.FC = () => {
             <List className="w-4 h-4 text-amber-600" />
             <span>Outline</span>
           </div>
+
           <nav className="space-y-1">
-            {judgment.sections.map((sec, idx) => (
-              <button
-                key={idx}
-                onClick={() => scrollToPara(sec.start_para_index)}
-                className="w-full text-left px-2.5 py-1.5 rounded-md hover:bg-slate-100 dark:hover:bg-slate-800 transition flex items-center justify-between text-slate-700 dark:text-slate-300"
-              >
-                <span className="font-medium truncate">{sec.tag}</span>
-                <span className="text-[10px] text-slate-400 font-mono">p.{sec.start_para_index}</span>
-              </button>
-            ))}
+            {judgment.sections && judgment.sections.length > 0 ? (
+              judgment.sections.map((sec, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => scrollToPara(sec.start_para_index)}
+                  className="w-full text-left px-2.5 py-1.5 rounded-md hover:bg-slate-100 dark:hover:bg-slate-800 transition flex items-center justify-between text-slate-700 dark:text-slate-300"
+                >
+                  <span className="font-medium truncate">{sec.tag}</span>
+                  <span className="text-[10px] text-slate-400 font-mono">p.{sec.start_para_index}</span>
+                </button>
+              ))
+            ) : (
+              <div className="text-[11px] text-slate-400 italic">No tagged sections</div>
+            )}
           </nav>
 
-          {/* Sourced Statutes Drawer in Outline */}
-          {judgment.statutes.length > 0 && (
-            <div className="mt-6 pt-4 border-t border-slate-200 dark:border-slate-800">
-              <h5 className="font-bold text-[11px] uppercase tracking-wider text-slate-400 mb-2">
-                Cited Statutes
-              </h5>
-              <div className="space-y-1">
-                {judgment.statutes.map((st, i) => (
-                  <div key={i} className="text-[11px] bg-slate-50 dark:bg-slate-800/50 p-2 rounded border border-slate-200 dark:border-slate-800">
-                    <span className="font-semibold block">{st.act_code}: Section {st.section}</span>
-                    {st.transition_mapping && (
-                      <span className="text-[10px] text-amber-600 block mt-0.5">
-                        → {st.transition_mapping.new_act} s.{st.transition_mapping.new_section} (Verified)
-                      </span>
-                    )}
-                  </div>
-                ))}
-              </div>
+          {/* Quick Paragraph Jump List */}
+          <div className="mt-6 pt-4 border-t border-slate-200 dark:border-slate-800">
+            <h5 className="font-bold text-[11px] uppercase tracking-wider text-slate-400 mb-2">
+              Paragraphs ({judgment.paragraphs.length})
+            </h5>
+            <div className="flex flex-wrap gap-1 max-h-48 overflow-y-auto">
+              {judgment.paragraphs.map((p) => (
+                <button
+                  key={p.index}
+                  onClick={() => scrollToPara(p.index)}
+                  className={`px-1.5 py-0.5 rounded text-[10px] font-mono transition ${
+                    highlightedPara === p.index
+                      ? 'bg-amber-600 text-white font-bold'
+                      : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700'
+                  }`}
+                >
+                  {p.index}
+                </button>
+              ))}
             </div>
-          )}
+          </div>
         </aside>
 
         {/* Pane 2: Center Judgment Text Stream */}
         <main className="flex-1 overflow-y-auto p-4 sm:p-8 bg-paper-canvas dark:bg-paper-darkCanvas">
           <div className="max-w-3xl mx-auto bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-6 sm:p-10 shadow-sm">
             
-            {/* Synthetic Banner in Document */}
+            {/* Synthetic Banner in Document if synthetic */}
             {judgment.is_synthetic && (
               <div className="mb-6 p-3 rounded-lg bg-amber-50 dark:bg-amber-950/40 border border-amber-300 dark:border-amber-800 flex items-center gap-2 text-xs font-semibold text-amber-800 dark:text-amber-300">
                 <AlertTriangle className="w-4 h-4 flex-shrink-0" />
@@ -181,9 +263,9 @@ export const ReaderPage: React.FC = () => {
                 {judgment.bench_name} • {judgment.coram_type}
               </p>
               <p className="text-xs font-semibold text-slate-700 dark:text-slate-300">
-                CORAM: {judgment.judges.join(', ')}
+                CORAM: {Array.isArray(judgment.judges) ? judgment.judges.join(', ') : judgment.judges}
               </p>
-              <div className="pt-2 flex items-center justify-center gap-3 text-xs text-slate-500 font-mono">
+              <div className="pt-2 flex flex-wrap items-center justify-center gap-3 text-xs text-slate-500 font-mono">
                 <span>{judgment.case_number}</span>
                 <span>•</span>
                 <span className="flex items-center gap-1">
@@ -196,28 +278,10 @@ export const ReaderPage: React.FC = () => {
 
             {/* Structured Brief View vs Original Paragraph Stream */}
             {viewMode === 'brief' ? (
-              <div className="space-y-6">
-                <div className="p-3 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800/50 rounded-lg text-xs text-amber-800 dark:text-amber-300">
-                  <strong>Extractive Structured Brief:</strong> Extracted verbatim from court reasoning and ratio paragraphs. Not AI generated.
-                </div>
-                {briefSections.map((sec, sIdx) => {
-                  const paras = judgment.paragraphs.filter(
-                    p => p.index >= sec.start_para_index && p.index <= sec.end_para_index
-                  );
-                  return (
-                    <div key={sIdx} className="space-y-2">
-                      <h3 className="font-serif font-bold text-base text-amber-700 dark:text-amber-400 border-b border-slate-200 dark:border-slate-800 pb-1">
-                        {sec.tag}
-                      </h3>
-                      {paras.map(p => (
-                        <p key={p.index} className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed font-serif pl-3 border-l-2 border-amber-500/40">
-                          {p.text} <span className="text-xs font-mono text-slate-400">[Para {p.index}]</span>
-                        </p>
-                      ))}
-                    </div>
-                  );
-                })}
-              </div>
+              <ExtractiveBrief
+                judgment={judgment}
+                onJumpToPara={scrollToPara}
+              />
             ) : (
               <div className="space-y-6" style={{ fontSize: `${fontSize}px` }}>
                 {judgment.paragraphs.map(para => (
@@ -225,7 +289,7 @@ export const ReaderPage: React.FC = () => {
                     key={para.index}
                     id={`para-${para.index}`}
                     className={`group relative pl-10 transition-colors rounded-lg p-2 ${
-                      highlightedPara === para.index ? 'highlight-flash' : ''
+                      highlightedPara === para.index ? 'bg-amber-50 dark:bg-amber-950/40 border border-amber-300 dark:border-amber-800' : ''
                     }`}
                   >
                     {/* Anchor Chip */}
@@ -239,8 +303,8 @@ export const ReaderPage: React.FC = () => {
                     </button>
 
                     {/* Section Tag Indicator */}
-                    {para.section_tag !== 'Untagged' && (
-                      <span className="text-[10px] uppercase font-bold text-slate-400 tracking-wider block mb-1">
+                    {para.section_tag && para.section_tag !== 'Untagged' && (
+                      <span className="text-[10px] uppercase font-bold text-amber-700 dark:text-amber-400 tracking-wider block mb-1">
                         [{para.section_tag}]
                       </span>
                     )}
@@ -249,6 +313,21 @@ export const ReaderPage: React.FC = () => {
                     <p className="font-serif leading-relaxed text-slate-800 dark:text-slate-200 legal-prose">
                       {para.text}
                     </p>
+
+                    {/* Statutory Mentions inside Paragraph */}
+                    {para.statute_mentions && para.statute_mentions.length > 0 && (
+                      <div className="mt-2 flex flex-wrap gap-1">
+                        {para.statute_mentions.map((sm, sIdx) => (
+                          <span
+                            key={sIdx}
+                            className="inline-flex items-center gap-1 text-[10px] font-mono bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 px-1.5 py-0.5 rounded"
+                          >
+                            <Tag className="w-2.5 h-2.5 text-amber-600" />
+                            {sm}
+                          </span>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 ))}
               </div>
@@ -257,56 +336,89 @@ export const ReaderPage: React.FC = () => {
           </div>
         </main>
 
-        {/* Pane 3: Right AI Copilot Drawer (Desktop: 320px fixed) */}
+        {/* Pane 3: Right Legal Drawers (Desktop: 320px fixed) */}
         <aside className="hidden xl:block w-80 border-l border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 overflow-y-auto text-xs flex-shrink-0">
-          <div className="flex items-center justify-between pb-3 border-b border-slate-200 dark:border-slate-800 mb-4">
-            <div className="flex items-center gap-1.5 font-bold text-slate-900 dark:text-slate-100">
-              <Sparkles className="w-4 h-4 text-amber-600" />
-              <span>Grounded AI Copilot</span>
-            </div>
-            <span className="text-[10px] bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 font-semibold px-2 py-0.5 rounded">
-              Demo Mode Active
-            </span>
+          {/* Tabs */}
+          <div className="flex border-b border-slate-200 dark:border-slate-800 pb-2 mb-4 gap-1">
+            <button
+              onClick={() => setActiveRightTab('statutes')}
+              className={`flex-1 py-1 text-center font-semibold rounded transition ${
+                activeRightTab === 'statutes'
+                  ? 'bg-amber-600 text-white'
+                  : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'
+              }`}
+            >
+              Statute Bridge
+            </button>
+            <button
+              onClick={() => setActiveRightTab('citations')}
+              className={`flex-1 py-1 text-center font-semibold rounded transition ${
+                activeRightTab === 'citations'
+                  ? 'bg-amber-600 text-white'
+                  : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'
+              }`}
+            >
+              Citations
+            </button>
+            <button
+              onClick={() => setActiveRightTab('copilot')}
+              className={`flex-1 py-1 text-center font-semibold rounded transition ${
+                activeRightTab === 'copilot'
+                  ? 'bg-amber-600 text-white'
+                  : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'
+              }`}
+            >
+              Copilot
+            </button>
           </div>
 
-          <div className="space-y-3">
-            <h5 className="font-bold text-[11px] uppercase tracking-wider text-slate-400">
-              Preset Actions
-            </h5>
-            <div className="space-y-1.5">
-              <button
-                onClick={() => scrollToPara(6)}
-                className="w-full text-left p-2.5 rounded-lg border border-slate-200 dark:border-slate-800 hover:border-amber-500/50 bg-slate-50 dark:bg-slate-800/50 text-slate-800 dark:text-slate-200 transition"
-              >
-                <div className="font-semibold">Summarize Ratio Decidendi</div>
-                <div className="text-[11px] text-slate-500 mt-0.5">Identifies holding principles with paragraph citations</div>
-              </button>
-              <button
-                onClick={() => scrollToPara(1)}
-                className="w-full text-left p-2.5 rounded-lg border border-slate-200 dark:border-slate-800 hover:border-amber-500/50 bg-slate-50 dark:bg-slate-800/50 text-slate-800 dark:text-slate-200 transition"
-              >
-                <div className="font-semibold">Map to BNS / BNSS / BSA</div>
-                <div className="text-[11px] text-slate-500 mt-0.5">Statutory conversion against official tables</div>
-              </button>
-            </div>
+          {activeRightTab === 'statutes' && (
+            <StatuteBridgeDrawer
+              statutes={judgment.statutes || []}
+              onJumpToPara={scrollToPara}
+            />
+          )}
 
-            {/* Evidence Verified Demo Card */}
-            <div className="mt-6 p-3.5 bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-800 rounded-lg space-y-2">
-              <div className="flex items-center justify-between">
-                <span className="font-bold text-slate-800 dark:text-slate-200">Ratio Analysis</span>
-                <span className="text-[10px] bg-emerald-100 text-emerald-800 px-1.5 py-0.5 rounded font-medium">Verified</span>
+          {activeRightTab === 'citations' && (
+            <CitationsDrawer
+              citations={judgment.citations || []}
+              courtCode={judgment.court_code}
+              onJumpToPara={scrollToPara}
+            />
+          )}
+
+          {activeRightTab === 'copilot' && (
+            <div className="space-y-4">
+              <div className="flex items-center justify-between pb-2 border-b border-slate-100 dark:border-slate-800">
+                <span className="font-bold text-slate-800 dark:text-slate-200 flex items-center gap-1.5">
+                  <Sparkles className="w-4 h-4 text-amber-600" /> Grounded AI Copilot
+                </span>
+                <span className="text-[10px] bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 font-semibold px-2 py-0.5 rounded">
+                  Demo Mode
+                </span>
               </div>
-              <p className="text-xs text-slate-600 dark:text-slate-300 leading-snug">
-                Commercial breach of contract cannot be prosecuted as cheating under Section 420 IPC absent dishonest inducement at inception.
-              </p>
-              <button
-                onClick={() => scrollToPara(6)}
-                className="text-[11px] text-amber-600 hover:underline font-semibold block"
-              >
-                → View Cited Para 6 & 7
-              </button>
+
+              <div className="space-y-2">
+                <h6 className="font-bold text-[11px] uppercase tracking-wider text-slate-400">
+                  One-Click Actions
+                </h6>
+                <button
+                  onClick={() => setViewMode('brief')}
+                  className="w-full text-left p-2.5 rounded-lg border border-slate-200 dark:border-slate-800 hover:border-amber-500/50 bg-slate-50 dark:bg-slate-800/50 text-slate-800 dark:text-slate-200 transition"
+                >
+                  <div className="font-semibold">Generate Extractive Brief</div>
+                  <div className="text-[11px] text-slate-500 mt-0.5">Ratio and holding sections extracted verbatim</div>
+                </button>
+                <button
+                  onClick={() => setActiveRightTab('statutes')}
+                  className="w-full text-left p-2.5 rounded-lg border border-slate-200 dark:border-slate-800 hover:border-amber-500/50 bg-slate-50 dark:bg-slate-800/50 text-slate-800 dark:text-slate-200 transition"
+                >
+                  <div className="font-semibold">Review BNS/BNSS/BSA Mapping</div>
+                  <div className="text-[11px] text-slate-500 mt-0.5">Inspect statutory transition table</div>
+                </button>
+              </div>
             </div>
-          </div>
+          )}
         </aside>
 
       </div>
@@ -320,7 +432,7 @@ export const ReaderPage: React.FC = () => {
               <button onClick={() => setShowOutlineMobile(false)} className="p-1"><X className="w-4 h-4" /></button>
             </div>
             <nav className="space-y-1">
-              {judgment.sections.map((sec, idx) => (
+              {judgment.sections && judgment.sections.map((sec, idx) => (
                 <button
                   key={idx}
                   onClick={() => scrollToPara(sec.start_para_index)}
@@ -335,28 +447,18 @@ export const ReaderPage: React.FC = () => {
         </div>
       )}
 
-      {/* Mobile Copilot Slide-over */}
-      {showCopilotMobile && (
+      {/* Mobile Right Drawer Slide-over */}
+      {showRightMobile && (
         <div className="xl:hidden fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex justify-end">
           <div className="w-80 bg-white dark:bg-slate-900 h-full p-4 overflow-y-auto space-y-4 shadow-xl">
             <div className="flex items-center justify-between pb-2 border-b border-slate-200 dark:border-slate-800">
-              <span className="font-bold text-sm flex items-center gap-1.5">
-                <Sparkles className="w-4 h-4 text-amber-600" /> Grounded AI Copilot
-              </span>
-              <button onClick={() => setShowCopilotMobile(false)} className="p-1"><X className="w-4 h-4" /></button>
+              <span className="font-bold text-sm">Legal Context</span>
+              <button onClick={() => setShowRightMobile(false)} className="p-1"><X className="w-4 h-4" /></button>
             </div>
-            <div className="text-xs space-y-3">
-              <div className="p-2.5 rounded bg-emerald-50 dark:bg-emerald-950/40 text-emerald-800 dark:text-emerald-300 font-medium">
-                Demo Mode Active (Zero-Key Access)
-              </div>
-              <button
-                onClick={() => scrollToPara(6)}
-                className="w-full text-left p-2.5 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50"
-              >
-                <div className="font-semibold">Summarize Ratio Decidendi</div>
-                <div className="text-[11px] text-slate-500 mt-0.5">Jump to ratio paragraphs 6 & 7</div>
-              </button>
-            </div>
+            <StatuteBridgeDrawer
+              statutes={judgment.statutes || []}
+              onJumpToPara={scrollToPara}
+            />
           </div>
         </div>
       )}
