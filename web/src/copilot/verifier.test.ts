@@ -122,6 +122,96 @@ describe('Grounded AI Claim Verifier & BYOK Key Manager', () => {
     expect(result.summary).toContain('Insufficient evidence in judgment');
   });
 
+  it('identifies loose paraphrasing as ungrounded and records droppedClaims', () => {
+    const claims: GroundedClaim[] = [
+      {
+        claimText: 'The contract was broken by the other party',
+        jid: 'j-test-123',
+        paraIndex: 2,
+        verbatimQuote: 'civil contract broken by party' // Loose paraphrase, not in paragraph
+      }
+    ];
+
+    const result = verifyClaims(claims, mockDoc);
+    expect(result.insufficientEvidence).toBe(true);
+    expect(result.droppedClaims).toHaveLength(1);
+    expect(result.droppedClaims![0].dropReason).toBe('quote_not_found');
+  });
+
+  it('rejects claims where verbatim quote is too short (< 15 chars)', () => {
+    const claims: GroundedClaim[] = [
+      {
+        claimText: 'Civil breach claim',
+        jid: 'j-test-123',
+        paraIndex: 2,
+        verbatimQuote: 'civil breach' // Only 12 characters
+      }
+    ];
+
+    const result = verifyClaims(claims, mockDoc);
+    expect(result.insufficientEvidence).toBe(true);
+    expect(result.droppedClaims![0].dropReason).toBe('quote_too_short');
+  });
+
+  it('rejects counsel submission claims disguised as court holdings', () => {
+    const docWithSubmissions: JudgmentDocument = {
+      ...mockDoc,
+      paragraphs: [
+        {
+          index: 1,
+          text: 'The learned counsel for petitioner submitted that petitioner is totally innocent and falsely implicated.',
+          section_tag: 'Petitioner Submissions',
+          statute_mentions: [],
+          citation_mentions: [],
+          token_count: 18
+        }
+      ]
+    };
+
+    const claims: GroundedClaim[] = [
+      {
+        claimText: 'The court held that petitioner is innocent',
+        jid: 'j-test-123',
+        paraIndex: 1,
+        verbatimQuote: 'petitioner is totally innocent and falsely implicated'
+      }
+    ];
+
+    const result = verifyClaims(claims, docWithSubmissions);
+    expect(result.insufficientEvidence).toBe(true);
+    expect(result.droppedClaims![0].dropReason).toBe('counsel_submission_not_ratio');
+  });
+
+  it('handles scanned orders with minimal text and flags limitedExtractableText', () => {
+    const scannedDoc: JudgmentDocument = {
+      ...mockDoc,
+      paragraphs: [
+        {
+          index: 1,
+          text: 'List on 12.09.2022.',
+          section_tag: 'Final Order',
+          statute_mentions: [],
+          citation_mentions: [],
+          token_count: 4
+        }
+      ]
+    };
+
+    const claims: GroundedClaim[] = [
+      {
+        claimText: 'Case was dismissed',
+        jid: 'j-test-123',
+        paraIndex: 1,
+        verbatimQuote: 'case was dismissed'
+      }
+    ];
+
+    const result = verifyClaims(claims, scannedDoc);
+    expect(result.insufficientEvidence).toBe(true);
+    expect(result.limitedExtractableText).toBe(true);
+    expect(result.summary).toContain('minimal extractable text');
+  });
+
   it('enforces memory-first BYOK storage policy', () => {
     KeyManager.clearKey();
     expect(KeyManager.hasKey()).toBe(false);

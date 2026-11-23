@@ -4,6 +4,7 @@ import {
   Key,
   ShieldCheck,
   AlertCircle,
+  AlertTriangle,
   Send,
   Loader2,
   Lock
@@ -355,7 +356,7 @@ export const GroundedCopilot: React.FC<GroundedCopilotProps> = ({
 
           {currentAnswer.insufficientEvidence ? (
             <div className="p-2.5 rounded bg-amber-100/70 dark:bg-amber-950/50 text-amber-900 dark:text-amber-200 text-[11px]">
-              No certified verbatim quotes could be matched in the judgment. Response suppressed to prevent hallucination.
+              {currentAnswer.insufficientReason || 'No certified verbatim quotes could be matched in the judgment. Response suppressed to prevent hallucination.'}
             </div>
           ) : (
             <div className="space-y-2 pt-1">
@@ -377,6 +378,12 @@ export const GroundedCopilot: React.FC<GroundedCopilotProps> = ({
                     </span>
                   </div>
 
+                  {claim.sectionTag && (
+                    <span className="inline-block text-[9px] uppercase font-bold tracking-wider px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300">
+                      Section: {claim.sectionTag}
+                    </span>
+                  )}
+
                   <blockquote className="pl-2 border-l-2 border-amber-500 text-[11px] font-serif italic text-slate-600 dark:text-slate-400">
                     "{claim.verbatimQuote}"
                   </blockquote>
@@ -389,6 +396,34 @@ export const GroundedCopilot: React.FC<GroundedCopilotProps> = ({
                   </button>
                 </div>
               ))}
+            </div>
+          )}
+
+          {/* Dropped Claims Disclosure */}
+          {currentAnswer.droppedClaims && currentAnswer.droppedClaims.length > 0 && (
+            <div className="p-2.5 rounded-lg border border-amber-200 dark:border-amber-900/60 bg-amber-50/60 dark:bg-amber-950/30 space-y-2">
+              <div className="flex items-center gap-1.5 text-amber-800 dark:text-amber-300 font-semibold text-[11px]">
+                <AlertTriangle className="w-3.5 h-3.5 flex-shrink-0 text-amber-600" />
+                <span>{currentAnswer.droppedClaims.length} unverified {currentAnswer.droppedClaims.length === 1 ? 'claim dropped' : 'claims dropped'} by verifier:</span>
+              </div>
+              <div className="space-y-1.5">
+                {currentAnswer.droppedClaims.map((dc, i) => (
+                  <div key={i} className="text-[11px] text-slate-600 dark:text-slate-400 pl-2.5 border-l-2 border-amber-400 dark:border-amber-600">
+                    <span className="line-through block text-slate-500 dark:text-slate-400">{dc.claimText}</span>
+                    <span className="text-[10px] text-amber-700 dark:text-amber-400 font-medium">
+                      Reason: {
+                        dc.dropReason === 'counsel_submission_not_ratio'
+                          ? 'Quotes counsel arguments rather than judicial ratio/order'
+                          : dc.dropReason === 'quote_not_found'
+                          ? `Quote not found verbatim in paragraph ${dc.paraIndex}`
+                          : dc.dropReason === 'paragraph_not_found'
+                          ? `Paragraph ${dc.paraIndex} does not exist in order`
+                          : 'Paraphrase too loose / quote under 15 characters'
+                      }
+                    </span>
+                  </div>
+                ))}
+              </div>
             </div>
           )}
         </div>

@@ -46,4 +46,31 @@ describe('Document Loader & Statute Transition Bridge', () => {
     const testOnlyRows = OFFICIAL_STATUTE_TRANSITIONS.filter(t => t.mappingSource === 'TEST_ONLY');
     expect(testOnlyRows).toHaveLength(0);
   });
+
+  it('supports reverse lookup from new enactments to legacy codes', () => {
+    const reverse = lookupTransition('BNSS', '528');
+    expect(reverse).toBeDefined();
+    expect(reverse?.newAct).toBe('CrPC');
+    expect(reverse?.newSection).toBe('482');
+    expect(reverse?.isReverseLookup).toBe(true);
+
+    const bnsReverse = lookupTransition('BNS', '318');
+    expect(bnsReverse).toBeDefined();
+    expect(bnsReverse?.newAct).toBe('IPC');
+    expect(bnsReverse?.newSection).toBe('420');
+  });
+
+  it('correctly flags substantively altered provisions', () => {
+    const remand = lookupTransition('CrPC', '167');
+    expect(remand).toBeDefined();
+    expect(remand?.equivalenceType).toBe('SUBSTANTIVELY_ALTERED');
+    expect(remand?.notes).toContain('Substantively Altered');
+  });
+
+  it('maps new criminal procedure additions such as notice of appearance', () => {
+    const notice = lookupTransition('CrPC', '41A');
+    expect(notice).toBeDefined();
+    expect(notice?.newAct).toBe('BNSS');
+    expect(notice?.newSection).toBe('35(3)');
+  });
 });

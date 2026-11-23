@@ -71,6 +71,25 @@ export const StatuteBridgeDrawer: React.FC<StatuteBridgeDrawerProps> = ({
                 )}
               </div>
 
+              {transition?.equivalenceType && (
+                <div className="flex items-center gap-1.5 pt-0.5">
+                  <span className={`text-[9px] font-semibold uppercase tracking-wider px-1.5 py-0.5 rounded ${
+                    transition.equivalenceType === 'SUBSTANTIVELY_ALTERED'
+                      ? 'bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300 border border-amber-300 dark:border-amber-800'
+                      : transition.equivalenceType === 'CONSOLIDATED'
+                      ? 'bg-blue-100 text-blue-800 dark:bg-blue-950 dark:text-blue-300'
+                      : 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300'
+                  }`}>
+                    {transition.equivalenceType === 'SUBSTANTIVELY_ALTERED' ? '⚠️ Substantively Altered' : transition.equivalenceType === 'CONSOLIDATED' ? 'Consolidated Section' : 'Exact Equivalent'}
+                  </span>
+                  {transition.isReverseLookup && (
+                    <span className="text-[9px] font-mono text-slate-500">
+                      (Legacy Code Equivalent)
+                    </span>
+                  )}
+                </div>
+              )}
+
               {transition?.notes && (
                 <p className="text-[11px] text-slate-600 dark:text-slate-300 italic">
                   {transition.notes}

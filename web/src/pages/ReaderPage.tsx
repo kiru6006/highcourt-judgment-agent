@@ -67,6 +67,45 @@ export const ReaderPage: React.FC = () => {
     return () => { isMounted = false; };
   }, [id]);
 
+  useEffect(() => {
+    if (judgment && window.location.hash) {
+      const match = window.location.hash.match(/para-(\d+)/);
+      if (match) {
+        const pIdx = parseInt(match[1], 10);
+        setTimeout(() => scrollToPara(pIdx), 200);
+      }
+    }
+  }, [judgment]);
+
+  // Keyboard navigation for advocate reading: j/k to navigate paragraphs
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Don't intercept if user is typing in an input or textarea
+      if (['INPUT', 'TEXTAREA'].includes((e.target as HTMLElement)?.tagName)) {
+        return;
+      }
+
+      if (!judgment || judgment.paragraphs.length === 0) return;
+
+      if (e.key === 'j') {
+        setHighlightedPara((prev) => {
+          const next = prev === null ? 1 : Math.min(judgment.paragraphs.length, prev + 1);
+          scrollToPara(next);
+          return next;
+        });
+      } else if (e.key === 'k') {
+        setHighlightedPara((prev) => {
+          const next = prev === null ? 1 : Math.max(1, prev - 1);
+          scrollToPara(next);
+          return next;
+        });
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [judgment]);
+
   const scrollToPara = (paraIndex: number) => {
     setHighlightedPara(paraIndex);
     setShowOutlineMobile(false);
@@ -74,6 +113,8 @@ export const ReaderPage: React.FC = () => {
     const element = document.getElementById(`para-${paraIndex}`);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      // Update hash without triggering reload
+      window.history.replaceState(null, '', `#para-${paraIndex}`);
     }
   };
 
