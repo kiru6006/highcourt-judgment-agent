@@ -25,12 +25,14 @@ def load_takedowns() -> set:
     if os.path.exists(takedown_path):
         with open(takedown_path) as f:
             data = json.load(f)
+            items = data.get("takedowns", []) if isinstance(data, dict) else (data if isinstance(data, list) else [])
             takedowns = set()
-            for item in data.get("takedowns", []):
-                if "cnr" in item:
-                    takedowns.add(item["cnr"].strip().upper())
-                if "jid" in item:
-                    takedowns.add(item["jid"].strip())
+            for item in items:
+                if isinstance(item, dict):
+                    if "cnr" in item:
+                        takedowns.add(item["cnr"].strip().upper())
+                    if "jid" in item:
+                        takedowns.add(item["jid"].strip())
             return takedowns
     return set()
 

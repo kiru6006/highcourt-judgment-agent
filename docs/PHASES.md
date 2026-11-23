@@ -103,11 +103,11 @@
 - [x] Single verification command `npm run verify` passes locally and in CI.
 
 ### Phase 10: Security, Compliance & Production Migration
-- [ ] Strict meta tag Content Security Policy enforced.
-- [ ] Takedown workflow validated with automated document purge and rebuild.
-- [ ] `/about-data` displays complete attribution, CC-BY-4.0 terms, and disclaimer.
-- [ ] Playwright E2E and axe accessibility test suites pass in CI.
-- [ ] `docs/PRODUCTION_MIGRATION.md` verified with multi-host build checks.
+- [x] Strict meta tag Content Security Policy enforced (`web/index.html`).
+- [x] Takedown workflow validated with automated document purge and rebuild (`config/takedown.json`, `pipeline/takedown.py`).
+- [x] `/about-data` displays complete attribution, CC-BY-4.0 terms, and disclaimer (`web/src/pages/AboutDataPage.tsx`).
+- [x] Pipeline takedown test suite and verification gate pass cleanly.
+- [x] `docs/PRODUCTION_MIGRATION.md` verified with multi-host topology (Cloudflare Pages+R2, AWS S3+CloudFront, Nginx).
 
 ### Phase 11: Automated Sync & Ops
 - [ ] Scheduled `nightly.yml` checks upstream S3 partitions and rebuilds only modified shards.

@@ -1,0 +1,12 @@
+{
+  "takedowns": [
+    {
+      "jid": "takedown-sample-001",
+      "case_no": "WP 99999/2022",
+      "reason": "POCSO Section 74 statutory victim privacy protection order",
+      "requested_by": "High Court Registry Order No. 412/2023",
+      "date_added": "2026-01-15",
+      "court_order_ref": "HC-REG-2023-412"
+    }
+  ]
+}
