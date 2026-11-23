@@ -72,7 +72,7 @@ flowchart TD
     Sharder --> VectorShards
   end
 
-  subgraph Client["Client Web Browser (React 18 + Web Worker)"]
+  subgraph Client["Client Web Browser (React 19 + Web Worker)"]
     Worker["Search Web Worker (MiniSearch BM25)"]
     Vectors["Client Vector Cosine Similarity Engine"]
     RRF["Reciprocal Rank Fusion (RRF Engine)"]
@@ -158,7 +158,7 @@ When opening a judgment (`/case/<jid>`):
 
 | Layer / Subsystem | Technology | Purpose & Justification |
 | :--- | :--- | :--- |
-| **Frontend Framework** | **React 18 + Strict TypeScript** | Component hierarchy, typed schema contracts, virtual DOM reconciliation |
+| **Frontend Framework** | **React 19 + Strict TypeScript** | Component hierarchy, typed schema contracts, modern concurrency & action primitives |
 | **Build & Tooling** | **Vite 5** | Instant ESM HMR, tree-shaking, production chunk splitting (`index.js` 43 KB, `vendor.js` 55 KB) |
 | **Styling & Layout** | **Tailwind CSS + Typography** | Utility-first responsive design, dark mode, accessible contrast ratios |
 | **Court Memo Export** | **`@media print` CSS** | Formats clean A4 court research memoranda and precedent matrix annexures |

@@ -20,7 +20,7 @@ Crucially, **no application architecture rewrite is needed**. Because Nyaya AI R
 ```
                                     +-----------------------------------------+
                                     |         Advocate Browser Client         |
-                                    |   (React 18 + Vite + MiniSearch SPA)    |
+                                    |   (React 19 + Vite + MiniSearch SPA)    |
                                     +-------------------+---------------------+
                                                         |
                                 +-----------------------+-----------------------+

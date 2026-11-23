@@ -45,6 +45,28 @@ export interface CitationEdge {
   paragraph_indices: number[];
 }
 
+export interface ClassificationRecord {
+  domainId: string;
+  domainLabel: string;
+  subjectIds: string[];
+  jurisdictionType: 'Writ' | 'Appellate' | 'Original' | 'Revisional' | 'Special' | 'Unknown';
+  method: 'registry' | 'rule' | 'ai-advisory';
+  taxonomyVersion: string;
+  confidence: number;
+  evidenceParagraphs: number[];
+  reviewStatus: 'pending' | 'reviewed' | 'unknown';
+  ruleId?: string;
+}
+
+export interface ClassificationMetadata {
+  reviewStatus: 'pending' | 'reviewed' | 'unknown';
+  reviewedBy?: string;
+  reviewedAt?: string;
+  statedClassification?: ClassificationRecord;
+  inferredClassification?: ClassificationRecord[];
+  anomaliesDetected?: string[];
+}
+
 export interface JudgmentDocument {
   jid: string;
   cnr: string;
@@ -55,6 +77,7 @@ export interface JudgmentDocument {
   coram_type: 'Single Judge' | 'Division Bench' | 'Full Bench' | 'Constitution Bench';
   judges: string[];
   case_type: string;
+  raw_case_type?: string;
   case_number: string;
   decision_date: string;
   parties: {
@@ -76,6 +99,7 @@ export interface JudgmentDocument {
     purpose_stage: boolean;
     coram_type: boolean;
   };
+  classification_metadata?: ClassificationMetadata;
 }
 
 export interface SearchFilters {

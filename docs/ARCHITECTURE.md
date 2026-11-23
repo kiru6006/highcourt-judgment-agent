@@ -26,7 +26,7 @@ flowchart TD
     end
 
     subgraph Layer3["3. Client Browser Runtime (React + Vite + Web Workers)"]
-        App["React 18+ App (Vite)<br/>Tailwind CSS + Headless UI / Virtual Scroll"]
+        App["React 19 App (Vite)<br/>Tailwind CSS + Headless UI / Virtual Scroll"]
         Worker["Search & Hybrid Retrieval Web Worker<br/>Manifest Filter -> Shard Fetch -> BM25 + Dot-Product"]
         Cache["Browser Cache API & IndexedDB<br/>(Shard caching, AI response caching, local folders)"]
         AI["Grounded AI Engine (Client-side Verifier)<br/>Demo Mode / BYOK (Gemini, Anthropic, OpenAI)"]
