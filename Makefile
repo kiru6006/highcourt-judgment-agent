@@ -1,9 +1,12 @@
 PYTHON := .venv/bin/python
 NODE := $(shell which node 2>/dev/null || echo "/Users/apple/.nvm/versions/node/v24.11.1/bin/node")
 
-.PHONY: all spike clean
+.PHONY: all spike clean verify
 
 all: spike
+
+verify:
+	bash scripts/verify-all.sh
 
 spike:
 	@echo "=== Running NyayaReader Phase 2 Data Spike ==="

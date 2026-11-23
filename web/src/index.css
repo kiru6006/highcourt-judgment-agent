@@ -23,3 +23,46 @@
 .highlight-flash {
   animation: amberFlash 2.5s ease-out;
 }
+
+/* Advocate Court Memorandum Print Styles */
+@media print {
+  body {
+    background: white !important;
+    color: black !important;
+    font-size: 11pt !important;
+  }
+
+  header,
+  footer,
+  aside,
+  nav,
+  button,
+  .no-print,
+  [role="dialog"] {
+    display: none !important;
+  }
+
+  main {
+    overflow: visible !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 100% !important;
+  }
+
+  .max-w-3xl {
+    max-width: 100% !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+  }
+
+  p {
+    orphans: 3;
+    widows: 3;
+  }
+
+  @page {
+    margin: 1.5cm 1.5cm 2cm 1.5cm;
+    size: A4 portrait;
+  }
+}

@@ -12,7 +12,9 @@ import {
   BookOpen,
   ArrowLeft,
   Loader2,
-  Tag
+  Tag,
+  Bookmark,
+  Printer
 } from 'lucide-react';
 import { JudgmentDocument } from '../types/schema';
 import { fetchJudgmentDocument } from '../reader/doc-loader';
@@ -20,12 +22,14 @@ import { ExtractiveBrief } from '../components/ExtractiveBrief';
 import { StatuteBridgeDrawer } from '../components/StatuteBridgeDrawer';
 import { CitationsDrawer } from '../components/CitationsDrawer';
 import { GroundedCopilot } from '../components/GroundedCopilot';
+import { SaveToFolderModal } from '../components/SaveToFolderModal';
 
 export const ReaderPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const [judgment, setJudgment] = useState<JudgmentDocument | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [loadError, setLoadError] = useState<string | null>(null);
+  const [showSaveModal, setShowSaveModal] = useState<boolean>(false);
 
   const [viewMode, setViewMode] = useState<'original' | 'brief'>('original');
   const [activeRightTab, setActiveRightTab] = useState<'statutes' | 'citations' | 'copilot'>('statutes');
@@ -177,6 +181,24 @@ export const ReaderPage: React.FC = () => {
             <span className="font-mono text-[11px]">{fontSize}px</span>
             <button onClick={() => setFontSize(f => Math.min(22, f + 1))} className="px-1 hover:text-amber-600 font-bold">+</button>
           </div>
+
+          <button
+            onClick={() => setShowSaveModal(true)}
+            title="Save to Case Folder"
+            className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-300 hover:bg-amber-100 dark:hover:bg-amber-900/60 font-medium transition"
+          >
+            <Bookmark className="w-3.5 h-3.5" />
+            <span className="hidden sm:inline">Save</span>
+          </button>
+
+          <button
+            onClick={() => window.print()}
+            title="Print Court Memorandum"
+            className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 font-medium transition"
+          >
+            <Printer className="w-3.5 h-3.5" />
+            <span className="hidden sm:inline">Print Memo</span>
+          </button>
 
           {judgment.pdf_source_url && (
             <a
@@ -449,6 +471,24 @@ export const ReaderPage: React.FC = () => {
           </div>
         </div>
       )}
+
+      {/* Save to Folder Modal */}
+      <SaveToFolderModal
+        isOpen={showSaveModal}
+        onClose={() => setShowSaveModal(false)}
+        judgmentItem={{
+          jid: judgment.jid,
+          title: caseTitle,
+          caseNo: judgment.case_number,
+          courtName: judgment.court_name,
+          decisionDate: judgment.decision_date,
+          category: judgment.category || 'General',
+          disposal: judgment.disposal_nature,
+          savedAt: new Date().toISOString(),
+          statutes: judgment.statutes?.map((s: any) => typeof s === 'string' ? s : `${s.act_code || s.act} ${s.section}`) || [],
+          ratioExcerpt: judgment.paragraphs?.[0]?.text || ''
+        }}
+      />
     </div>
   );
 };

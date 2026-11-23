@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Calendar, User, BookOpen, AlertCircle, Globe } from 'lucide-react';
+import { Calendar, User, BookOpen, AlertCircle, Globe, Bookmark } from 'lucide-react';
 import { WebLinksModal } from './WebLinksModal';
+import { SaveToFolderModal } from './SaveToFolderModal';
 import { buildCaseWebLinks } from '../utils/web-links';
 
 interface ResultCardProps {
@@ -10,6 +11,7 @@ interface ResultCardProps {
 
 export const ResultCard: React.FC<ResultCardProps> = ({ judgment }) => {
   const [showWebLinks, setShowWebLinks] = useState(false);
+  const [showSaveModal, setShowSaveModal] = useState(false);
 
   // Normalize across JudgmentDocument and SearchShardRecord
   const jid = judgment.jid;
@@ -139,6 +141,14 @@ export const ResultCard: React.FC<ResultCardProps> = ({ judgment }) => {
         {/* Action Links */}
         <div className="flex items-center gap-3">
           <button
+            onClick={() => setShowSaveModal(true)}
+            title="Save to Case Folder"
+            className="inline-flex items-center gap-1 text-slate-600 dark:text-slate-400 hover:text-amber-600 dark:hover:text-amber-400 font-medium transition"
+          >
+            <Bookmark className="w-3.5 h-3.5" />
+            <span>Save</span>
+          </button>
+          <button
             onClick={() => setShowWebLinks(true)}
             className="inline-flex items-center gap-1 text-slate-600 dark:text-slate-400 hover:text-amber-600 dark:hover:text-amber-400 font-medium transition"
           >
@@ -154,6 +164,24 @@ export const ResultCard: React.FC<ResultCardProps> = ({ judgment }) => {
           </Link>
         </div>
       </div>
+
+      {/* Save to Folder Modal */}
+      <SaveToFolderModal
+        isOpen={showSaveModal}
+        onClose={() => setShowSaveModal(false)}
+        judgmentItem={{
+          jid,
+          title,
+          caseNo,
+          courtName,
+          decisionDate,
+          category,
+          disposal,
+          savedAt: new Date().toISOString(),
+          statutes,
+          ratioExcerpt: excerpt
+        }}
+      />
 
       {/* Web Links Modal */}
       <WebLinksModal

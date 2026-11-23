@@ -1,0 +1,9 @@
+{
+  "name": "highcourt-judgment-agent",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "verify": "bash scripts/verify-all.sh"
+  }
+}

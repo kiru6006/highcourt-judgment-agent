@@ -97,10 +97,10 @@
 - [x] IndexedDB persistent caching keyed by `(jid, task, model, promptVersion)`.
 
 ### Phase 9: Advocate Research Workspace & Verification Suite
-- [ ] Local case folders in `IndexedDB` (save judgments, notes, web links, import/export JSON).
-- [ ] Markdown export and `@media print` court memo layout.
-- [ ] Precedent comparison table for 2–5 selected judgments.
-- [ ] Single verification command `npm run verify` passes locally and in CI.
+- [x] Local case folders in `IndexedDB`/`localStorage` (save judgments, notes, web links, import/export JSON).
+- [x] Markdown export and `@media print` court memo layout.
+- [x] Precedent comparison table for 2–5 selected judgments.
+- [x] Single verification command `npm run verify` passes locally and in CI.
 
 ### Phase 10: Security, Compliance & Production Migration
 - [ ] Strict meta tag Content Security Policy enforced.
