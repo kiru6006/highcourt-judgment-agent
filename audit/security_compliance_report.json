@@ -1,0 +1,23 @@
+{
+  "compliance_files": [
+    "LICENSE: MISSING",
+    "LICENSE.md: MISSING",
+    "NOTICE: MISSING",
+    "THIRD_PARTY.md: MISSING",
+    "docs/TAKEDOWN.md: MISSING",
+    "docs/PRIVACY.md: MISSING",
+    "docs/SECURITY_PRIVACY.md: PRESENT"
+  ],
+  "inner_html_usages": [
+
+  ],
+  "csp_header_present": true,
+  "csp_content": "    <meta http-equiv=\"Content-Security-Policy\" content=\"default-src 'self'; script-src 'self' 'unsafe-inline' https:; style-src 'self' 'unsafe-inline' https:; connect-src 'self' https://generativelanguage.googleapis.com https://*.github.io https://registry.opendata.aws; img-src 'self' data: https:; font-src 'self' data: https:; object-src 'none'; base-uri 'self';\" />",
+  "hardcoded_secrets_found": false,
+  "hardcoded_secrets": [
+
+  ],
+  "key_storage_references": [
+
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "shards": [
+    {
+      "file": "docs-33_10-2022.json.gz",
+      "size_mb": 0.0492,
+      "doc_count": 46,
+      "within_25mb_limit": true
+    }
+  ],
+  "sample_shards": [],
+  "synthetic_in_source": false,
+  "metrics": {
+    "total_documents_indexed": 46,
+    "unique_courts": [
+      "Unknown"
+    ],
+    "unique_years": [
+      0
+    ],
+    "average_paragraphs_per_doc": 4.59,
+    "docs_with_tagged_sections": 46,
+    "tagged_sections_percentage": 100.0,
+    "placeholder_metadata_count": 0,
+    "placeholder_metadata_percentage": 0.0,
+    "manifest_reported_docs": "N/A",
+    "manifest_as_of": "N/A",
+    "manifest_embedding_model": "N/A"
+  },
+  "synthetic_fixture_present": true,
+  "synthetic_judgments_count": 8
+}

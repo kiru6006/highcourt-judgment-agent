@@ -1,0 +1,150 @@
+{
+  "routes": [
+    {
+      "route": "/",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "footerAttributionFound": true,
+      "pageTitle": "NyayaReader — Indian High Court Judgment Search & Reader",
+      "loadTimeMs": 2467
+    },
+    {
+      "route": "/search",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "footerAttributionFound": true,
+      "pageTitle": "NyayaReader — Indian High Court Judgment Search & Reader",
+      "loadTimeMs": 621
+    },
+    {
+      "route": "/case/HCMA01-CRL-OP-2022-101",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "footerAttributionFound": true,
+      "pageTitle": "NyayaReader — Indian High Court Judgment Search & Reader",
+      "loadTimeMs": 635
+    },
+    {
+      "route": "/links",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "footerAttributionFound": true,
+      "pageTitle": "NyayaReader — Indian High Court Judgment Search & Reader",
+      "loadTimeMs": 649
+    },
+    {
+      "route": "/folders",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "footerAttributionFound": true,
+      "pageTitle": "NyayaReader — Indian High Court Judgment Search & Reader",
+      "loadTimeMs": 640
+    },
+    {
+      "route": "/about-data",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "footerAttributionFound": true,
+      "pageTitle": "NyayaReader — Indian High Court Judgment Search & Reader",
+      "loadTimeMs": 644
+    },
+    {
+      "route": "/",
+      "viewport": {
+        "width": 375,
+        "height": 667
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "footerAttributionFound": true,
+      "pageTitle": "NyayaReader — Indian High Court Judgment Search & Reader",
+      "loadTimeMs": 794
+    },
+    {
+      "route": "/search",
+      "viewport": {
+        "width": 375,
+        "height": 667
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "footerAttributionFound": true,
+      "pageTitle": "NyayaReader — Indian High Court Judgment Search & Reader",
+      "loadTimeMs": 636
+    },
+    {
+      "route": "/case/HCMA01-CRL-OP-2022-101",
+      "viewport": {
+        "width": 375,
+        "height": 667
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "footerAttributionFound": true,
+      "pageTitle": "NyayaReader — Indian High Court Judgment Search & Reader",
+      "loadTimeMs": 619
+    },
+    {
+      "route": "/links",
+      "viewport": {
+        "width": 375,
+        "height": 667
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "footerAttributionFound": true,
+      "pageTitle": "NyayaReader — Indian High Court Judgment Search & Reader",
+      "loadTimeMs": 623
+    },
+    {
+      "route": "/folders",
+      "viewport": {
+        "width": 375,
+        "height": 667
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "footerAttributionFound": true,
+      "pageTitle": "NyayaReader — Indian High Court Judgment Search & Reader",
+      "loadTimeMs": 622
+    },
+    {
+      "route": "/about-data",
+      "viewport": {
+        "width": 375,
+        "height": 667
+      },
+      "status": 200,
+      "consoleErrors": [],
+      "footerAttributionFound": true,
+      "pageTitle": "NyayaReader — Indian High Court Judgment Search & Reader",
+      "loadTimeMs": 615
+    }
+  ],
+  "deepLinkRefreshOk": false,
+  "aboutDataPresent": true
+}

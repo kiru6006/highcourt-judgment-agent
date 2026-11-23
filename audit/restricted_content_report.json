@@ -1,0 +1,63 @@
+{
+  "active_rules_count": 3,
+  "active_rules": [
+    "pocso_protection",
+    "s228a_ipc_protection",
+    "juvenile_justice"
+  ],
+  "test_results": [
+    {
+      "fixture_id": "FIXTURE-POCSO-01",
+      "category": "POCSO in Header",
+      "status": "QUARANTINED",
+      "matched_rule": "pocso_protection",
+      "leaks_into_production": false,
+      "root_cause": "None"
+    },
+    {
+      "fixture_id": "FIXTURE-POCSO-02-LATE",
+      "category": "POCSO Mentioned in Para 8 Only",
+      "status": "LEAKED",
+      "matched_rule": "pocso_protection",
+      "leaks_into_production": true,
+      "root_cause": "Only first 3 paragraphs inspected in pipeline/quarantine.py line 56"
+    },
+    {
+      "fixture_id": "FIXTURE-JUVENILE-01",
+      "category": "Juvenile Conflict with Law",
+      "status": "QUARANTINED",
+      "matched_rule": "juvenile_justice",
+      "leaks_into_production": false,
+      "root_cause": "None"
+    },
+    {
+      "fixture_id": "FIXTURE-RAPE-NAME-01",
+      "category": "Section 376 IPC with Victim Identity (No 228A mention)",
+      "status": "LEAKED",
+      "matched_rule": null,
+      "leaks_into_production": true,
+      "root_cause": "Missing regex pattern in config/restricted.json"
+    },
+    {
+      "fixture_id": "FIXTURE-IN-CAMERA-01",
+      "category": "In-Camera / Prohibited Publication Marker",
+      "status": "LEAKED",
+      "matched_rule": null,
+      "leaks_into_production": true,
+      "root_cause": "Missing regex pattern in config/restricted.json"
+    },
+    {
+      "fixture_id": "FIXTURE-MATRIMONIAL-SEALED-01",
+      "category": "Matrimonial Custody Sealed Cover",
+      "status": "LEAKED",
+      "matched_rule": null,
+      "leaks_into_production": true,
+      "root_cause": "Missing regex pattern in config/restricted.json"
+    }
+  ],
+  "vulnerabilities": [
+    "DEF-SEC-01: pipeline/quarantine.py only checks paragraphs[:3], leaking sensitive content in subsequent paragraphs.",
+    "DEF-SEC-02: No rule for in-camera / prohibited publication / sealed cover markers.",
+    "DEF-SEC-03: No rule for Section 376 IPC / sexual assault victim names unless Section 228A is explicitly cited."
+  ]
+}
