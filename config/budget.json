@@ -1,0 +1,8 @@
+{
+  "limits": {
+    "pages_artifact_mb_max": 500,
+    "shard_mb_max": 25,
+    "first_load_js_kb_max": 300,
+    "git_sample_mb_max": 5
+  }
+}

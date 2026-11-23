@@ -15,14 +15,14 @@
 
 ---
 
-### D-001: Frontend Framework (Angular Standalone vs React)
-- **Status**: Accepted
+### D-001: Frontend Framework (React + Vite + TypeScript)
+- **Status**: Accepted (Overridden by User Directive)
 - **Date**: 2026-11-23
-- **Context**: Previous project drafts alternated between React+Vite and Angular. The user's standing engineering stack is Angular standalone with strict TypeScript, Tailwind CSS, and Angular CDK.
-- **Decision**: Adopt **Angular (current stable v18+) with standalone components**, signals, Tailwind CSS, and Angular CDK (`@angular/cdk/scrolling` for virtual lists, `@angular/cdk/a11y`, `@angular/cdk/overlay`).
+- **Context**: Playbook initially defaulted to Angular standalone, but the user explicitly requested: "no angular - react is for frontend".
+- **Decision**: Adopt **React (v18+) with Vite, strict TypeScript, Tailwind CSS**, and modern lightweight ecosystem libraries (`lucide-react` for icons, `@tanstack/react-virtual` for virtual scrolling, `@radix-ui` / headless primitives for accessible overlays/drawers).
 - **Consequences**:
-  - High enterprise UI consistency, strict dependency injection, and integrated router.
-  - React + Vite + shadcn is rejected. No mixing of React and Angular codebases.
+  - Extremely fast Vite build times, lightweight bundle footprint ($\le 150\text{ KB}$ gz initial load), and rapid developer ergonomics.
+  - No Angular dependencies. Complete React ecosystem compatibility.
 
 ---
 

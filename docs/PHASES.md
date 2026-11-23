@@ -29,7 +29,7 @@
 - [x] Git commit message `docs: phase0 — product, architecture, decisions, specs`, tagged `phase-0`, pushed to origin.
 
 ### Phase 1: Scaffold, CI, Pages & Fixture UI Skeleton
-- [ ] Angular standalone app in `web/` with Tailwind CSS, CDK, strict TypeScript, and ESLint.
+- [ ] React app in `web/` with Vite, Tailwind CSS, TypeScript strict, and ESLint.
 - [ ] Routes active: `/`, `/search`, `/case/:id`, `/links`, `/folders`, `/about-data`.
 - [ ] Top bar with brand, search box, and mode switch.
 - [ ] Left-rail facets with live counts and clear-all chips.

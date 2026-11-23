@@ -12,7 +12,7 @@ Total Requirements Audited: **54**
 | Req ID | Requirement Description | Source Document | Assigned Phase | Status | Notes / Rationale |
 |---|---|---|---|---|---|
 | **R-001** | Static-first architecture (GitHub Pages static host) | Playbook §1, PRD3 §4 | Phase 1 | Accepted | Zero server at runtime; Python runs only offline in CI |
-| **R-002** | Angular standalone + Tailwind + CDK frontend stack | Playbook §2, PRD3 §4 | Phase 1 | Accepted | Locked under D-001; overrides earlier React drafts |
+| **R-002** | React + Vite + TypeScript + Tailwind frontend stack | Playbook §2, PRD3 §4 | Phase 1 | Accepted | Locked under D-001; user directive overrides earlier Angular draft |
 | **R-003** | Unified search bar (party, case no, section, legal issue) | PRD3 §5.A, Playbook Phase 1 | Phase 1 (UI), Phase 4 (Worker) | Accepted | Query parser handles case formats, section names, free text |
 | **R-004** | Dual-mode toggle (Indexed Corpus vs Multi-Source Web Links) | PRD3 §5.A, Playbook Phase 1 | Phase 1 (UI), Phase 5 (Live) | Accepted | Instant switch between in-corpus reader and external deep links |
 | **R-005** | Left-rail facet: High Court selection | PRD3 §5.B, Playbook Phase 1 | Phase 1 (UI), Phase 5 (Live) | Accepted | Filter by court code (Madras 33~10, Karnataka 29~3, Delhi 7~26) |

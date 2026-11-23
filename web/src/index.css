@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+.legal-prose {
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  line-height: 1.75;
+}
+
+/* Flash highlight animation for jumping to cited paragraph */
+@keyframes amberFlash {
+  0% { background-color: rgba(245, 158, 11, 0.4); }
+  50% { background-color: rgba(245, 158, 11, 0.2); }
+  100% { background-color: transparent; }
+}
+
+.highlight-flash {
+  animation: amberFlash 2.5s ease-out;
+}

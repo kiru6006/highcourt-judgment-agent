@@ -43,9 +43,9 @@ NyayaReader provides an open-access, distraction-free environment for Indian adv
 
 ## 3. Technology Stack
 
-- **Frontend**: Angular 18+ (Standalone components, Signals, Router, Strict TypeScript).
+- **Frontend**: React 18+ with Vite (Functional components, Hooks, React Router, Strict TypeScript).
 - **Styling**: Tailwind CSS + Typography.
-- **UI Tooling**: Angular CDK (`@angular/cdk/scrolling` for 60fps virtual lists, `@angular/cdk/a11y`, `@angular/cdk/overlay`).
+- **UI Tooling**: Lucide Icons, Virtual Scroll (`@tanstack/react-virtual`), Headless/Radix primitives.
 - **Client Search**: Web Worker BM25 (Orama / MiniSearch) + Cache API & IndexedDB.
 - **Data Ingestion**: Python 3.11 (PyMuPDF, Tesseract OCR fallback, MinHash dedupe).
 - **Embeddings & Indexing**: Node.js 20 (`transformers.js` with `BAAI/bge-small-en-v1.5` int8).
@@ -78,13 +78,32 @@ The `docs/` directory contains complete architecture and technical specification
 - Python 3.11+
 - Git
 
-### Running the Web App (Available after Phase 1)
+### Running the Web App
 ```bash
+# Navigate to web application directory
 cd web
+
+# Install dependencies from lockfile
 npm ci
-npm start
+
+# Start development server
+npm start   # or: npm run dev
+
+# Run unit tests
+npm run test
+
+# Build production bundle with base path
+npm run build
+
+# Preview production build locally
+npm run preview
 ```
-Open `http://localhost:4200/` in your browser.
+Visit `http://localhost:4200/` in your browser.
+
+### Verifying Performance & Size Budgets
+```bash
+./scripts/check-budget.sh
+```
 
 ---
 
