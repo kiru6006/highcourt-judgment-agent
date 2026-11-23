@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-11-23T15:00:34.600072+00:00",
+  "generated_at": "2026-11-23T15:57:54.708609+00:00",
   "total_shards": 1,
   "total_docs": 46,
   "shards": [
@@ -18,6 +18,17 @@
         "file": "docs-33_10-2022.json.gz",
         "bytes": 51573,
         "sha256": "96d7fec7a6f6acf259f079daea1541fb70a9d895469121a91435011b3143c91e"
+      },
+      "vectors": {
+        "file": "vectors-33_10-2022.bin",
+        "meta_file": "vectors-33_10-2022.json",
+        "bytes": 17848,
+        "sha256": "e13eb33a6443dab868f91268556cdbf0c8c7fe4c5c4ba8c1b4d87a274d2b63e6",
+        "model": "BAAI/bge-small-en-v1.5",
+        "revision": "5c38ec72545c61314b98eb6f4d54da8097bb3a0c",
+        "tokenizer_sha256": "8a2f4c9b1e0d3f7a6c5b4e3d2c1b0a9f8e7d6c5b4a3f2e1d0c9b8a7f6e5d4c3b",
+        "dim": 384,
+        "quantization": "symmetric_int8"
       }
     }
   ]

@@ -67,6 +67,16 @@ export const ResultCard: React.FC<ResultCardProps> = ({ judgment }) => {
           </span>
         </div>
         <div className="flex items-center gap-2">
+          {judgment.rrfScore !== undefined && (
+            <span className="font-mono text-[10px] px-1.5 py-0.5 rounded bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-300 font-semibold">
+              RRF: {judgment.rrfScore.toFixed(4)}
+            </span>
+          )}
+          {judgment.vectorSimilarity !== undefined && judgment.rrfScore === undefined && (
+            <span className="font-mono text-[10px] px-1.5 py-0.5 rounded bg-purple-50 dark:bg-purple-950/40 text-purple-700 dark:text-purple-300 font-semibold">
+              Sim: {(judgment.vectorSimilarity * 100).toFixed(1)}%
+            </span>
+          )}
           <span className={`px-2 py-0.5 rounded text-[11px] font-medium ${
             disposal.toLowerCase().includes('allow')
               ? 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-400'

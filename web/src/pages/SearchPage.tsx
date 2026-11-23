@@ -22,6 +22,7 @@ export const SearchPage: React.FC<SearchPageProps> = ({
   const [engine] = useState(() => new SearchEngine());
   const [isShardsLoaded, setIsShardsLoaded] = useState(false);
   const [searchResponse, setSearchResponse] = useState<SearchResponse | null>(null);
+  const [searchMode, setSearchMode] = useState<'keyword' | 'semantic' | 'hybrid'>('hybrid');
 
   // Sync from URL search params on mount
   useEffect(() => {
@@ -103,6 +104,33 @@ export const SearchPage: React.FC<SearchPageProps> = ({
               engine.addRecords(records, shard.shard_id);
             }
           }
+
+          if (shard.vectors?.file) {
+            try {
+              const vecUrl = `${baseHref}data-sample/${shard.vectors.file}`;
+              const metaUrl = shard.vectors.meta_file
+                ? `${baseHref}data-sample/${shard.vectors.meta_file}`
+                : null;
+
+              const vRes = await fetch(vecUrl);
+              if (vRes.ok) {
+                const vecBuf = await vRes.arrayBuffer();
+                let jids: string[] = [];
+                if (metaUrl) {
+                  const mRes2 = await fetch(metaUrl);
+                  if (mRes2.ok) {
+                    const metaJson = await mRes2.json();
+                    jids = metaJson.jids || [];
+                  }
+                }
+                if (isMounted && jids.length > 0) {
+                  engine.addVectors(jids, vecBuf, shard.vectors.model, shard.vectors.tokenizer_sha256);
+                }
+              }
+            } catch {
+              // Ignore vector load failure and fallback to lexical
+            }
+          }
         }
 
         if (isMounted) {
@@ -116,13 +144,13 @@ export const SearchPage: React.FC<SearchPageProps> = ({
     return () => { isMounted = false; };
   }, [engine]);
 
-  // Execute Search whenever query, filters, or shard readiness changes
+  // Execute Search whenever query, filters, mode, or shard readiness changes
   useEffect(() => {
     if (isShardsLoaded) {
-      const resp = engine.search(filters.query, filters, 1, 50);
+      const resp = engine.search(filters.query, filters, 1, 50, searchMode);
       setSearchResponse(resp);
     }
-  }, [filters, isShardsLoaded, engine]);
+  }, [filters, isShardsLoaded, engine, searchMode]);
 
   // Fallback synthetic filter if shards not loaded
   const fallbackFilteredJudgments = useMemo(() => {
@@ -215,12 +243,48 @@ export const SearchPage: React.FC<SearchPageProps> = ({
               )}
             </div>
 
-            {searchResponse?.executionTimeMs !== undefined && (
-              <div className="flex items-center gap-1 font-mono text-[11px] text-slate-400">
-                <Clock className="w-3 h-3 text-amber-500" />
-                <span>{searchResponse.executionTimeMs} ms</span>
+            <div className="flex items-center gap-2">
+              {/* Search Mode Toggle */}
+              <div className="flex items-center bg-slate-100 dark:bg-slate-800 rounded-lg p-0.5 text-[11px] font-medium">
+                <button
+                  onClick={() => setSearchMode('keyword')}
+                  className={`px-2 py-0.5 rounded transition ${
+                    searchMode === 'keyword'
+                      ? 'bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 shadow-sm font-semibold'
+                      : 'text-slate-600 dark:text-slate-400'
+                  }`}
+                >
+                  Keyword
+                </button>
+                <button
+                  onClick={() => setSearchMode('semantic')}
+                  className={`px-2 py-0.5 rounded transition ${
+                    searchMode === 'semantic'
+                      ? 'bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 shadow-sm font-semibold'
+                      : 'text-slate-600 dark:text-slate-400'
+                  }`}
+                >
+                  Semantic
+                </button>
+                <button
+                  onClick={() => setSearchMode('hybrid')}
+                  className={`px-2 py-0.5 rounded transition ${
+                    searchMode === 'hybrid'
+                      ? 'bg-amber-600 text-white shadow-sm font-semibold'
+                      : 'text-slate-600 dark:text-slate-400'
+                  }`}
+                >
+                  Hybrid (RRF)
+                </button>
               </div>
-            )}
+
+              {searchResponse?.executionTimeMs !== undefined && (
+                <div className="flex items-center gap-1 font-mono text-[11px] text-slate-400">
+                  <Clock className="w-3 h-3 text-amber-500" />
+                  <span>{searchResponse.executionTimeMs} ms</span>
+                </div>
+              )}
+            </div>
           </div>
 
           {/* Active Filter Chips */}

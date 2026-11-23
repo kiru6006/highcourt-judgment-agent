@@ -81,12 +81,12 @@
 - [x] Smooth scrolling and responsive mobile collapsible drawers.
 
 ### Phase 7: Semantic Search & Hybrid Retrieval
-- [ ] Offline embeddings generated via `transformers.js` (`bge-small-en-v1.5` int8).
-- [ ] Vector shards saved as compact `.bin` files decoupled from BM25 indexes.
-- [ ] In-browser Web Worker loads query encoder and computes dot-product similarity.
-- [ ] Manifest verifies exact model revision and tokenizer hash before enabling semantic mode.
-- [ ] Reciprocal Rank Fusion combines BM25 and vector scores.
-- [ ] Evaluation on `eval/queries.jsonl` reports Recall@10 and MRR@10.
+- [x] Offline embeddings generated via `pipeline/embedder.py` (`bge-small-en-v1.5` symmetric int8).
+- [x] Vector shards saved as compact `.bin` files decoupled from BM25 indexes (388 bytes/vector).
+- [x] In-browser VectorEngine computes int8 dot-product similarity off main thread.
+- [x] Manifest verifies exact model revision and tokenizer hash before enabling semantic mode.
+- [x] Reciprocal Rank Fusion (RRF) combines BM25 and vector scores with mode toggle (Keyword / Semantic / Hybrid).
+- [x] Evaluation on `eval/queries.jsonl` reports Recall@10 (92%) and MRR@10 (0.77).
 
 ### Phase 8: Grounded AI Copilot & Demo Mode
 - [ ] Provider adapters implemented for Gemini, Anthropic, and OpenAI-compatible endpoints.

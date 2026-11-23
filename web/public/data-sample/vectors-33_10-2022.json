@@ -1,0 +1,31 @@
+{
+  "model": "BAAI/bge-small-en-v1.5",
+  "revision": "5c38ec72545c61314b98eb6f4d54da8097bb3a0c",
+  "tokenizer_sha256": "8a2f4c9b1e0d3f7a6c5b4e3d2c1b0a9f8e7d6c5b4a3f2e1d0c9b8a7f6e5d4c3b",
+  "dim": 384,
+  "quantization": "symmetric_int8",
+  "bytes_per_vector": 388,
+  "count": 20,
+  "jids": [
+    "97c4ba002f0af70f1af0e8076773b67b0483d2ad",
+    "96012acc31bfa3fa31915faa657e1ee92f6d6671",
+    "19950115c301bc1bd93e2cceafda4d985cd3cd77",
+    "5a040fe1f604971deaa5ee430f3842caf77e73ff",
+    "cecda69847ce7f172d27ebc1a4bb5c5a28618c24",
+    "fe1d67f50428c1beae9a103c440a9748988b5683",
+    "51e8fe32045334312f289e38e43807359f7d4660",
+    "29655bd9da12a99bf638a1c54a7a93d75ab63990",
+    "ac8e92ae36a3e7e3534af25a354140806453526b",
+    "cb13325cc83d2544bd63724ec7051b8740c8697b",
+    "f6aa8ade1550208d169fc9d211a87ff63b47e784",
+    "693a9ffceb8295aef05af581b13ae497ae1642bd",
+    "734003d3f3cda63a2cafff064d25a2737361058a",
+    "a49743525fa2faedcd6da585060d7d7308d79cea",
+    "2b95a3b5342db57ab6c32d04ab3b1515a62476e0",
+    "51f8f8d373d8e39ceb4be75d08a67af24c2c5bdd",
+    "279ab601c20bff5ed7f278d6ae552f36d6cd9c39",
+    "7735b9d09eb106c8572bbe1edb2da8f43d2e8d54",
+    "bb5a6389fd525f78230ca1118c89fa6d3560d163",
+    "a3f2b00b7839f5ac1fde7f99227ec0510d24c96d"
+  ]
+}

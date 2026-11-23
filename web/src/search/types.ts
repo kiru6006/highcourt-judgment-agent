@@ -1,5 +1,7 @@
 import { SearchFilters } from '../types/schema';
 
+export type SearchMode = 'keyword' | 'semantic' | 'hybrid';
+
 export interface SearchShardRecord {
   jid: string;
   title: string;
@@ -31,6 +33,17 @@ export interface ManifestShard {
     bytes: number;
     sha256: string;
   };
+  vectors?: {
+    file: string;
+    meta_file?: string | null;
+    bytes: number;
+    sha256: string;
+    model: string;
+    revision?: string;
+    tokenizer_sha256?: string;
+    dim: number;
+    quantization: string;
+  };
 }
 
 export interface Manifest {
@@ -56,6 +69,8 @@ export interface FacetDistribution {
 
 export interface SearchResultItem extends SearchShardRecord {
   score?: number;
+  vectorSimilarity?: number;
+  rrfScore?: number;
   matchHighlights?: string[];
 }
 
@@ -66,12 +81,22 @@ export interface SearchResponse {
   pageSize: number;
   facets: FacetDistribution;
   executionTimeMs: number;
+  mode?: SearchMode;
 }
 
 export type WorkerRequest =
   | { type: 'INIT'; payload: { manifest: Manifest; shardData: SearchShardRecord[] } }
   | { type: 'LOAD_SHARD_DATA'; payload: { shardId: string; records: SearchShardRecord[] } }
-  | { type: 'SEARCH'; payload: { query: string; filters: Partial<SearchFilters>; page?: number; pageSize?: number } };
+  | {
+      type: 'SEARCH';
+      payload: {
+        query: string;
+        filters: Partial<SearchFilters>;
+        mode?: SearchMode;
+        page?: number;
+        pageSize?: number;
+      };
+    };
 
 export type WorkerResponse =
   | { type: 'INIT_SUCCESS'; payload: { totalDocs: number; shardCount: number } }

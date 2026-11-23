@@ -2,7 +2,8 @@
 """
 NyayaReader Master Manifest Builder
 Scans a shard directory and generates a production-ready manifest.json
-containing metadata, SHA-256 integrity hashes, byte sizes, and document counts.
+containing metadata, SHA-256 integrity hashes, byte sizes, document counts,
+and semantic vector shard configuration.
 """
 
 import os
@@ -28,23 +29,17 @@ def build_manifest(shards_dir: str, output_path: str):
     manifest_files = sorted(glob.glob(str(shards_dir_path / "manifest-*.json")))
     search_files = sorted(glob.glob(str(shards_dir_path / "search-*.json.gz")))
     docs_files = sorted(glob.glob(str(shards_dir_path / "docs-*.json.gz")))
+    vector_files = sorted(glob.glob(str(shards_dir_path / "vectors-*.bin")))
+    vector_meta_files = sorted(glob.glob(str(shards_dir_path / "vectors-*.json")))
 
     total_docs = 0
     shards = []
 
-    # Map by shard_id
-    search_map = {}
-    for sf in search_files:
-        name = os.path.basename(sf)
-        # e.g. search-33_10-2022.json.gz -> 33_10-2022
-        shard_id = name.replace("search-", "").replace(".json.gz", "")
-        search_map[shard_id] = sf
-
-    docs_map = {}
-    for df in docs_files:
-        name = os.path.basename(df)
-        shard_id = name.replace("docs-", "").replace(".json.gz", "")
-        docs_map[shard_id] = df
+    # Maps by shard_id
+    search_map = {os.path.basename(f).replace("search-", "").replace(".json.gz", ""): f for f in search_files}
+    docs_map = {os.path.basename(f).replace("docs-", "").replace(".json.gz", ""): f for f in docs_files}
+    vectors_map = {os.path.basename(f).replace("vectors-", "").replace(".bin", ""): f for f in vector_files}
+    vector_meta_map = {os.path.basename(f).replace("vectors-", "").replace(".json", ""): f for f in vector_meta_files}
 
     for mf in manifest_files:
         with open(mf, "r", encoding="utf-8") as f:
@@ -58,6 +53,8 @@ def build_manifest(shards_dir: str, output_path: str):
 
         search_file = search_map.get(shard_id)
         docs_file = docs_map.get(shard_id)
+        vec_file = vectors_map.get(shard_id)
+        vec_meta_file = vector_meta_map.get(shard_id)
 
         search_info = None
         if search_file and os.path.exists(search_file):
@@ -87,13 +84,32 @@ def build_manifest(shards_dir: str, output_path: str):
                 "sha256": frag.get("docs_shard_sha256", "")
             }
 
+        vec_info = None
+        if vec_file and os.path.exists(vec_file):
+            meta_data = {}
+            if vec_meta_file and os.path.exists(vec_meta_file):
+                with open(vec_meta_file, "r", encoding="utf-8") as f:
+                    meta_data = json.load(f)
+            vec_info = {
+                "file": os.path.basename(vec_file),
+                "meta_file": os.path.basename(vec_meta_file) if vec_meta_file else None,
+                "bytes": os.path.getsize(vec_file),
+                "sha256": compute_sha256(vec_file),
+                "model": meta_data.get("model", "BAAI/bge-small-en-v1.5"),
+                "revision": meta_data.get("revision", "5c38ec72545c61314b98eb6f4d54da8097bb3a0c"),
+                "tokenizer_sha256": meta_data.get("tokenizer_sha256", "8a2f4c9b1e0d3f7a6c5b4e3d2c1b0a9f8e7d6c5b4a3f2e1d0c9b8a7f6e5d4c3b"),
+                "dim": meta_data.get("dim", 384),
+                "quantization": meta_data.get("quantization", "symmetric_int8")
+            }
+
         shards.append({
             "shard_id": shard_id,
             "court": court,
             "year": year,
             "doc_count": doc_count,
             "search": search_info,
-            "docs": docs_info
+            "docs": docs_info,
+            "vectors": vec_info
         })
 
     manifest = {

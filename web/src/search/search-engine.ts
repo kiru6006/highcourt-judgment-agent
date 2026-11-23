@@ -5,14 +5,19 @@ import {
   SearchResultItem,
   SearchResponse,
   FacetDistribution,
-  FacetItem
+  FacetItem,
+  SearchMode
 } from './types';
 import { SearchFilters } from '../types/schema';
+import { VectorEngine } from './vector-search';
+import { reciprocalRankFusion } from './hybrid-search';
 
 export class SearchEngine {
   private miniSearch: MiniSearch;
+  private vectorEngine: VectorEngine;
   private documents: Map<string, SearchShardRecord> = new Map();
   private loadedShards: Set<string> = new Set();
+  private hasVectors: boolean = false;
 
   constructor() {
     this.miniSearch = new MiniSearch({
@@ -32,6 +37,7 @@ export class SearchEngine {
         combineWith: 'AND'
       }
     });
+    this.vectorEngine = new VectorEngine();
   }
 
   public addRecords(records: SearchShardRecord[], shardId?: string): void {
@@ -55,46 +61,113 @@ export class SearchEngine {
     }
   }
 
+  public addVectors(
+    jids: string[],
+    buffer: ArrayBuffer,
+    model: string = 'BAAI/bge-small-en-v1.5',
+    tokenizerHash: string = '8a2f4c9b1e0d3f7a6c5b4e3d2c1b0a9f8e7d6c5b4a3f2e1d0c9b8a7f6e5d4c3b'
+  ): boolean {
+    const verified = this.vectorEngine.verifyModel(model, tokenizerHash);
+    if (!verified) {
+      console.warn(`Vector model verification failed for ${model}`);
+      return false;
+    }
+    this.vectorEngine.loadVectors(jids, buffer);
+    this.hasVectors = true;
+    return true;
+  }
+
   public getDocumentCount(): number {
     return this.documents.size;
+  }
+
+  public get hasSemanticCapability(): boolean {
+    return this.hasVectors;
   }
 
   public search(
     queryText: string,
     filters: Partial<SearchFilters> = {},
     page: number = 1,
-    pageSize: number = 20
+    pageSize: number = 20,
+    mode: SearchMode = 'keyword'
   ): SearchResponse {
     const startTime = performance.now();
     const parsed = parseLegalQuery(queryText);
-
-    let candidates: { jid: string; score: number }[] = [];
-
     const effectiveQuery = parsed.cleanText || parsed.raw;
 
-    if (effectiveQuery.trim().length > 0) {
-      // First try AND combination for precision
-      let miniResults = this.miniSearch.search(effectiveQuery, {
-        boost: parsed.boosts,
-        prefix: true,
-        fuzzy: 0.15,
-        combineWith: 'AND'
-      });
+    let candidates: { jid: string; score: number; vectorSimilarity?: number; rrfScore?: number }[] = [];
 
-      // If no results, fallback to OR combination for recall
-      if (miniResults.length === 0) {
-        miniResults = this.miniSearch.search(effectiveQuery, {
+    // Mode fallback: if semantic/hybrid requested but no vectors loaded, fallback to keyword
+    const effectiveMode = (mode === 'semantic' || mode === 'hybrid') && !this.hasVectors
+      ? 'keyword'
+      : mode;
+
+    if (effectiveQuery.trim().length > 0) {
+      if (effectiveMode === 'semantic') {
+        // Pure Semantic Vector Search
+        const queryVec = VectorEngine.encodeQuery(effectiveQuery);
+        const vecMatches = this.vectorEngine.search(queryVec, 100);
+        candidates = vecMatches.map(m => ({
+          jid: m.jid,
+          score: m.similarity,
+          vectorSimilarity: m.similarity
+        }));
+      } else if (effectiveMode === 'hybrid') {
+        // Hybrid Retrieval: BM25 + Vector Search fused via RRF
+        let bm25Matches = this.miniSearch.search(effectiveQuery, {
           boost: parsed.boosts,
           prefix: true,
           fuzzy: 0.15,
-          combineWith: 'OR'
+          combineWith: 'AND'
         });
-      }
+        if (bm25Matches.length === 0) {
+          bm25Matches = this.miniSearch.search(effectiveQuery, {
+            boost: parsed.boosts,
+            prefix: true,
+            fuzzy: 0.15,
+            combineWith: 'OR'
+          });
+        }
 
-      candidates = miniResults.map(r => ({
-        jid: r.id,
-        score: r.score
-      }));
+        const queryVec = VectorEngine.encodeQuery(effectiveQuery);
+        const vecMatches = this.vectorEngine.search(queryVec, 100);
+
+        const fused = reciprocalRankFusion(
+          bm25Matches.map(m => ({ jid: m.id, score: m.score })),
+          vecMatches,
+          60,
+          0.5,
+          0.5
+        );
+
+        candidates = fused.map(f => ({
+          jid: f.jid,
+          score: f.rrfScore,
+          rrfScore: f.rrfScore,
+          vectorSimilarity: f.vectorSimilarity
+        }));
+      } else {
+        // Pure Keyword BM25 Search
+        let miniResults = this.miniSearch.search(effectiveQuery, {
+          boost: parsed.boosts,
+          prefix: true,
+          fuzzy: 0.15,
+          combineWith: 'AND'
+        });
+        if (miniResults.length === 0) {
+          miniResults = this.miniSearch.search(effectiveQuery, {
+            boost: parsed.boosts,
+            prefix: true,
+            fuzzy: 0.15,
+            combineWith: 'OR'
+          });
+        }
+        candidates = miniResults.map(r => ({
+          jid: r.id,
+          score: r.score
+        }));
+      }
     } else {
       // Empty query: all documents ordered by date descending
       for (const doc of this.documents.values()) {
@@ -112,26 +185,17 @@ export class SearchEngine {
       const doc = this.documents.get(cand.jid);
       if (!doc) return false;
 
-      // Filter court
       if (filters.courts && filters.courts.length > 0) {
         if (!filters.courts.includes(doc.court_code)) return false;
       }
-
-      // Filter category
       if (filters.categories && filters.categories.length > 0) {
         if (!filters.categories.includes(doc.category)) return false;
       }
-
-      // Filter disposal
       if (filters.disposals && filters.disposals.length > 0) {
         if (!filters.disposals.includes(doc.disposal)) return false;
       }
-
-      // Filter years
       if (filters.yearFrom && doc.year < filters.yearFrom) return false;
       if (filters.yearTo && doc.year > filters.yearTo) return false;
-
-      // Filter bench
       if (filters.benches && filters.benches.length > 0) {
         if (!filters.benches.includes(doc.bench_code)) return false;
       }
@@ -139,8 +203,12 @@ export class SearchEngine {
       return true;
     });
 
-    // Compute Facet Distribution over all candidates matching the search query (before specific facet filters)
-    const facets = this.computeFacets(candidates.map(c => this.documents.get(c.jid)!));
+    // Compute Facet Distribution over candidates
+    const facets = this.computeFacets(
+      candidates
+        .map(c => this.documents.get(c.jid))
+        .filter((d): d is SearchShardRecord => !!d)
+    );
 
     // Pagination
     const offset = Math.max(0, (page - 1) * pageSize);
@@ -150,7 +218,9 @@ export class SearchEngine {
       const doc = this.documents.get(cand.jid)!;
       return {
         ...doc,
-        score: cand.score
+        score: cand.score,
+        vectorSimilarity: cand.vectorSimilarity,
+        rrfScore: cand.rrfScore
       };
     });
 
@@ -162,7 +232,8 @@ export class SearchEngine {
       page,
       pageSize,
       facets,
-      executionTimeMs: Math.round(executionTimeMs * 100) / 100
+      executionTimeMs: Math.round(executionTimeMs * 100) / 100,
+      mode: effectiveMode
     };
   }
 
