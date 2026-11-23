@@ -133,3 +133,45 @@ To expand corpus coverage to a new High Court:
 ### 4.4 Scaling Beyond GitHub Pages
 When total corpus exceeds GitHub Pages' 500 MB ceiling:
 - Refer to [`docs/PRODUCTION_MIGRATION.md`](PRODUCTION_MIGRATION.md) for deploying to **Cloudflare Pages + Cloudflare R2** (zero egress, native HTTP Range requests) or **AWS S3 + CloudFront CDN**.
+
+---
+
+## 5. Advocate, Law Clerk & Student 5-Minute Runbook
+
+This section guides practicing advocates, judicial law clerks, and students on using NyayaReader for live case research, hearing prep, and memo generation.
+
+### 5.1 Instant Zero-Install Launch
+1. Open the [Live Web App](https://kiru6006.github.io/highcourt-judgment-agent/).
+2. The app loads statically in your browser. All search indexing, vector retrieval, and data processing run locally inside Web Workers without transmitting queries to a backend server.
+
+### 5.2 Searching Case Law & Utilizing Facet Filters
+1. **Search Modes**:
+   - **Hybrid (RRF)** *(Default)*: Fuses BM25 keyword matching with 384-dimensional dense semantic vectors. Best for conceptual legal questions like *"quashing FIR when dispute is purely civil"*.
+   - **Keyword**: Strict lexical search with field boosting (`cnr: 6x`, `case_no: 3.5x`, `title: 3x`).
+   - **Semantic**: Pure dense vector similarity.
+2. **Left-Rail Facets**:
+   - **High Court & Bench**: Select Madras High Court (Principal Seat or Madurai Bench), Karnataka, Delhi, or Bombay.
+   - **Decision Year**: Filter by specific year or range using preset pills (2022–2024) or custom input.
+   - **Category & Disposal**: Narrow down to Criminal, Commercial, or Writ; filter by Allowed or Dismissed.
+3. **Multi-Source External Fallback**: If a query yields zero results in the local Madras HC sample, click the pre-filled **Indian Kanoon**, **eCourts**, or **High Court Portal** buttons directly inside the zero-result view to launch immediate external searches.
+
+### 5.3 Verifiable Grounded AI (Demo Mode vs BYOK Gemini)
+1. **Demo Mode**: Requires no API key. Automatically answers common bench questions (*"What is the ratio decidendi?"*, *"What are petitioner's submissions?"*) with pre-verified paragraph citations.
+2. **BYOK Gemini**:
+   - Click **Key Manager** in the top navigation or copilot drawer.
+   - Paste a Google AI Studio Gemini API key.
+   - *Security Guarantee*: The key is saved strictly in browser `localStorage`. It is never uploaded, transmitted to any proxy, or stored on servers.
+3. **Verification Contract**:
+   - Every claim must have an exact verbatim quote matching a retrieved paragraph.
+   - Claims failing verification are removed and displayed in the **Dropped Claims** disclosure tab.
+
+### 5.4 Case Folders, Precedent Comparison Matrix & Memo Print
+1. **Saving Cases**: On any result card or reader page, click **Save** and assign the judgment to a folder (e.g. *"Bail & Quashing Matters"*).
+2. **Adding Hearing Notes**: Navigate to `/folders`. Write customized argument notes, distinguishing factors, or hearing submissions under each case. Notes auto-persist in your browser.
+3. **Precedent Comparison Matrix**:
+   - Check the **Compare** box on 2 to 5 judgments.
+   - Click **Compare Matrix** to render a side-by-side comparative table of Benches, Dates, Outcomes, Key Statutes, Ratios, and Advocate Notes.
+4. **Court Memo Printing (A4 / PDF)**:
+   - Click **Print Memo** (or press `Cmd+P` / `Ctrl+P`).
+   - The UI automatically strips navigational chrome, expands notes into formal typography, and formats an A4 Court Research Memorandum ready for bench submission or case conferences.
+   - Click **Export JSON** to save a portable local backup file of your entire workspace.

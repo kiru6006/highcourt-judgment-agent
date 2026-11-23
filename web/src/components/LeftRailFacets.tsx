@@ -24,11 +24,13 @@ export const LeftRailFacets: React.FC<LeftRailFacetsProps> = ({
 
   const hasActiveFilters =
     filters.courts.length > 0 ||
+    filters.benches.length > 0 ||
     filters.categories.length > 0 ||
     filters.disposals.length > 0 ||
     filters.coramTypes.length > 0 ||
     filters.caseTypes.length > 0 ||
-    (filters.yearFrom !== undefined && filters.yearFrom !== null);
+    (filters.yearFrom !== undefined && filters.yearFrom !== null) ||
+    (filters.yearTo !== undefined && filters.yearTo !== null);
 
   const clearAll = () => {
     onChange({
@@ -50,6 +52,16 @@ export const LeftRailFacets: React.FC<LeftRailFacetsProps> = ({
     const map = new Map<string, number>();
     if (facetDistribution?.courts) {
       for (const item of facetDistribution.courts) {
+        map.set(item.value, item.count);
+      }
+    }
+    return map;
+  }, [facetDistribution]);
+
+  const yearCountMap = React.useMemo(() => {
+    const map = new Map<string, number>();
+    if (facetDistribution?.years) {
+      for (const item of facetDistribution.years) {
         map.set(item.value, item.count);
       }
     }
@@ -80,6 +92,20 @@ export const LeftRailFacets: React.FC<LeftRailFacetsProps> = ({
     if (facetDistribution) return courtCountMap.get(courtCode) || 0;
     return corpus.filter(d => d.court_code === courtCode).length;
   };
+
+  const getYearCount = (yr: number) => {
+    if (facetDistribution) return yearCountMap.get(String(yr)) || 0;
+    return corpus.filter(d => d.decision_date?.startsWith(String(yr)) || (d as any).year === yr).length;
+  };
+
+  const getBenchCount = (benchCode: string) => {
+    return corpus.filter(d => d.bench_code === benchCode).length;
+  };
+
+  const relevantBenches = React.useMemo(() => {
+    if (filters.courts.length === 0) return APP_CONFIG.BENCHES.slice(0, 4);
+    return APP_CONFIG.BENCHES.filter(b => filters.courts.includes(b.court_code));
+  }, [filters.courts]);
 
   const getCategoryCount = (cat: string) => {
     if (facetDistribution) return catCountMap.get(cat) || 0;
@@ -158,6 +184,120 @@ export const LeftRailFacets: React.FC<LeftRailFacetsProps> = ({
                   {count}
                 </span>
               </label>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Bench Selection */}
+      <div>
+        <h4 className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2.5">
+          Bench / Seat
+        </h4>
+        <div className="space-y-1.5">
+          {relevantBenches.map(bench => {
+            const isChecked = filters.benches.includes(bench.code);
+            const count = getBenchCount(bench.code);
+            return (
+              <label
+                key={bench.code}
+                className="flex items-center justify-between text-xs cursor-pointer py-1 px-1.5 rounded hover:bg-slate-50 dark:hover:bg-slate-800/50"
+              >
+                <div className="flex items-center gap-2">
+                  <input
+                    type="checkbox"
+                    checked={isChecked}
+                    onChange={() =>
+                      onChange({
+                        ...filters,
+                        benches: toggleItem(filters.benches, bench.code),
+                      })
+                    }
+                    className="rounded border-slate-300 dark:border-slate-700 text-amber-600 focus:ring-amber-500/30"
+                  />
+                  <span className={isChecked ? 'font-medium text-amber-600 dark:text-amber-400' : 'text-slate-700 dark:text-slate-300'}>
+                    {bench.name}
+                  </span>
+                </div>
+                {count > 0 && (
+                  <span className="text-[11px] font-mono text-slate-400">
+                    {count}
+                  </span>
+                )}
+              </label>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Decision Year Range */}
+      <div>
+        <div className="flex items-center justify-between mb-2">
+          <h4 className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+            Decision Year
+          </h4>
+          {(filters.yearFrom || filters.yearTo) && (
+            <button
+              onClick={() => onChange({ ...filters, yearFrom: undefined, yearTo: undefined })}
+              className="text-[11px] text-amber-600 dark:text-amber-400 hover:underline"
+            >
+              Reset
+            </button>
+          )}
+        </div>
+        <div className="flex items-center gap-2 mb-2">
+          <input
+            type="number"
+            placeholder="From"
+            value={filters.yearFrom || ''}
+            onChange={e =>
+              onChange({
+                ...filters,
+                yearFrom: e.target.value ? parseInt(e.target.value, 10) : undefined,
+              })
+            }
+            className="w-1/2 text-xs px-2 py-1 rounded border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 font-mono"
+            min={1950}
+            max={2030}
+          />
+          <span className="text-slate-400 text-xs">-</span>
+          <input
+            type="number"
+            placeholder="To"
+            value={filters.yearTo || ''}
+            onChange={e =>
+              onChange({
+                ...filters,
+                yearTo: e.target.value ? parseInt(e.target.value, 10) : undefined,
+              })
+            }
+            className="w-1/2 text-xs px-2 py-1 rounded border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 font-mono"
+            min={1950}
+            max={2030}
+          />
+        </div>
+        <div className="flex flex-wrap gap-1">
+          {APP_CONFIG.YEAR_PRESETS.map(yr => {
+            const isSelected = filters.yearFrom === yr && filters.yearTo === yr;
+            const count = getYearCount(yr);
+            return (
+              <button
+                key={yr}
+                onClick={() => {
+                  if (isSelected) {
+                    onChange({ ...filters, yearFrom: undefined, yearTo: undefined });
+                  } else {
+                    onChange({ ...filters, yearFrom: yr, yearTo: yr });
+                  }
+                }}
+                className={`px-2 py-0.5 rounded text-[11px] font-mono transition ${
+                  isSelected
+                    ? 'bg-amber-600 text-white font-semibold'
+                    : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700'
+                }`}
+              >
+                {yr} {count > 0 ? `(${count})` : ''}
+              </button>
             );
           })}
         </div>

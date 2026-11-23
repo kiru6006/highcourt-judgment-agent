@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, Link } from 'react-router-dom';
 import { SearchFilters } from '../types/schema';
 import { SYNTHETIC_JUDGMENTS } from '../fixtures/synthetic-judgments';
 import { LeftRailFacets } from '../components/LeftRailFacets';
 import { ResultCard } from '../components/ResultCard';
 import { SearchEngine } from '../search/search-engine';
 import { SearchResponse, SearchShardRecord } from '../search/types';
-import { Scale, SlidersHorizontal, Clock, Database } from 'lucide-react';
+import { Scale, SlidersHorizontal, Clock, Database, Globe, ExternalLink, FilterX, Sparkles, X } from 'lucide-react';
 
 interface SearchPageProps {
   filters: SearchFilters;
@@ -28,6 +28,7 @@ export const SearchPage: React.FC<SearchPageProps> = ({
   useEffect(() => {
     const q = searchParams.get('q') || '';
     const courts = searchParams.getAll('court');
+    const benches = searchParams.getAll('bench');
     const categories = searchParams.getAll('cat');
     const disposals = searchParams.getAll('disposal');
     const caseTypes = searchParams.getAll('case_type');
@@ -37,13 +38,18 @@ export const SearchPage: React.FC<SearchPageProps> = ({
     if (
       q !== filters.query ||
       courts.length !== filters.courts.length ||
+      benches.length !== filters.benches.length ||
       categories.length !== filters.categories.length ||
-      disposals.length !== filters.disposals.length
+      disposals.length !== filters.disposals.length ||
+      caseTypes.length !== filters.caseTypes.length ||
+      yearFrom !== filters.yearFrom ||
+      yearTo !== filters.yearTo
     ) {
       onFilterChange({
         ...filters,
         query: q,
         courts: courts.length > 0 ? courts : filters.courts,
+        benches: benches.length > 0 ? benches : filters.benches,
         categories: categories.length > 0 ? categories : filters.categories,
         disposals: disposals.length > 0 ? disposals : filters.disposals,
         caseTypes: caseTypes.length > 0 ? caseTypes : filters.caseTypes,
@@ -58,6 +64,7 @@ export const SearchPage: React.FC<SearchPageProps> = ({
     const params = new URLSearchParams();
     if (newFilters.query.trim()) params.set('q', newFilters.query.trim());
     newFilters.courts.forEach(c => params.append('court', c));
+    newFilters.benches.forEach(b => params.append('bench', b));
     newFilters.categories.forEach(c => params.append('cat', c));
     newFilters.disposals.forEach(d => params.append('disposal', d));
     newFilters.caseTypes.forEach(ct => params.append('case_type', ct));
@@ -288,56 +295,262 @@ export const SearchPage: React.FC<SearchPageProps> = ({
           </div>
 
           {/* Active Filter Chips */}
-          {(filters.courts.length > 0 || filters.categories.length > 0 || filters.disposals.length > 0 || filters.query) && (
+          {(filters.courts.length > 0 || filters.benches.length > 0 || filters.categories.length > 0 || filters.disposals.length > 0 || filters.caseTypes.length > 0 || filters.yearFrom || filters.yearTo || filters.query) && (
             <div className="flex flex-wrap items-center gap-1.5 pb-2">
               {filters.query && (
-                <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-amber-50 dark:bg-amber-950/50 text-amber-800 dark:text-amber-300 text-xs font-mono">
-                  q: "{filters.query}"
+                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-amber-50 dark:bg-amber-950/50 text-amber-800 dark:text-amber-300 text-xs font-mono">
+                  <span>q: "{filters.query}"</span>
+                  <button
+                    onClick={() => handleFilterChangeInternal({ ...filters, query: '' })}
+                    className="hover:text-amber-950 dark:hover:text-amber-100"
+                    title="Remove query filter"
+                  >
+                    <X className="w-3 h-3" />
+                  </button>
                 </span>
               )}
               {filters.courts.map(c => (
                 <span key={c} className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs font-mono">
-                  court: {c}
+                  <span>court: {c}</span>
+                  <button
+                    onClick={() => handleFilterChangeInternal({ ...filters, courts: filters.courts.filter(x => x !== c) })}
+                    className="hover:text-slate-900 dark:hover:text-white"
+                  >
+                    <X className="w-2.5 h-2.5" />
+                  </button>
+                </span>
+              ))}
+              {filters.benches.map(b => (
+                <span key={b} className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs font-mono">
+                  <span>bench: {b}</span>
+                  <button
+                    onClick={() => handleFilterChangeInternal({ ...filters, benches: filters.benches.filter(x => x !== b) })}
+                    className="hover:text-slate-900 dark:hover:text-white"
+                  >
+                    <X className="w-2.5 h-2.5" />
+                  </button>
                 </span>
               ))}
               {filters.categories.map(c => (
                 <span key={c} className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs">
-                  cat: {c}
+                  <span>cat: {c}</span>
+                  <button
+                    onClick={() => handleFilterChangeInternal({ ...filters, categories: filters.categories.filter(x => x !== c) })}
+                    className="hover:text-slate-900 dark:hover:text-white"
+                  >
+                    <X className="w-2.5 h-2.5" />
+                  </button>
                 </span>
               ))}
               {filters.disposals.map(d => (
                 <span key={d} className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs">
-                  disp: {d}
+                  <span>disp: {d}</span>
+                  <button
+                    onClick={() => handleFilterChangeInternal({ ...filters, disposals: filters.disposals.filter(x => x !== d) })}
+                    className="hover:text-slate-900 dark:hover:text-white"
+                  >
+                    <X className="w-2.5 h-2.5" />
+                  </button>
                 </span>
               ))}
+              {filters.caseTypes.map(ct => (
+                <span key={ct} className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs font-mono">
+                  <span>type: {ct}</span>
+                  <button
+                    onClick={() => handleFilterChangeInternal({ ...filters, caseTypes: filters.caseTypes.filter(x => x !== ct) })}
+                    className="hover:text-slate-900 dark:hover:text-white"
+                  >
+                    <X className="w-2.5 h-2.5" />
+                  </button>
+                </span>
+              ))}
+              {(filters.yearFrom || filters.yearTo) && (
+                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs font-mono">
+                  <span>year: {filters.yearFrom || '*'}-{filters.yearTo || '*'}</span>
+                  <button
+                    onClick={() => handleFilterChangeInternal({ ...filters, yearFrom: undefined, yearTo: undefined })}
+                    className="hover:text-slate-900 dark:hover:text-white"
+                  >
+                    <X className="w-2.5 h-2.5" />
+                  </button>
+                </span>
+              )}
             </div>
           )}
 
-          {/* Results List */}
+          {/* Results List or Zero-Results Guide */}
           {displayResults.length === 0 ? (
-            <div className="text-center py-16 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-8 space-y-3">
-              <Scale className="w-12 h-12 mx-auto text-slate-300 dark:text-slate-600" />
-              <h3 className="font-semibold text-slate-700 dark:text-slate-200">
-                No judgments matched your criteria
-              </h3>
-              <p className="text-xs text-slate-500 max-w-sm mx-auto">
-                Try clearing facet filters, searching for a different statutory section, or expanding the year range.
-              </p>
-              <button
-                onClick={() =>
-                  handleFilterChangeInternal({
-                    ...filters,
-                    query: '',
-                    courts: [],
-                    categories: [],
-                    disposals: [],
-                    caseTypes: [],
-                  })
-                }
-                className="mt-2 px-3 py-1.5 rounded-lg bg-amber-600 text-white text-xs font-medium hover:bg-amber-700 transition"
-              >
-                Clear all filters
-              </button>
+            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-6 md:p-8 space-y-6">
+              <div className="text-center space-y-2">
+                <Scale className="w-10 h-10 mx-auto text-amber-600/80 dark:text-amber-500/80" />
+                <h3 className="font-bold text-base text-slate-800 dark:text-slate-100">
+                  No judgments matched in local corpus
+                </h3>
+                <p className="text-xs text-slate-500 max-w-md mx-auto">
+                  {filters.query
+                    ? `No records found in local corpus matching "${filters.query}" with current filters.`
+                    : 'No judgments match the selected facet constraints.'}
+                </p>
+
+                {/* Filter Recovery Actions */}
+                <div className="flex flex-wrap items-center justify-center gap-2 pt-2">
+                  {(filters.courts.length > 0 || filters.benches.length > 0 || filters.categories.length > 0 || filters.disposals.length > 0 || filters.caseTypes.length > 0 || filters.yearFrom || filters.yearTo) && filters.query && (
+                    <button
+                      onClick={() =>
+                        handleFilterChangeInternal({
+                          ...filters,
+                          courts: [],
+                          benches: [],
+                          categories: [],
+                          disposals: [],
+                          caseTypes: [],
+                          yearFrom: undefined,
+                          yearTo: undefined,
+                        })
+                      }
+                      className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg border border-amber-600/50 bg-amber-50 dark:bg-amber-950/40 text-amber-800 dark:text-amber-200 text-xs font-medium hover:bg-amber-100 transition"
+                    >
+                      <FilterX className="w-3.5 h-3.5" />
+                      <span>Broaden filters (Keep query "{filters.query}")</span>
+                    </button>
+                  )}
+                  <button
+                    onClick={() =>
+                      handleFilterChangeInternal({
+                        query: '',
+                        courts: [],
+                        benches: [],
+                        categories: [],
+                        disposals: [],
+                        caseTypes: [],
+                        purposes: [],
+                        coramTypes: [],
+                        yearFrom: undefined,
+                        yearTo: undefined,
+                      })
+                    }
+                    className="px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs font-medium hover:bg-slate-200 dark:hover:bg-slate-700 transition"
+                  >
+                    Reset all filters
+                  </button>
+                </div>
+              </div>
+
+              {/* Multi-Source Fallback Card if query typed */}
+              {filters.query.trim() && (
+                <div className="border-t border-slate-200 dark:border-slate-800 pt-5 space-y-3">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
+                      <Globe className="w-4 h-4 text-amber-600" />
+                      <span>Search Pre-filled on Public & Official Portals</span>
+                    </div>
+                    <span className="text-[11px] font-mono text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 px-2 py-0.5 rounded">
+                      Zero-Key Fallback
+                    </span>
+                  </div>
+
+                  <p className="text-xs text-slate-500">
+                    If this matter is from a different High Court or year outside the pilot corpus, launch a direct search with query <span className="font-mono font-semibold text-slate-700 dark:text-slate-300">"{filters.query}"</span>:
+                  </p>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                    <a
+                      href={`https://indiankanoon.org/search/?formInput=${encodeURIComponent(filters.query.trim())}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="p-3 rounded-lg border border-slate-200 dark:border-slate-800 hover:border-amber-500/60 bg-slate-50/50 dark:bg-slate-800/30 flex items-center justify-between transition group"
+                    >
+                      <div>
+                        <div className="font-semibold text-xs text-slate-900 dark:text-slate-100 group-hover:text-amber-600 transition">
+                          Indian Kanoon
+                        </div>
+                        <div className="text-[11px] text-slate-500">
+                          Search all High Courts & Supreme Court
+                        </div>
+                      </div>
+                      <ExternalLink className="w-3.5 h-3.5 text-slate-400 group-hover:text-amber-600 transition" />
+                    </a>
+
+                    <a
+                      href={`https://judgments.ecourts.gov.in/pdfsearch/?query=${encodeURIComponent(filters.query.trim())}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="p-3 rounded-lg border border-slate-200 dark:border-slate-800 hover:border-amber-500/60 bg-slate-50/50 dark:bg-slate-800/30 flex items-center justify-between transition group"
+                    >
+                      <div>
+                        <div className="font-semibold text-xs text-slate-900 dark:text-slate-100 group-hover:text-amber-600 transition">
+                          eCourts Judgments Portal
+                        </div>
+                        <div className="text-[11px] text-slate-500">
+                          Search official national digital court repository
+                        </div>
+                      </div>
+                      <ExternalLink className="w-3.5 h-3.5 text-slate-400 group-hover:text-amber-600 transition" />
+                    </a>
+
+                    <a
+                      href="https://www.hcmadras.tn.nic.in/case_status.php"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="p-3 rounded-lg border border-slate-200 dark:border-slate-800 hover:border-amber-500/60 bg-slate-50/50 dark:bg-slate-800/30 flex items-center justify-between transition group"
+                    >
+                      <div>
+                        <div className="font-semibold text-xs text-slate-900 dark:text-slate-100 group-hover:text-amber-600 transition">
+                          Madras High Court Portal
+                        </div>
+                        <div className="text-[11px] text-slate-500">
+                          Official Principal Seat & Madurai Bench Judis
+                        </div>
+                      </div>
+                      <ExternalLink className="w-3.5 h-3.5 text-slate-400 group-hover:text-amber-600 transition" />
+                    </a>
+
+                    <Link
+                      to={`/links?q=${encodeURIComponent(filters.query.trim())}`}
+                      className="p-3 rounded-lg border border-amber-300 dark:border-amber-800/60 bg-amber-50/50 dark:bg-amber-950/20 flex items-center justify-between transition group"
+                    >
+                      <div>
+                        <div className="font-semibold text-xs text-amber-900 dark:text-amber-200 group-hover:underline">
+                          Multi-Source Link Hub →
+                        </div>
+                        <div className="text-[11px] text-slate-500">
+                          Configure CNR, Bombay, Delhi, or Kanoon queries
+                        </div>
+                      </div>
+                      <Globe className="w-3.5 h-3.5 text-amber-600" />
+                    </Link>
+                  </div>
+                </div>
+              )}
+
+              {/* Research Suggestions when empty query */}
+              {!filters.query.trim() && (
+                <div className="border-t border-slate-200 dark:border-slate-800 pt-4 space-y-2">
+                  <div className="flex items-center gap-1.5 text-xs font-semibold text-slate-600 dark:text-slate-400">
+                    <Sparkles className="w-3.5 h-3.5 text-amber-600" />
+                    <span>Popular Legal Research Propositions to Try:</span>
+                  </div>
+                  <div className="flex flex-wrap gap-1.5">
+                    {[
+                      'Section 482 CrPC quashing FIR',
+                      'Bail Section 439 CrPC',
+                      'Section 138 Negotiable Instruments Act',
+                      'Bhajan Lal quashing principles',
+                      'Article 226 maintainability',
+                      'Section 11 Arbitration Act arbitrator',
+                      'Crl.O.P. No. 100 of 2022',
+                    ].map(sampleQ => (
+                      <button
+                        key={sampleQ}
+                        onClick={() => handleFilterChangeInternal({ ...filters, query: sampleQ })}
+                        className="text-[11px] font-mono px-2.5 py-1 rounded-md bg-slate-100 dark:bg-slate-800 hover:bg-amber-50 hover:text-amber-700 dark:hover:bg-amber-950/50 dark:hover:text-amber-300 text-slate-600 dark:text-slate-400 transition"
+                      >
+                        "{sampleQ}"
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
           ) : (
             displayResults.map((doc: any) => (

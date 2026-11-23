@@ -12,7 +12,8 @@ import {
   Columns3,
   X,
   FileEdit,
-  Tag
+  Tag,
+  Printer
 } from 'lucide-react';
 import { FolderStore, CaseFolder, SavedJudgmentItem } from '../workspace/folder-store';
 
@@ -145,7 +146,7 @@ export const FoldersPage: React.FC = () => {
     <div className="flex-1 max-w-7xl mx-auto p-4 sm:p-6 space-y-6">
       
       {/* Top Header */}
-      <div className="border-b border-slate-200 dark:border-slate-800 pb-4 flex flex-wrap items-center justify-between gap-4">
+      <div className="border-b border-slate-200 dark:border-slate-800 pb-4 flex flex-wrap items-center justify-between gap-4 print:hidden">
         <div>
           <div className="flex items-center gap-2 mb-1">
             <FolderLock className="w-5 h-5 text-amber-600" />
@@ -165,6 +166,15 @@ export const FoldersPage: React.FC = () => {
               ✓ {statusMsg}
             </span>
           )}
+
+          <button
+            onClick={() => window.print()}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs font-medium transition"
+            title="Print Court Research Memorandum (A4 / PDF)"
+          >
+            <Printer className="w-3.5 h-3.5 text-slate-500" />
+            <span>Print Memo</span>
+          </button>
 
           <label className="cursor-pointer flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs font-medium transition">
             <Upload className="w-3.5 h-3.5 text-slate-500" />
@@ -196,10 +206,10 @@ export const FoldersPage: React.FC = () => {
       </div>
 
       {/* Main Layout: Left Folder Tabs + Right Folder Content */}
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 print:block">
         
         {/* Left Rail: Folders List */}
-        <div className="lg:col-span-1 space-y-2">
+        <div className="lg:col-span-1 space-y-2 print:hidden">
           <div className="text-xs font-bold uppercase tracking-wider text-slate-400 px-1 mb-2">
             Case Folders ({folders.length})
           </div>
@@ -237,11 +247,36 @@ export const FoldersPage: React.FC = () => {
         </div>
 
         {/* Right Pane: Active Folder Details & Judgments */}
-        <div className="lg:col-span-3 space-y-5">
+        <div className="lg:col-span-3 print:col-span-4 print:w-full space-y-5">
           {activeFolder ? (
             <>
+              {/* Formal Court Memorandum Print Header (Only visible on paper / PDF export) */}
+              <div className="hidden print:block border-b-2 border-slate-900 pb-4 mb-6 text-black">
+                <div className="flex items-center justify-between pb-2 border-b border-slate-300">
+                  <span className="font-bold text-xs tracking-wider uppercase font-mono">NYAYAREADER ADVOCATE WORKSPACE</span>
+                  <span className="text-[11px] font-mono text-slate-600">Generated: {new Date().toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' })}</span>
+                </div>
+                <div className="mt-3 text-center space-y-1">
+                  <h1 className="text-xl font-bold uppercase tracking-wider font-serif">
+                    Advocate Research Memorandum & Precedent Brief
+                  </h1>
+                  <h2 className="text-sm font-semibold text-slate-800">
+                    Matter / Case Folder: {activeFolder.name}
+                  </h2>
+                  {activeFolder.description && (
+                    <p className="text-xs italic text-slate-600">
+                      Subject: {activeFolder.description}
+                    </p>
+                  )}
+                </div>
+                <div className="mt-2 text-xs text-slate-700 flex justify-between font-mono">
+                  <span>Total Saved Precedents: {activeFolder.items.length}</span>
+                  <span>Bench Research & Hearing Preparation</span>
+                </div>
+              </div>
+
               {/* Folder Header Banner */}
-              <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 flex flex-wrap items-center justify-between gap-4">
+              <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 flex flex-wrap items-center justify-between gap-4 print:border-slate-300">
                 <div>
                   <h2 className="text-lg font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
                     <span>{activeFolder.name}</span>
@@ -256,7 +291,7 @@ export const FoldersPage: React.FC = () => {
                   )}
                 </div>
 
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 print:hidden">
                   {/* Precedent Comparison Toggle */}
                   {activeFolder.items.length >= 2 && (
                     <button
@@ -407,7 +442,7 @@ export const FoldersPage: React.FC = () => {
                               </td>
                             ))}
                           </tr>
-                          <tr>
+                          <tr className="print:hidden">
                             <td className="p-3 font-semibold text-slate-500">Actions</td>
                             {comparisonItems.map(item => (
                               <td key={item.jid} className="p-3">
@@ -452,7 +487,7 @@ export const FoldersPage: React.FC = () => {
                     return (
                       <div
                         key={item.jid}
-                        className={`bg-white dark:bg-slate-900 border rounded-xl p-5 transition space-y-3 shadow-sm ${
+                        className={`bg-white dark:bg-slate-900 border rounded-xl p-5 transition space-y-3 shadow-sm print:border-slate-300 print:shadow-none print:break-inside-avoid ${
                           isSelectedForComp
                             ? 'border-amber-500/70 dark:border-amber-500/50'
                             : 'border-slate-200 dark:border-slate-800'
@@ -461,7 +496,7 @@ export const FoldersPage: React.FC = () => {
                         {/* Header Row */}
                         <div className="flex flex-wrap items-center justify-between gap-2 text-xs">
                           <div className="flex items-center gap-2">
-                            <label className="flex items-center gap-1.5 cursor-pointer font-medium text-slate-600 dark:text-slate-300">
+                            <label className="flex items-center gap-1.5 cursor-pointer font-medium text-slate-600 dark:text-slate-300 print:hidden">
                               <input
                                 type="checkbox"
                                 checked={isSelectedForComp}
@@ -470,8 +505,8 @@ export const FoldersPage: React.FC = () => {
                               />
                               <span className="text-[11px]">Compare</span>
                             </label>
-                            <span className="text-slate-300 dark:text-slate-700">•</span>
-                            <span className="font-mono bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded text-[11px] text-amber-700 dark:text-amber-400 font-semibold">
+                            <span className="text-slate-300 dark:text-slate-700 print:hidden">•</span>
+                            <span className="font-mono bg-slate-100 dark:bg-slate-800 print:bg-slate-100 px-1.5 py-0.5 rounded text-[11px] text-amber-700 dark:text-amber-400 print:text-black font-semibold">
                               {item.caseNo}
                             </span>
                             <span className="text-slate-500 truncate">{item.courtName}</span>
@@ -479,13 +514,13 @@ export const FoldersPage: React.FC = () => {
 
                           <div className="flex items-center gap-2">
                             <span className="flex items-center gap-1 font-mono text-[11px] text-slate-500">
-                              <Calendar className="w-3.5 h-3.5" />
+                              <Calendar className="w-3.5 h-3.5 print:hidden" />
                               {item.decisionDate}
                             </span>
                             <button
                               onClick={() => handleRemoveItem(item.jid)}
                               title="Remove from folder"
-                              className="text-slate-400 hover:text-red-500 transition p-1"
+                              className="text-slate-400 hover:text-red-500 transition p-1 print:hidden"
                             >
                               <Trash2 className="w-3.5 h-3.5" />
                             </button>
@@ -493,7 +528,7 @@ export const FoldersPage: React.FC = () => {
                         </div>
 
                         {/* Title */}
-                        <h4 className="text-base font-bold text-slate-900 dark:text-slate-100">
+                        <h4 className="text-base font-bold text-slate-900 dark:text-slate-100 print:text-black">
                           <Link to={`/case/${item.jid}`} className="hover:text-amber-600 transition">
                             {item.title}
                           </Link>
@@ -501,7 +536,7 @@ export const FoldersPage: React.FC = () => {
 
                         {/* Excerpt if present */}
                         {item.ratioExcerpt && (
-                          <p className="text-xs text-slate-600 dark:text-slate-400 bg-slate-50 dark:bg-slate-800/40 p-2.5 rounded-lg border border-slate-100 dark:border-slate-800/60 line-clamp-2 font-serif">
+                          <p className="text-xs text-slate-600 dark:text-slate-400 bg-slate-50 dark:bg-slate-800/40 print:bg-slate-50 print:text-black p-2.5 rounded-lg border border-slate-100 dark:border-slate-800/60 print:border-slate-300 line-clamp-2 print:line-clamp-none font-serif">
                             "{item.ratioExcerpt}"
                           </p>
                         )}
@@ -512,27 +547,36 @@ export const FoldersPage: React.FC = () => {
                             {item.statutes.map((st, sIdx) => (
                               <span
                                 key={sIdx}
-                                className="inline-flex items-center gap-1 text-[11px] font-mono bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 px-2 py-0.5 rounded"
+                                className="inline-flex items-center gap-1 text-[11px] font-mono bg-slate-100 dark:bg-slate-800 print:bg-slate-100 text-slate-600 dark:text-slate-400 print:text-black px-2 py-0.5 rounded print:border print:border-slate-300"
                               >
-                                <Tag className="w-2.5 h-2.5 text-amber-600" />
+                                <Tag className="w-2.5 h-2.5 text-amber-600 print:hidden" />
                                 {st}
                               </span>
                             ))}
                           </div>
                         )}
 
-                        {/* Advocate Notes Textarea */}
-                        <div className="pt-2 border-t border-slate-100 dark:border-slate-800/80">
-                          <div className="flex items-center gap-1 text-xs font-semibold text-slate-600 dark:text-slate-400 mb-1.5">
-                            <FileEdit className="w-3.5 h-3.5 text-amber-600" />
+                        {/* Advocate Notes Textarea & Print View */}
+                        <div className="pt-2 border-t border-slate-100 dark:border-slate-800/80 print:border-slate-300">
+                          <div className="flex items-center gap-1 text-xs font-semibold text-slate-600 dark:text-slate-400 print:text-black mb-1.5">
+                            <FileEdit className="w-3.5 h-3.5 text-amber-600 print:hidden" />
                             <span>Advocate Notes / Submissions:</span>
                           </div>
+                          {/* Visible on Paper / Print */}
+                          <div className="hidden print:block font-serif text-xs p-2.5 bg-slate-50 border border-slate-300 rounded whitespace-pre-wrap text-black">
+                            {item.notes ? (
+                              item.notes
+                            ) : (
+                              <span className="italic text-slate-400">No advocate notes recorded.</span>
+                            )}
+                          </div>
+                          {/* Interactive Textarea in Browser */}
                           <textarea
                             rows={2}
                             placeholder="Add case notes, hearing points, distinguished facts, or argument strategy..."
                             value={item.notes || ''}
                             onChange={(e) => handleNoteChange(item.jid, e.target.value)}
-                            className="w-full text-xs p-2.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-1 focus:ring-amber-500 placeholder-slate-400"
+                            className="w-full text-xs p-2.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-1 focus:ring-amber-500 placeholder-slate-400 print:hidden"
                           />
                         </div>
 

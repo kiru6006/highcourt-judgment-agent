@@ -56,6 +56,16 @@
     padding: 0 !important;
   }
 
+  table {
+    border-collapse: collapse !important;
+    width: 100% !important;
+  }
+
+  th, td {
+    border: 1px solid #cbd5e1 !important;
+    page-break-inside: avoid;
+  }
+
   p {
     orphans: 3;
     widows: 3;

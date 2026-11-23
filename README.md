@@ -53,6 +53,47 @@ NyayaReader provides an open-access, distraction-free environment for Indian adv
 
 ---
 
+## 5-Minute Practical Walkthrough (Advocate & Law Student Guide)
+
+Follow this quick guide to run real case research, precedent comparison, and argument preparation without configuring servers or paying for API keys:
+
+```
+[1. Search & Filter] ➔ [2. Statute Bridge] ➔ [3. AI Copilot] ➔ [4. Save & Annotate] ➔ [5. Matrix & Print Memo]
+```
+
+### Step 1: Instant Search & Multi-Source Discovery (< 1 min)
+1. Open the [NyayaReader Live Web App](https://kiru6006.github.io/highcourt-judgment-agent/).
+2. Type your legal proposition, party name, or citation (e.g. `Section 482 CrPC delay quashing FIR` or `Crl.O.P. No. 100`).
+3. Refine using the left rail:
+   - **High Court & Bench**: Filter by Madras (Principal Seat vs. Madurai Bench), Karnataka, Delhi, or Bombay.
+   - **Decision Year & Category**: Constrain to recent years (2022–2024) or subject matter (Criminal, Commercial, Writ).
+4. *Outside the local corpus?* Click the instant **Indian Kanoon**, **eCourts**, or **High Court Portal** fallback cards in the zero-result view to launch pre-filled queries on external registries.
+
+### Step 2: 3-Pane Reading & Statute Transition Bridge (1 min)
+1. Click **Read Judgment** on any result card.
+2. The left pane provides an **Extractive Brief Outline** (Facts, Issues, Submissions, Ratio Decidendi, Final Order).
+3. Click any paragraph number (e.g. `#para-6`) to jump with smooth amber flash animation. Keyboard shortcuts: `j` (next para), `k` (previous para).
+4. Click any statute badge (e.g. `CrPC 482` or `IPC 420`) in the header or text to trigger the **Statute Transition Bridge Drawer** showing official gazette mappings to `BNSS 528` and `BNS 318` alongside substantive alteration notes.
+
+### Step 3: Verifiable AI Grounding (Demo Mode or BYOK Gemini) (1 min)
+1. Open the right-pane **Grounded Copilot**.
+2. **Demo Mode (Default)**: Immediately ask pre-computed benchmark questions (e.g. *"What is the ratio decidendi?"* or *"What did petitioner argue?"*).
+3. **BYOK Gemini (Optional)**: Click **Key Manager** to add a free Google AI Studio Gemini API key. The key is stored purely in client-side `localStorage`, never sent to our servers, and never logged.
+4. **Verbatim Evidence Verification**: Every sentence rendered by the copilot is mathematically verified against the order text. Statements lacking exact paragraph quotes are dropped and surfaced transparently in the **Dropped Claims** disclosure tab.
+
+### Step 4: Case Folders & Precedent Comparison Matrix (1 min)
+1. In search or reader, click **Save** (bookmark icon) to assign the judgment to a Case Folder (e.g. *"SLP Quashing Matter"* or create a new matter).
+2. Go to **Workspace** (`/folders`) from the top navigation bar.
+3. Type hearing notes, distinguished facts, or argument strategy in the **Advocate Notes** box. Notes auto-persist in your browser.
+4. Select 2 to 5 judgments via the **Compare** checkboxes and click **Compare Matrix** to view a side-by-side table analyzing Courts, Benches, Disposals, Ratios, and Advocate Notes.
+
+### Step 5: Export / Print Court Memorandum (< 30 sec)
+1. In your Case Folder, click **Print Memo** (or press `Ctrl+P` / `Cmd+P`).
+2. NyayaReader automatically formats an A4 court brief: navigation bars and buttons disappear, advocate notes render in clean typography, and precedent ratios print legibly for bench presentations.
+3. Click **Export JSON** to download a portable backup file of your entire workspace for archiving or migration.
+
+---
+
 ## 2. Project Status & Roadmap
 
 | Phase | Description | Status | Git Tag |

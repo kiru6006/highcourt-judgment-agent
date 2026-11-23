@@ -8,6 +8,18 @@ export const APP_CONFIG = {
     { code: '7_26', name: 'Delhi High Court' },
     { code: '1_1', name: 'Bombay High Court' },
   ],
+  BENCHES: [
+    { code: '01', court_code: '33_10', name: 'Principal Seat at Madras' },
+    { code: '02', court_code: '33_10', name: 'Madurai Bench' },
+    { code: 'kar_bengaluru', court_code: '29_3', name: 'Principal Bench Bengaluru' },
+    { code: 'kar_dharwad', court_code: '29_3', name: 'Dharwad Bench' },
+    { code: 'kar_kalaburagi', court_code: '29_3', name: 'Kalaburagi Bench' },
+    { code: 'delhi_main', court_code: '7_26', name: 'Principal Seat New Delhi' },
+    { code: 'bombay_main', court_code: '1_1', name: 'Principal Seat Mumbai' },
+    { code: 'bombay_nagpur', court_code: '1_1', name: 'Nagpur Bench' },
+    { code: 'bombay_aurangabad', court_code: '1_1', name: 'Aurangabad Bench' },
+  ],
+  YEAR_PRESETS: [2024, 2023, 2022, 2021, 2020, 2019, 2018],
   CATEGORIES: [
     'Criminal',
     'Civil',
