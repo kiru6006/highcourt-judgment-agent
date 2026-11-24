@@ -1,0 +1,520 @@
+{
+  "generatedAt": "2026-11-24T02:57:53Z",
+  "totalDocumentsScanned": 50,
+  "totalAnomaliesDetected": 50,
+  "severityCounts": {
+    "high": 50,
+    "medium": 0,
+    "low": 0
+  },
+  "statusCounts": {
+    "pending": 50,
+    "reviewed": 0,
+    "suppressed": 0
+  },
+  "ruleCounts": {
+    "A01_MISSING_SOURCE_URL": 50
+  },
+  "anomalies": [
+    {
+      "ruleId": "A01_MISSING_SOURCE_URL",
+      "severity": "high",
+      "documentId": "eval_bail_01",
+      "evidence": "Document record is missing mandatory source_url field.",
+      "detectedAt": "2026-11-24T02:57:53Z",
+      "reviewStatus": "pending",
+      "remediation": "Populate authentic official High Court judgment portal URL or eCourts record link.",
+      "history": []
+    },
+    {
+      "ruleId": "A01_MISSING_SOURCE_URL",
+      "severity": "high",
+      "documentId": "eval_bail_02",
+      "evidence": "Document record is missing mandatory source_url field.",
+      "detectedAt": "2026-11-24T02:57:53Z",
+      "reviewStatus": "pending",
+      "remediation": "Populate authentic official High Court judgment portal URL or eCourts record link.",
+      "history": []
+    },
+    {
+      "ruleId": "A01_MISSING_SOURCE_URL",
+      "severity": "high",
+      "documentId": "eval_bail_03",
+      "evidence": "Document record is missing mandatory source_url field.",
+      "detectedAt": "2026-11-24T02:57:53Z",
+      "reviewStatus": "pending",
+      "remediation": "Populate authentic official High Court judgment portal URL or eCourts record link.",
+      "history": []
+    },
+    {
+      "ruleId": "A01_MISSING_SOURCE_URL",
+      "severity": "high",
+      "documentId": "eval_bail_04",
+      "evidence": "Document record is missing mandatory source_url field.",
+      "detectedAt": "2026-11-24T02:57:53Z",
+      "reviewStatus": "pending",
+      "remediation": "Populate authentic official High Court judgment portal URL or eCourts record link.",
+      "history": []
+    },
+    {
+      "ruleId": "A01_MISSING_SOURCE_URL",
+      "severity": "high",
+      "documentId": "eval_bail_05",
+      "evidence": "Document record is missing mandatory source_url field.",
+      "detectedAt": "2026-11-24T02:57:53Z",
+      "reviewStatus": "pending",
+      "remediation": "Populate authentic official High Court judgment portal URL or eCourts record link.",
+      "history": []
+    },
+    {
+      "ruleId": "A01_MISSING_SOURCE_URL",
+      "severity": "high",
+      "documentId": "eval_ant_bail_01",
+      "evidence": "Document record is missing mandatory source_url field.",
+      "detectedAt": "2026-11-24T02:57:53Z",
+      "reviewStatus": "pending",
+      "remediation": "Populate authentic official High Court judgment portal URL or eCourts record link.",
+      "history": []
+    },
+    {
+      "ruleId": "A01_MISSING_SOURCE_URL",
+      "severity": "high",
+      "documentId": "eval_ant_bail_02",
+      "evidence": "Document record is missing mandatory source_url field.",
+      "detectedAt": "2026-11-24T02:57:53Z",
+      "reviewStatus": "pending",
+      "remediation": "Populate authentic official High Court judgment portal URL or eCourts record link.",
+      "history": []
+    },
+    {
+      "ruleId": "A01_MISSING_SOURCE_URL",
+      "severity": "high",
+      "documentId": "eval_ant_bail_03",
+      "evidence": "Document record is missing mandatory source_url field.",
+      "detectedAt": "2026-11-24T02:57:53Z",
+      "reviewStatus": "pending",
+      "remediation": "Populate authentic official High Court judgment portal URL or eCourts record link.",
+      "history": []
+    },
+    {
+      "ruleId": "A01_MISSING_SOURCE_URL",
+      "severity": "high",
+      "documentId": "eval_ant_bail_04",
+      "evidence": "Document record is missing mandatory source_url field.",
+      "detectedAt": "2026-11-24T02:57:53Z",
+      "reviewStatus": "pending",
+      "remediation": "Populate authentic official High Court judgment portal URL or eCourts record link.",
+      "history": []
+    },
+    {
+      "ruleId": "A01_MISSING_SOURCE_URL",
+      "severity": "high",
+      "documentId": "eval_ant_bail_05",
+      "evidence": "Document record is missing mandatory source_url field.",
+      "detectedAt": "2026-11-24T02:57:53Z",
+      "reviewStatus": "pending",
+      "remediation": "Populate authentic official High Court judgment portal URL or eCourts record link.",
+      "history": []
+    },
+    {
+      "ruleId": "A01_MISSING_SOURCE_URL",
+      "severity": "high",
+      "documentId": "eval_quash_01",
+      "evidence": "Document record is missing mandatory source_url field.",
+      "detectedAt": "2026-11-24T02:57:53Z",
+      "reviewStatus": "pending",
+      "remediation": "Populate authentic official High Court judgment portal URL or eCourts record link.",
+      "history": []
+    },
+    {
+      "ruleId": "A01_MISSING_SOURCE_URL",
+      "severity": "high",
+      "documentId": "eval_quash_02",
+      "evidence": "Document record is missing mandatory source_url field.",
+      "detectedAt": "2026-11-24T02:57:53Z",
+      "reviewStatus": "pending",
+      "remediation": "Populate authentic official High Court judgment portal URL or eCourts record link.",
+      "history": []
+    },
+    {
+      "ruleId": "A01_MISSING_SOURCE_URL",
+      "severity": "high",
+      "documentId": "eval_quash_03",
+      "evidence": "Document record is missing mandatory source_url field.",
+      "detectedAt": "2026-11-24T02:57:53Z",
+      "reviewStatus": "pending",
+      "remediation": "Populate authentic official High Court judgment portal URL or eCourts record link.",
+      "history": []
+    },
+    {
+      "ruleId": "A01_MISSING_SOURCE_URL",
+      "severity": "high",
+      "documentId": "eval_quash_04",
+      "evidence": "Document record is missing mandatory source_url field.",
+      "detectedAt": "2026-11-24T02:57:53Z",
+      "reviewStatus": "pending",
+      "remediation": "Populate authentic official High Court judgment portal URL or eCourts record link.",
+      "history": []
+    },
+    {
+      "ruleId": "A01_MISSING_SOURCE_URL",
+      "severity": "high",
+      "documentId": "eval_quash_05",
+      "evidence": "Document record is missing mandatory source_url field.",
+      "detectedAt": "2026-11-24T02:57:53Z",
+      "reviewStatus": "pending",
+      "remediation": "Populate authentic official High Court judgment portal URL or eCourts record link.",
+      "history": []
+    },
+    {
+      "ruleId": "A01_MISSING_SOURCE_URL",
+      "severity": "high",
+      "documentId": "eval_land_01",
+      "evidence": "Document record is missing mandatory source_url field.",
+      "detectedAt": "2026-11-24T02:57:53Z",
+      "reviewStatus": "pending",
+      "remediation": "Populate authentic official High Court judgment portal URL or eCourts record link.",
+      "history": []
+    },
+    {
+      "ruleId": "A01_MISSING_SOURCE_URL",
+      "severity": "high",
+      "documentId": "eval_land_02",
+      "evidence": "Document record is missing mandatory source_url field.",
+      "detectedAt": "2026-11-24T02:57:53Z",
+      "reviewStatus": "pending",
+      "remediation": "Populate authentic official High Court judgment portal URL or eCourts record link.",
+      "history": []
+    },
+    {
+      "ruleId": "A01_MISSING_SOURCE_URL",
+      "severity": "high",
+      "documentId": "eval_land_03",
+      "evidence": "Document record is missing mandatory source_url field.",
+      "detectedAt": "2026-11-24T02:57:53Z",
+      "reviewStatus": "pending",
+      "remediation": "Populate authentic official High Court judgment portal URL or eCourts record link.",
+      "history": []
+    },
+    {
+      "ruleId": "A01_MISSING_SOURCE_URL",
+      "severity": "high",
+      "documentId": "eval_land_04",
+      "evidence": "Document record is missing mandatory source_url field.",
+      "detectedAt": "2026-11-24T02:57:53Z",
+      "reviewStatus": "pending",
+      "remediation": "Populate authentic official High Court judgment portal URL or eCourts record link.",
+      "history": []
+    },
+    {
+      "ruleId": "A01_MISSING_SOURCE_URL",
+      "severity": "high",
+      "documentId": "eval_land_05",
+      "evidence": "Document record is missing mandatory source_url field.",
+      "detectedAt": "2026-11-24T02:57:53Z",
+      "reviewStatus": "pending",
+      "remediation": "Populate authentic official High Court judgment portal URL or eCourts record link.",
+      "history": []
+    },
+    {
+      "ruleId": "A01_MISSING_SOURCE_URL",
+      "severity": "high",
+      "documentId": "eval_serv_01",
+      "evidence": "Document record is missing mandatory source_url field.",
+      "detectedAt": "2026-11-24T02:57:53Z",
+      "reviewStatus": "pending",
+      "remediation": "Populate authentic official High Court judgment portal URL or eCourts record link.",
+      "history": []
+    },
+    {
+      "ruleId": "A01_MISSING_SOURCE_URL",
+      "severity": "high",
+      "documentId": "eval_serv_02",
+      "evidence": "Document record is missing mandatory source_url field.",
+      "detectedAt": "2026-11-24T02:57:53Z",
+      "reviewStatus": "pending",
+      "remediation": "Populate authentic official High Court judgment portal URL or eCourts record link.",
+      "history": []
+    },
+    {
+      "ruleId": "A01_MISSING_SOURCE_URL",
+      "severity": "high",
+      "documentId": "eval_serv_03",
+      "evidence": "Document record is missing mandatory source_url field.",
+      "detectedAt": "2026-11-24T02:57:53Z",
+      "reviewStatus": "pending",
+      "remediation": "Populate authentic official High Court judgment portal URL or eCourts record link.",
+      "history": []
+    },
+    {
+      "ruleId": "A01_MISSING_SOURCE_URL",
+      "severity": "high",
+      "documentId": "eval_serv_04",
+      "evidence": "Document record is missing mandatory source_url field.",
+      "detectedAt": "2026-11-24T02:57:53Z",
+      "reviewStatus": "pending",
+      "remediation": "Populate authentic official High Court judgment portal URL or eCourts record link.",
+      "history": []
+    },
+    {
+      "ruleId": "A01_MISSING_SOURCE_URL",
+      "severity": "high",
+      "documentId": "eval_serv_05",
+      "evidence": "Document record is missing mandatory source_url field.",
+      "detectedAt": "2026-11-24T02:57:53Z",
+      "reviewStatus": "pending",
+      "remediation": "Populate authentic official High Court judgment portal URL or eCourts record link.",
+      "history": []
+    },
+    {
+      "ruleId": "A01_MISSING_SOURCE_URL",
+      "severity": "high",
+      "documentId": "eval_tender_01",
+      "evidence": "Document record is missing mandatory source_url field.",
+      "detectedAt": "2026-11-24T02:57:53Z",
+      "reviewStatus": "pending",
+      "remediation": "Populate authentic official High Court judgment portal URL or eCourts record link.",
+      "history": []
+    },
+    {
+      "ruleId": "A01_MISSING_SOURCE_URL",
+      "severity": "high",
+      "documentId": "eval_tender_02",
+      "evidence": "Document record is missing mandatory source_url field.",
+      "detectedAt": "2026-11-24T02:57:53Z",
+      "reviewStatus": "pending",
+      "remediation": "Populate authentic official High Court judgment portal URL or eCourts record link.",
+      "history": []
+    },
+    {
+      "ruleId": "A01_MISSING_SOURCE_URL",
+      "severity": "high",
+      "documentId": "eval_tender_03",
+      "evidence": "Document record is missing mandatory source_url field.",
+      "detectedAt": "2026-11-24T02:57:53Z",
+      "reviewStatus": "pending",
+      "remediation": "Populate authentic official High Court judgment portal URL or eCourts record link.",
+      "history": []
+    },
+    {
+      "ruleId": "A01_MISSING_SOURCE_URL",
+      "severity": "high",
+      "documentId": "eval_tender_04",
+      "evidence": "Document record is missing mandatory source_url field.",
+      "detectedAt": "2026-11-24T02:57:53Z",
+      "reviewStatus": "pending",
+      "remediation": "Populate authentic official High Court judgment portal URL or eCourts record link.",
+      "history": []
+    },
+    {
+      "ruleId": "A01_MISSING_SOURCE_URL",
+      "severity": "high",
+      "documentId": "eval_tender_05",
+      "evidence": "Document record is missing mandatory source_url field.",
+      "detectedAt": "2026-11-24T02:57:53Z",
+      "reviewStatus": "pending",
+      "remediation": "Populate authentic official High Court judgment portal URL or eCourts record link.",
+      "history": []
+    },
+    {
+      "ruleId": "A01_MISSING_SOURCE_URL",
+      "severity": "high",
+      "documentId": "eval_mat_01",
+      "evidence": "Document record is missing mandatory source_url field.",
+      "detectedAt": "2026-11-24T02:57:53Z",
+      "reviewStatus": "pending",
+      "remediation": "Populate authentic official High Court judgment portal URL or eCourts record link.",
+      "history": []
+    },
+    {
+      "ruleId": "A01_MISSING_SOURCE_URL",
+      "severity": "high",
+      "documentId": "eval_mat_02",
+      "evidence": "Document record is missing mandatory source_url field.",
+      "detectedAt": "2026-11-24T02:57:53Z",
+      "reviewStatus": "pending",
+      "remediation": "Populate authentic official High Court judgment portal URL or eCourts record link.",
+      "history": []
+    },
+    {
+      "ruleId": "A01_MISSING_SOURCE_URL",
+      "severity": "high",
+      "documentId": "eval_mat_03",
+      "evidence": "Document record is missing mandatory source_url field.",
+      "detectedAt": "2026-11-24T02:57:53Z",
+      "reviewStatus": "pending",
+      "remediation": "Populate authentic official High Court judgment portal URL or eCourts record link.",
+      "history": []
+    },
+    {
+      "ruleId": "A01_MISSING_SOURCE_URL",
+      "severity": "high",
+      "documentId": "eval_mat_04",
+      "evidence": "Document record is missing mandatory source_url field.",
+      "detectedAt": "2026-11-24T02:57:53Z",
+      "reviewStatus": "pending",
+      "remediation": "Populate authentic official High Court judgment portal URL or eCourts record link.",
+      "history": []
+    },
+    {
+      "ruleId": "A01_MISSING_SOURCE_URL",
+      "severity": "high",
+      "documentId": "eval_mat_05",
+      "evidence": "Document record is missing mandatory source_url field.",
+      "detectedAt": "2026-11-24T02:57:53Z",
+      "reviewStatus": "pending",
+      "remediation": "Populate authentic official High Court judgment portal URL or eCourts record link.",
+      "history": []
+    },
+    {
+      "ruleId": "A01_MISSING_SOURCE_URL",
+      "severity": "high",
+      "documentId": "eval_arb_01",
+      "evidence": "Document record is missing mandatory source_url field.",
+      "detectedAt": "2026-11-24T02:57:53Z",
+      "reviewStatus": "pending",
+      "remediation": "Populate authentic official High Court judgment portal URL or eCourts record link.",
+      "history": []
+    },
+    {
+      "ruleId": "A01_MISSING_SOURCE_URL",
+      "severity": "high",
+      "documentId": "eval_arb_02",
+      "evidence": "Document record is missing mandatory source_url field.",
+      "detectedAt": "2026-11-24T02:57:53Z",
+      "reviewStatus": "pending",
+      "remediation": "Populate authentic official High Court judgment portal URL or eCourts record link.",
+      "history": []
+    },
+    {
+      "ruleId": "A01_MISSING_SOURCE_URL",
+      "severity": "high",
+      "documentId": "eval_arb_03",
+      "evidence": "Document record is missing mandatory source_url field.",
+      "detectedAt": "2026-11-24T02:57:53Z",
+      "reviewStatus": "pending",
+      "remediation": "Populate authentic official High Court judgment portal URL or eCourts record link.",
+      "history": []
+    },
+    {
+      "ruleId": "A01_MISSING_SOURCE_URL",
+      "severity": "high",
+      "documentId": "eval_arb_04",
+      "evidence": "Document record is missing mandatory source_url field.",
+      "detectedAt": "2026-11-24T02:57:53Z",
+      "reviewStatus": "pending",
+      "remediation": "Populate authentic official High Court judgment portal URL or eCourts record link.",
+      "history": []
+    },
+    {
+      "ruleId": "A01_MISSING_SOURCE_URL",
+      "severity": "high",
+      "documentId": "eval_arb_05",
+      "evidence": "Document record is missing mandatory source_url field.",
+      "detectedAt": "2026-11-24T02:57:53Z",
+      "reviewStatus": "pending",
+      "remediation": "Populate authentic official High Court judgment portal URL or eCourts record link.",
+      "history": []
+    },
+    {
+      "ruleId": "A01_MISSING_SOURCE_URL",
+      "severity": "high",
+      "documentId": "eval_ibc_01",
+      "evidence": "Document record is missing mandatory source_url field.",
+      "detectedAt": "2026-11-24T02:57:53Z",
+      "reviewStatus": "pending",
+      "remediation": "Populate authentic official High Court judgment portal URL or eCourts record link.",
+      "history": []
+    },
+    {
+      "ruleId": "A01_MISSING_SOURCE_URL",
+      "severity": "high",
+      "documentId": "eval_ibc_02",
+      "evidence": "Document record is missing mandatory source_url field.",
+      "detectedAt": "2026-11-24T02:57:53Z",
+      "reviewStatus": "pending",
+      "remediation": "Populate authentic official High Court judgment portal URL or eCourts record link.",
+      "history": []
+    },
+    {
+      "ruleId": "A01_MISSING_SOURCE_URL",
+      "severity": "high",
+      "documentId": "eval_ibc_03",
+      "evidence": "Document record is missing mandatory source_url field.",
+      "detectedAt": "2026-11-24T02:57:53Z",
+      "reviewStatus": "pending",
+      "remediation": "Populate authentic official High Court judgment portal URL or eCourts record link.",
+      "history": []
+    },
+    {
+      "ruleId": "A01_MISSING_SOURCE_URL",
+      "severity": "high",
+      "documentId": "eval_ibc_04",
+      "evidence": "Document record is missing mandatory source_url field.",
+      "detectedAt": "2026-11-24T02:57:53Z",
+      "reviewStatus": "pending",
+      "remediation": "Populate authentic official High Court judgment portal URL or eCourts record link.",
+      "history": []
+    },
+    {
+      "ruleId": "A01_MISSING_SOURCE_URL",
+      "severity": "high",
+      "documentId": "eval_ibc_05",
+      "evidence": "Document record is missing mandatory source_url field.",
+      "detectedAt": "2026-11-24T02:57:53Z",
+      "reviewStatus": "pending",
+      "remediation": "Populate authentic official High Court judgment portal URL or eCourts record link.",
+      "history": []
+    },
+    {
+      "ruleId": "A01_MISSING_SOURCE_URL",
+      "severity": "high",
+      "documentId": "eval_neg_01",
+      "evidence": "Document record is missing mandatory source_url field.",
+      "detectedAt": "2026-11-24T02:57:53Z",
+      "reviewStatus": "pending",
+      "remediation": "Populate authentic official High Court judgment portal URL or eCourts record link.",
+      "history": []
+    },
+    {
+      "ruleId": "A01_MISSING_SOURCE_URL",
+      "severity": "high",
+      "documentId": "eval_neg_02",
+      "evidence": "Document record is missing mandatory source_url field.",
+      "detectedAt": "2026-11-24T02:57:53Z",
+      "reviewStatus": "pending",
+      "remediation": "Populate authentic official High Court judgment portal URL or eCourts record link.",
+      "history": []
+    },
+    {
+      "ruleId": "A01_MISSING_SOURCE_URL",
+      "severity": "high",
+      "documentId": "eval_neg_03",
+      "evidence": "Document record is missing mandatory source_url field.",
+      "detectedAt": "2026-11-24T02:57:53Z",
+      "reviewStatus": "pending",
+      "remediation": "Populate authentic official High Court judgment portal URL or eCourts record link.",
+      "history": []
+    },
+    {
+      "ruleId": "A01_MISSING_SOURCE_URL",
+      "severity": "high",
+      "documentId": "eval_neg_04",
+      "evidence": "Document record is missing mandatory source_url field.",
+      "detectedAt": "2026-11-24T02:57:53Z",
+      "reviewStatus": "pending",
+      "remediation": "Populate authentic official High Court judgment portal URL or eCourts record link.",
+      "history": []
+    },
+    {
+      "ruleId": "A01_MISSING_SOURCE_URL",
+      "severity": "high",
+      "documentId": "eval_neg_05",
+      "evidence": "Document record is missing mandatory source_url field.",
+      "detectedAt": "2026-11-24T02:57:53Z",
+      "reviewStatus": "pending",
+      "remediation": "Populate authentic official High Court judgment portal URL or eCourts record link.",
+      "history": []
+    }
+  ]
+}

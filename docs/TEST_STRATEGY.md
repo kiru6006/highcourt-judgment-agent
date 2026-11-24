@@ -47,6 +47,12 @@ Nyaya AI Reader employs multi-layered verification spanning data integrity, sear
 - Script: `eval/evaluate.py` across 25 legal queries in `eval/queries.jsonl`.
 - Asserts Recall@10 $\ge 80\%$ and MRR@10 $\ge 0.60$ across BM25, dense vectors, and hybrid Reciprocal Rank Fusion (measured 92% Recall@10, 0.77 MRR@10).
 
+### 2.5 Layer 5: Structured Case Intelligence & Anomaly Gates (v1.2.0)
+- **Taxonomy Precision Benchmark (`scripts/eval_taxonomy.py`)**: Asserts 100% accuracy on Level 1 registry mapping and 100% macro precision/recall on Level 2 deterministic rule suite across 50 hand-labeled test fixtures. Emits `docs/TAXONOMY_TEST_REPORT.md`.
+- **Court Code Registry Unit Tests (`shared/court-codes/registry.test.ts`)**: Asserts all 5 High Courts resolve verified codes, preserve unverified codes as `unknown`, and point to valid HTTPS official portals.
+- **Data Quality Dashboard Tests (`web/src/pages/DataQualityPage.test.tsx`)**: Verifies that dashboard KPI cards exactly match ingest artifact `data/anomaly-summary.json`, all active audit rules (A01, A02, A04, A05) render, and export buttons trigger JSON/CSV downloads with accessible WCAG markup.
+- **Filter Coverage Threshold Test (`scripts/filter_coverage.py`)**: Verifies that filters with $< 5\%$ coverage are routed to advanced toggles and emits `docs/FILTER_COVERAGE_REPORT.md`.
+
 ---
 
 ## 3. Performance & Size Budget Enforcement
@@ -67,8 +73,10 @@ bash scripts/verify-all.sh
 # or: npm run verify
 ```
 This command sequentially executes:
-1. Client Unit & Integration Tests (`npm test` in `web` - 42 tests).
+1. Client Unit & Integration Tests (`npm test` in `web` - 11 test suites, 65 tests).
 2. Production Bundle Build (`tsc && vite build`).
 3. Static Performance & Budget Gate (`bash scripts/check-budget.sh`).
 4. Pipeline & Ingestion Unit Tests (`pytest` - 50 tests).
 5. Retrieval & RRF Evaluation Benchmark (`eval/evaluate.py`).
+6. Taxonomy Evaluation Benchmark (`scripts/eval_taxonomy.py`).
+7. Ingest Anomaly Audit & Filter Coverage Checks (`pipeline/anomaly/engine.py` & `scripts/filter_coverage.py`).

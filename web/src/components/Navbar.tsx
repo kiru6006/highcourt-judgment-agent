@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Scale, Search, Link2, FolderLock, Info, Sun, Moon } from 'lucide-react';
+import { Scale, Search, Link2, FolderLock, Info, Sun, Moon, ShieldAlert } from 'lucide-react';
 import { APP_CONFIG } from '../constants/app.constants';
 
 interface NavbarProps {
@@ -87,6 +87,13 @@ export const Navbar: React.FC<NavbarProps> = ({
               className="p-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition"
             >
               <FolderLock className="w-5 h-5" />
+            </Link>
+            <Link
+              to="/data-quality"
+              title="Data Quality & Integrity Dashboard"
+              className="p-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition"
+            >
+              <ShieldAlert className="w-5 h-5" />
             </Link>
             <Link
               to="/about-data"

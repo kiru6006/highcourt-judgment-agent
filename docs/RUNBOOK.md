@@ -175,3 +175,41 @@ This section guides practicing advocates, judicial law clerks, and students on u
    - Click **Print Memo** (or press `Cmd+P` / `Ctrl+P`).
    - The UI automatically strips navigational chrome, expands notes into formal typography, and formats an A4 Court Research Memorandum ready for bench submission or case conferences.
    - Click **Export JSON** to save a portable local backup file of your entire workspace.
+
+---
+
+## 6. Structured Case Intelligence & Anomaly Operations (v1.2.0)
+
+### 6.1 Running Multi-Tier Case Classification
+Execute the offline deterministic classification engine across document fixtures:
+```bash
+.venv/bin/python pipeline/classify/engine.py
+```
+- Maps metadata against `shared/court-codes/registry.ts` (Level 1).
+- Evaluates the 10-rule narrow subject suite (Level 2).
+- Asserts paragraph evidence anchors exist before assigning labels.
+
+### 6.2 Running Ingest Anomaly Audit & Emitting Summary
+Run the offline data quality audit suite:
+```bash
+.venv/bin/python pipeline/anomaly/engine.py
+```
+- Executes rules A01 (Source), A02 (Identity), A04 (Quality), A05 (Classification).
+- Reads existing review state from `data/anomaly-review/review-state.yaml`.
+- Emits pre-computed artifact `data/anomaly-summary.json` and syncs to `web/public/data/`.
+
+### 6.3 Evaluating Taxonomy & Filter Coverage Reports
+Regenerate CI quality audit reports:
+```bash
+# Evaluate taxonomy precision against 50-doc benchmark
+.venv/bin/python scripts/eval_taxonomy.py
+
+# Evaluate left-rail filter coverage & 5% threshold
+.venv/bin/python scripts/filter_coverage.py
+```
+Outputs: `docs/TAXONOMY_TEST_REPORT.md` and `docs/FILTER_COVERAGE_REPORT.md`.
+
+### 6.4 Navigating the Data Quality Dashboard
+1. Navigate to `/data-quality` via the top navigation `ShieldAlert` icon or footer link.
+2. Filter anomalies by severity (`High`, `Medium`, `Low`) or status (`Pending`, `Reviewed`, `Suppressed`).
+3. Click **JSON** or **CSV** to download full filtered audit records directly in the browser.

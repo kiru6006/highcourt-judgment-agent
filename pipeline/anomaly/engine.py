@@ -11,10 +11,22 @@ import yaml
 from datetime import datetime, timezone
 from typing import Dict, Any, List, Set, Optional
 
-from .a01_source import check_a01_source
-from .a02_identity import check_a02_identity
-from .a04_quality import check_a04_quality
-from .a05_classification import check_a05_classification
+try:
+    from pipeline.anomaly.a01_source import check_a01_source
+    from pipeline.anomaly.a02_identity import check_a02_identity
+    from pipeline.anomaly.a04_quality import check_a04_quality
+    from pipeline.anomaly.a05_classification import check_a05_classification
+except ImportError:
+    try:
+        from .a01_source import check_a01_source
+        from .a02_identity import check_a02_identity
+        from .a04_quality import check_a04_quality
+        from .a05_classification import check_a05_classification
+    except ImportError:
+        from a01_source import check_a01_source
+        from a02_identity import check_a02_identity
+        from a04_quality import check_a04_quality
+        from a05_classification import check_a05_classification
 
 DEFAULT_REVIEW_STATE_PATH = "data/anomaly-review/review-state.yaml"
 DEFAULT_SUMMARY_JSON_PATH = "data/anomaly-summary.json"
@@ -106,5 +118,12 @@ def run_anomaly_suite_on_corpus(
     os.makedirs(os.path.dirname(summary_output_path), exist_ok=True)
     with open(summary_output_path, "w", encoding="utf-8") as f:
         json.dump(summary, f, indent=2)
+
+    # Sync to web/public/data if available
+    web_public_copy = "web/public/data/anomaly-summary.json"
+    if os.path.exists("web/public") and summary_output_path == DEFAULT_SUMMARY_JSON_PATH:
+        os.makedirs(os.path.dirname(web_public_copy), exist_ok=True)
+        with open(web_public_copy, "w", encoding="utf-8") as f:
+            json.dump(summary, f, indent=2)
 
     return summary

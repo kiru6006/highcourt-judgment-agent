@@ -13,6 +13,9 @@
 - [D-010: Pilot Corpus Boundary & Court Coverage](#d-010-pilot-corpus-boundary--court-coverage)
 - [D-011: Project Brand Name & Configuration Constant](#d-011-project-brand-name--configuration-constant)
 - [D-012: Headless Playwright Screenshot & Social Preview Automation](#d-012-headless-playwright-screenshot--social-preview-automation)
+- [D-013: Deterministic Two-Level Case Classification & AI Gating Contract](#d-013-deterministic-two-level-case-classification--ai-gating-contract)
+- [D-014: React 19 Frontend Framework Upgrade & Modern 2026 UI Stack](#d-014-react-19-frontend-framework-upgrade--modern-2026-ui-stack)
+- [D-015: Offline Ingest Anomaly Auditing & Read-Only Data Quality Dashboard](#d-015-offline-ingest-anomaly-auditing--read-only-data-quality-dashboard)
 
 ---
 
@@ -146,4 +149,26 @@
   2. **Level 2 (Rule-Based Evidence Grounding)**: Narrow 10-rule procedural suite (Bail, Quashing, Arbitration, Tenders, Matrimonial, etc.). Invariant: A rule fires *only* if its evidence paragraph anchor index is retrievable. Zero evidence -> zero label.
   3. **Level 3 (AI Inference) Gate**: Strictly gated and deferred until Levels 1 & 2 pass audited precision on benchmark fixtures.
 - **Consequences**: Zero hallucination, 100% reproducible legal tagging, full backward compatibility with v1.0.0 schema, and measurable per-rule precision reported in `docs/TAXONOMY_TEST_REPORT.md`.
+
+---
+
+### D-014: React 19 Frontend Framework Upgrade & Modern 2026 UI Stack
+- **Status**: Accepted
+- **Date**: 2026-11-24
+- **Context**: As 2026 draws to a close, React 19 is the enterprise LTS standard. Keeping the frontend on legacy 2025 library versions introduces technical debt and potential compatibility drift with future browser standards.
+- **Decision**: Upgrade web application directly to **React 19.3.1**, **React-DOM 19.3.1**, `@types/react@19.3.0`, and `@types/react-dom@19.3.0`. Retain Vite 5.4, Vitest 2.1, and Tailwind CSS.
+- **Consequences**: Zero hydration warnings, clean TypeScript compilations, enhanced rendering performance, and full compliance with 2026 web standards.
+
+---
+
+### D-015: Offline Ingest Anomaly Auditing & Read-Only Data Quality Dashboard
+- **Status**: Accepted
+- **Date**: 2026-11-24
+- **Context**: Ensuring corpus integrity across thousands of judgments requires automated auditing of source URLs, duplicate records, OCR truncation, and classification consistency without runtime server databases.
+- **Decision**:
+  1. Implement offline ingest anomaly detection in `pipeline/anomaly/` covering rules A01 (Source), A02 (Identity), A04 (Document Quality), and A05 (Classification).
+  2. Reserve the word "fabricated" strictly for A02 byte-level checksum collisions.
+  3. Persist review state in version-controlled YAML (`data/anomaly-review/review-state.yaml`).
+  4. Ship a 100% static, client-side Data Quality Dashboard at `/data-quality` with zero write-back and client-side JSON/CSV export.
+- **Consequences**: Complete transparency of data provenance and quality with zero backend hosting dependencies.
 

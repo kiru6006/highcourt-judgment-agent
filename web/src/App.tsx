@@ -9,6 +9,7 @@ import { ReaderPage } from './pages/ReaderPage';
 import { LinksPage } from './pages/LinksPage';
 import { FoldersPage } from './pages/FoldersPage';
 import { AboutDataPage } from './pages/AboutDataPage';
+import { DataQualityPage } from './pages/DataQualityPage';
 
 export const App: React.FC = () => {
   // Theme state
@@ -75,6 +76,7 @@ export const App: React.FC = () => {
             <Route path="/links" element={<LinksPage />} />
             <Route path="/folders" element={<FoldersPage />} />
             <Route path="/about-data" element={<AboutDataPage />} />
+            <Route path="/data-quality" element={<DataQualityPage />} />
             <Route path="*" element={<Navigate to="/search" replace />} />
           </Routes>
         </div>

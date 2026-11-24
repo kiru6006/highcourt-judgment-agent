@@ -191,31 +191,31 @@ highcourt-judgment-agent/
 │   ├── takedown.json              # Official court expungement & takedown registry
 │   └── gazette_tables.csv         # IPC/CrPC/IEA to BNS/BNSS/BSA transition gazette mappings
 ├── data/
+│   ├── anomaly-review/            # Version-controlled YAML review state for data anomalies
+│   ├── anomaly-summary.json       # Pre-computed ingest data quality audit artifact
 │   └── shards/                    # Pre-computed gzipped search, doc, vector shards & manifest
 ├── docs/
-│   ├── ARCHITECTURE.md            # Static-first 3-layer architecture & data flow
-│   ├── PRD.md                     # Product requirements, personas, scope, and non-goals
-│   ├── PRD_RECONCILIATION.md      # 54-item requirements traceability matrix
-│   ├── SCHEMA.md                  # Canonical JSON schemas (documents, shards, claims)
+│   ├── archive/                   # Superseded draft specifications retained for provenance
+│   │   ├── NYAYALENS_SPEC.md      # Harvested external portal specification
+│   │   └── V1_2_TAXONOMY_DRAFT.md # Draft taxonomy proposal
+│   ├── ARCHITECTURE.md            # Static-first 3-layer architecture & v1.2.0 subsystems
+│   ├── CASE_TAXONOMY_GAP_ANALYSIS.md # Milestone M1 gap analysis & reuse inventory
+│   ├── CLASSIFICATION_AND_ANOMALY.md # Multi-tier classifier & offline anomaly rules
+│   ├── DECISIONS.md               # Architecture Decision Records (ADRs D-001 to D-015)
+│   ├── FILTER_COVERAGE_REPORT.md  # CI-generated empirical facet coverage report
+│   ├── HOW_AI_GROUNDS.md          # Technical explanation of verbatim verification
+│   ├── LEGAL_CASE_TAXONOMY.md     # 8-domain hierarchy & court-code registries
 │   ├── PIPELINE.md                # Python ingestion, normalization, and sharding spec
 │   ├── RUNBOOK.md                 # Dev setup, ops procedures & 5-minute advocate guide
-│   ├── HOW_AI_GROUNDS.md          # Technical explanation of verbatim verification
-│   ├── AI_GROUNDING_SPEC.md       # Copilot prompt contract & JSON verification rules
-│   ├── DECISIONS.md               # Architecture Decision Records (ADRs D-001 to D-011)
+│   ├── SCHEMA.md                  # Canonical schemas (documents, shards, claims, anomalies)
+│   ├── SEARCH_FILTER_SPEC.md      # Filter coverage thresholds & external portal links
 │   ├── SECURITY_PRIVACY.md        # Threat model, BYOK policy, CSP rules, and takedowns
-│   ├── TEST_STRATEGY.md           # Test pyramid, accessibility, E2E, and budget rules
-│   ├── UX_SPEC.md                 # Design tokens, 3-pane layout, facets & states
-│   ├── FINAL_AUDIT_REPORT.md      # Comprehensive 13-phase audit report & metrics
-│   ├── V1_0_INDEPENDENT_AUDIT.md  # Multi-disciplinary code audit & defect register
-│   ├── V1_1_IMPLEMENTATION_PLAN.md# Hardening & distribution improvement plan
-│   ├── PHASES.md                  # Phase roadmap and verified acceptance criteria
-│   ├── PRODUCTION_MIGRATION.md    # Cloudflare Pages+R2 / AWS S3+CloudFront playbook
-│   ├── OPTIONAL_ENHANCEMENTS.md   # Gated enterprise specs (WebLLM, FastAPI, Classifiers)
-│   ├── ops.md                     # Live operations telemetry dashboard
-│   ├── data-report.md             # Empirical S3 dataset discovery report
-│   ├── search-bench.md            # MiniSearch vs Orama search benchmark report
-│   └── retrieval-eval.md          # BM25 vs Dense vs Hybrid RRF benchmark report
+│   ├── TAXONOMY_TEST_REPORT.md    # Precision report on 50-judgment evaluation benchmark
+│   ├── TEST_STRATEGY.md           # 5-tier test pyramid, budget enforcement & CI gates
+│   └── V1_2_RELEASE_NOTES.md      # v1.2.0 "Structured Case Intelligence" release notes
 ├── pipeline/
+│   ├── anomaly/                   # Ingest-time anomaly rules (A01, A02, A04, A05) & engine
+│   ├── classify/                  # Level 1 registry & Level 2 deterministic rule classifiers
 │   ├── ingest.py                  # PyMuPDF extractor and court batch processor
 │   ├── cleaner.py                 # Text normalization, header stripping & paragraph segmenter
 │   ├── normalizer.py              # Court code, disposal, case type & bench normalizer
@@ -223,33 +223,37 @@ highcourt-judgment-agent/
 │   ├── embedder.py                # Symmetric int8 dense vector embedding generator
 │   ├── manifest_builder.py        # Master manifest.json generator with SHA-256 hashes
 │   ├── takedown.py                # Automated court order purge & expungement engine
-│   ├── sync_monitor.py            # Nightly sync monitor and telemetry reporter
-│   └── eval_retrieval.py          # Recall@10 and MRR@10 benchmark evaluation runner
+│   └── sync_monitor.py            # Nightly sync monitor and telemetry reporter
+├── shared/
+│   ├── court-codes/               # Verified official court code registries (5 High Courts)
+│   ├── taxonomy/                  # Versioned 8-domain legal hierarchy constants
+│   └── schema.ts                  # Shared Zod-validated TypeScript domain contracts
 ├── scripts/
 │   ├── check-budget.sh            # Hard performance & size budget gate (Pages <= 500 MB)
-│   └── verify-all.sh              # 5-gate verification suite (tests, build, budget, pytest, eval)
+│   ├── eval_taxonomy.py           # Automated evaluation runner for 50-doc benchmark
+│   ├── filter_coverage.py         # Evaluator for facet coverage & 5% advanced toggle
+│   └── verify-all.sh              # Unified 5-gate verification suite
 ├── tests/
 │   ├── test_pipeline.py           # Unit tests for text extraction, normalizers & quarantine
 │   ├── test_takedown.py           # Verification tests for takedown purge workflow
 │   └── test_sync_monitor.py       # Tests for corpus configuration & shard inspection
 └── web/
-    ├── public/                    # Static assets, demo fixtures & sample shard data
+    ├── public/                    # Static assets, demo fixtures, public data & shards
     ├── src/
-    │   ├── components/            # Nav, facets, cards, drawers, modals, brief, footer
-    │   ├── constants/             # App config, courts, benches, categories, statute bridge
+    │   ├── components/            # Facets, CaseIntelligencePanel, Modals, Banner, Footer
+    │   ├── constants/             # App config, courts, benches, statute bridge
     │   ├── copilot/               # Verbatim verifier, Gemini client, cache, demo answers
     │   ├── fixtures/              # Synthetic test fixtures for offline development
-    │   ├── pages/                 # SearchPage, ReaderPage, FoldersPage, LinksPage, AboutPage
+    │   ├── pages/                 # SearchPage, ReaderPage, FoldersPage, LinksPage, AboutPage, DataQualityPage
     │   ├── reader/                # Document loader & statute transition lookup
     │   ├── search/                # MiniSearch worker, vector search, RRF fusion, query parser
     │   ├── workspace/             # Advocate workspace, case folder store & JSON exporter
-    │   ├── types/                 # Strict TypeScript schemas & interfaces
-    │   ├── App.tsx                # React Router setup & global layout
+    │   ├── types/                 # Strict TypeScript schemas, anomaly & taxonomy types
+    │   ├── utils/                 # Deterministic external portal links (NyayaLens)
+    │   ├── App.tsx                # React Router v6+ with React 19 concurrent routing
     │   ├── main.tsx               # Client entry point
-    │   └── index.css              # Tailwind directives, legal prose & @media print memo styles
-    ├── index.html                 # HTML shell with strict CSP meta tag
-    ├── package.json               # Frontend dependencies & build scripts
-    ├── tsconfig.json              # Strict TypeScript compiler options
+    │   └── index.css              # Tailwind directives, legal prose & @media print styles
+    ├── package.json               # Upgraded React 19 dependencies & build scripts
     └── vite.config.ts             # Vite bundler configuration & GitHub Pages base href
 ```
 

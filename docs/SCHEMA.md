@@ -193,3 +193,71 @@ export interface AIClaim {
   verified?: boolean;               // Populated by client verifier
 }
 ```
+
+---
+
+## 5. Structured Case Intelligence & Anomaly Schema (v1.2.0)
+
+### 5.1 Case Classification Metadata (`ClassificationMetadata`)
+Additive extension to `JudgmentDocument`:
+```typescript
+export interface ClassificationMetadata {
+  reviewStatus: 'pending' | 'reviewed' | 'unknown';
+  statedClassification?: ClassificationRecord;
+  inferredClassification?: ClassificationRecord[];
+  anomaliesDetected?: string[];
+}
+
+export interface ClassificationRecord {
+  ruleId?: string;
+  method: 'registry' | 'rule' | 'ai';
+  taxonomyVersion: string;         // "1.0"
+  domainId: string;                // e.g. "domain_criminal"
+  domainLabel: string;             // "Criminal Law"
+  subjectIds: string[];            // e.g. ["subj_crim_bail"]
+  jurisdictionType?: string;       // "Original" | "Appellate" | "Writ" | "Revisional"
+  normalizedCaseType?: string;     // "Crl.O.P."
+  officialDescription?: string;    // "Criminal Original Petition"
+  confidence: number;              // 0.0 to 1.0
+  evidenceParagraphs: number[];    // Mandatory paragraph anchors e.g. [2]
+  reviewStatus: 'pending' | 'reviewed' | 'unknown';
+  sourceUrl?: string;              // High Court portal URL
+  status?: 'verified' | 'unverified' | 'unknown';
+}
+```
+
+### 5.2 Anomaly Summary & Audit Records (`AnomalySummary`)
+Emitted by `pipeline/anomaly/engine.py` into `data/anomaly-summary.json`:
+```typescript
+export interface AnomalyRecord {
+  ruleId: string;                  // e.g. "A01_MISSING_SOURCE_URL"
+  severity: 'high' | 'medium' | 'low';
+  documentId: string;              // Target JID
+  evidence: string;                // Audit failure rationale
+  detectedAt: string;              // ISO timestamp
+  reviewStatus: 'pending' | 'reviewed' | 'suppressed';
+  remediation: string;             // Suggested corrective action
+  history?: string[];
+}
+
+export interface AnomalySummary {
+  generatedAt: string;
+  totalDocumentsScanned: number;
+  totalAnomaliesDetected: number;
+  severityCounts: {
+    high: number;
+    medium: number;
+    low: number;
+  };
+  statusCounts: {
+    pending: number;
+    reviewed: number;
+    suppressed: number;
+  };
+  ruleCounts: Record<string, number>;
+  anomalies: AnomalyRecord[];
+}
+```
+
+### 5.3 Schema Migration Invariant
+Existing documents receive `classification_metadata.review_status: "pending"` and null/empty classifications. No values are fabricated during migration. Missing court-code matches retain raw code strings with `status: "unknown"`.

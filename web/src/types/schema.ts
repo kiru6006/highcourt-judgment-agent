@@ -106,6 +106,35 @@ export interface JudgmentDocument {
   classification_metadata?: ClassificationMetadata;
 }
 
+export interface AnomalyRecord {
+  ruleId: string;
+  severity: 'high' | 'medium' | 'low';
+  documentId: string;
+  evidence: string;
+  detectedAt: string;
+  reviewStatus: 'pending' | 'reviewed' | 'suppressed';
+  remediation: string;
+  history?: string[];
+}
+
+export interface AnomalySummary {
+  generatedAt: string;
+  totalDocumentsScanned: number;
+  totalAnomaliesDetected: number;
+  severityCounts: {
+    high: number;
+    medium: number;
+    low: number;
+  };
+  statusCounts: {
+    pending: number;
+    reviewed: number;
+    suppressed: number;
+  };
+  ruleCounts: Record<string, number>;
+  anomalies: AnomalyRecord[];
+}
+
 export interface SearchFilters {
   query: string;
   courts: string[];

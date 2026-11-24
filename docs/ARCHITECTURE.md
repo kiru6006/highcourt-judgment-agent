@@ -94,3 +94,29 @@ web/dist/
 | **D. Cloudflare R2 / AWS S3** | External object storage with public custom domain | Explicit CORS configuration (`Access-Control-Allow-Origin: *`) | Full HTTP Range request support | Negligible ($\sim \$0.015/\text{GB}$) | **Migration Target (Phase 10)**: Documented in `docs/PRODUCTION_MIGRATION.md` for scaling beyond 500 MB. |
 
 *Verified: Phase 2 empirical spike validated same-origin Pages hosting (see `docs/data-report.md`). Phase 10 migration runbook established in `docs/PRODUCTION_MIGRATION.md`.*
+
+---
+
+## 4. Structured Case Intelligence Subsystem (v1.2.0)
+
+NyayaReader v1.2.0 adds a deterministic case intelligence layer across offline ingestion and the static client runtime:
+
+```
+Shared Schemas & Registries:
+  - shared/taxonomy/v1.ts: 8-domain legal hierarchy (taxonomyVersion: "1.0")
+  - shared/court-codes/registry.ts: Verified official court code registry (Madras, Karnataka, Kerala, Delhi, Bombay)
+
+Offline Ingestion & Auditing:
+  - pipeline/classify/level1.py: Deterministic metadata & registry case-type classifier
+  - pipeline/classify/level2.py: 10 narrow rule-based subject classifiers with mandatory paragraph evidence
+  - pipeline/classify/engine.py: Multi-tier orchestrator with Level 3 AI inference gated
+  - pipeline/anomaly/engine.py: Ingest-time auditor (A01 Source, A02 Identity, A04 Quality, A05 Classification)
+  - data/anomaly-review/review-state.yaml: Version-controlled audit review state
+  - data/anomaly-summary.json: Pre-computed ingest quality summary
+
+Web Client Integration:
+  - web/src/components/CaseIntelligencePanel.tsx: 3-pane reader panel (Stated vs. Inferred with paragraph anchors vs. Unknown)
+  - web/src/components/LeftRailFacets.tsx: Live filter coverage indicators with automatic < 5% advanced toggle
+  - web/src/utils/web-links.ts: Zero-guessing external portal deep links (eCourts, High Court Portals, Indian Kanoon)
+  - web/src/pages/DataQualityPage.tsx: Read-only data quality dashboard with client-side JSON/CSV export
+```

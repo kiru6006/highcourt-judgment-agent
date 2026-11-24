@@ -33,6 +33,7 @@ echo "--- 5. Retrieval & RRF Evaluation Benchmark ---"
 PYTHONPATH=. .venv/bin/python eval/evaluate.py
 PYTHONPATH=. .venv/bin/python scripts/eval_taxonomy.py
 PYTHONPATH=. .venv/bin/python scripts/filter_coverage.py
+PYTHONPATH=. .venv/bin/python pipeline/anomaly/engine.py
 
 echo ""
 echo "========================================================"
