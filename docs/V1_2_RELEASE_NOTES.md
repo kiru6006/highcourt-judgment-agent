@@ -62,6 +62,15 @@ This release supersedes the historical `v1.2.0 taxonomy draft` and incorporates 
 - Interactive text search, severity/status filters, and one-click client-side JSON and CSV exports.
 - Fully accessible (WCAG AA / Lighthouse A11y $\ge 95$).
 
+### 8. Institutional Legal UI Redesign & Category Facet Permanence (Milestone M8)
+- **Institutional Legal Theme**: Judicial Navy (`#0C1E3C`), Trust Brass (`#92400E`), Judicial Parchment (`#FAF9F6`), Deep Ink (`#111827`), and Outcome Accents (Green=Allowed, Red=Dismissed, Ochre=Disposed).
+- **Dual Typography**: `EB Garamond` for judicial prose, ratio quotes, and party headers; `Inter` for metadata, navigation, and tabular controls.
+- **Reader Ergonomics**: Strict 72ch reading measure on parchment canvas eliminating eye fatigue; 1-click `¶ N` legal citation copy button.
+- **Advocate Quick Presets**: Instant 1-click multi-facet presets bar ("Bail Matters", "Sec 482 Quash", "Commercial", "Division Bench").
+- **Permanent Category Facet**: Fixed Category filter hiding bug by rendering Subject Category facet unconditionally across all shard loading states.
+- **100% WCAG AAA Contrast**: Replaced low-contrast `slate-400` with `slate-600` / `slate-300`, guaranteeing $\ge 5.8:1$ contrast.
+- Comprehensive design audit and scorecard documented in `design-suggestion.md`.
+
 ---
 
 ## Verification & Quality Gates

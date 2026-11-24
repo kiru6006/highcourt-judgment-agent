@@ -7,15 +7,23 @@ NyayaReader v1.2.0 establishes empirical coverage thresholds for left-rail searc
 
 ## 2. Left-Rail Filter Coverage & Ergonomics
 
-### 2.1 The 5% Coverage Cutoff Rule
+### 2.1 The 5% Coverage Cutoff Rule & Category Invariant
 To prevent cluttering the primary search workspace with low-signal or sparsely populated metadata facets:
-- Any facet whose non-null corpus coverage is **$\ge 5.0\%$** is rendered prominently in the primary filter rail.
-- Any facet whose non-null corpus coverage is **$< 5.0\%$** is automatically tucked behind a collapsible **"Advanced Filters (< 5% Coverage)"** disclosure toggle.
+- Any optional facet whose non-null corpus coverage is **$\ge 5.0\%$** is rendered prominently in the primary filter rail.
+- Any optional facet whose non-null corpus coverage is **$< 5.0\%$** is automatically tucked behind a collapsible **"Advanced Filters (< 5% Coverage)"** disclosure toggle.
+- **Permanent Category Invariant:** Subject Category (`category`) is **unconditionally visible** in the primary rail at all times regardless of shard coverage calculations, ensuring advocate workflows are never interrupted when loading distributed or partial shards.
 
 ### 2.2 Coverage Badge Invariant
 Every filter group displays a live non-null coverage indicator (e.g. `[100%]` or `[42%]`), computed dynamically by `scripts/filter_coverage.py` and rendered by `web/src/components/LeftRailFacets.tsx`.
 
-### 2.3 Empirical Coverage Matrix (Pilot Corpus)
+### 2.3 Advocate Quick-Action Presets
+To accelerate daily high-frequency legal workflows, an Advocate Quick Presets bar is docked atop the left filter rail:
+1. **Bail Matters**: Activates Criminal domain and bail filters.
+2. **Sec 482 Quash**: Activates Criminal domain and Section 482 CrPC quashing petitions.
+3. **Commercial**: Activates Commercial dispute domain.
+4. **Division Bench**: Activates DB coram type.
+
+### 2.4 Empirical Coverage Matrix (Pilot Corpus)
 Generated programmatically in `docs/FILTER_COVERAGE_REPORT.md`:
 
 | Filter Facet | Field | Non-Null Count | Total Docs | Coverage % | Status |

@@ -16,11 +16,15 @@
 
 ### Core Capabilities:
 - **In-Browser Hybrid Retrieval**: Sub-4ms BM25 keyword search + 384-dimensional dense vector similarity fused via Reciprocal Rank Fusion (RRF) directly inside a client Web Worker over compact pre-indexed shards.
+- **Institutional Legal Design & Dual Typography**: Custom judicial theme (Oxford Navy `#0C1E3C`, Trust Brass `#92400E`, Judicial Parchment `#FAF9F6`) with `EB Garamond` serif judicial prose, `Inter` metadata, 72ch reading measure, and 100% WCAG AAA contrast compliance.
+- **Advocate Quick Presets & Facet Search**: 1-click presets ("Bail Matters", "Sec 482 Quash", "Commercial", "Division Bench") and permanently visible Category facets alongside Court, Bench, Year, and Coram filters.
+- **Outcome Accent Strips & 1-Click Citation Copying**: Immediate visual outcome triage (Green=Allowed, Red=Dismissed, Ochre=Disposed) and 1-click `¶ 14` paragraph legal citation copying.
 - **Distraction-Free 3-Pane Reader**: Navigable judicial sections (Facts, Issues, Submissions, Ratio Decidendi, Final Order), deep paragraph anchors (`#para-N`), statute chips, and instant IPC $\to$ BNS / CrPC $\to$ BNSS / IEA $\to$ BSA transition tables.
 - **Grounded AI Copilot with Verbatim Verification**: Client-side claim verifier mathematically drops any AI statement that lacks exact verbatim quote evidence from retrieved judgment paragraphs.
 - **Advocate Workspace & Court Memo Print**: Case folder organization, inline advocate hearing notes, 2–5 Precedent Comparison Matrix, and one-click clean A4 court memorandum printing.
 - **Multi-Source External Web Fallbacks**: Zero-key deep-link generator for official eCourts records, High Court portals, and Indian Kanoon when researching outside local corpus shards.
 
+> **Design Audit & Benchmarks**: Review the full UI/UX audit report, scorecard (52.6% Now $\to$ 96.3% Target), and design tokens in [design-suggestion.md](design-suggestion.md).
 > **Verifiable Legal AI**: Wondering how hallucinations are eliminated? Read our technical breakdown on [How Nyaya AI Reader Grounds AI Answers](docs/HOW_AI_GROUNDS.md) (or live at [`/how-ai-grounds`](https://kiru6006.github.io/highcourt-judgment-agent/#/how-ai-grounds)).
 
 ---

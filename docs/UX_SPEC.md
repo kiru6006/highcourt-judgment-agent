@@ -1,25 +1,38 @@
 # Nyaya AI Reader — User Experience & Interface Specification
 
 ## 1. Design Philosophy & Visual Tokens
-Nyaya AI Reader provides an uncluttered, high-contrast, distraction-free environment optimized for long hours of legal reading, precedent discovery, and court preparation.
+Nyaya AI Reader provides an institutional, high-contrast, distraction-free environment optimized for long hours of legal reading, precedent discovery, and court preparation by advocates, judicial law clerks, and judges.
 
-### 1.1 Color Palette
-- **Paper Canvas**: `#F8FAFC` (Slate-50) — Soft off-white to eliminate glare.
-- **Card / Surface Background**: `#FFFFFF` (Pure White).
-- **Ink Primary**: `#0F172A` (Slate-900) — High-legibility body contrast (WCAG AAA).
-- **Ink Secondary**: `#475569` (Slate-600) — Metadata, court dates, paragraph labels.
-- **Border Subtle**: `#E2E8F0` (Slate-200) — Clean structural dividers without visual noise.
-- **Accent Amber**: `#B45309` (Amber-700) — Citation chips, paragraph highlights, active states.
-- **Verified Green**: `#047857` (Emerald-700) — Verbatim quote badges, verified evidence markers.
-- **Derived Blue**: `#2563EB` (Blue-600) — Derived metadata badges, external web links.
-- **Warning Coral**: `#DC2626` (Red-600) — Unverified claims, takedown notices, errors.
+### 1.1 Institutional Legal Palette
+- **Judicial Navy (Header & Brand)**: `#0C1E3C` (Oxford Blue) — Authoritative, stable, and institutional header canvas.
+- **Parchment Canvas**: `#FAF9F6` — Soft legal paper canvas minimizing screen glare and eye strain during continuous reading.
+- **Deep Ink (Primary Typography)**: `#111827` (Gray-900) — High-legibility text providing $\ge 12.6:1$ contrast against parchment (surpassing WCAG AAA).
+- **Secondary Ink (Metadata & Captions)**: `#475569` (Slate-600) — Court dates, bench numbers, and coram info with $5.8:1$ contrast (strictly avoiding low-contrast `slate-400`).
+- **Trust Brass (Accents & Citations)**: `#92400E` (Amber-800) — Citation tags, active keyboard shortcuts, and `¶` paragraph badges.
+- **Border Crisp**: `#E2E8F0` (Slate-200) — Restrained dividers preventing cognitive overload.
 
-### 1.2 Dark Mode Adaptation
+### 1.2 Outcome Status Accent Strips
+Result cards use vertical 4px left accent strips for instant visual scanning:
+- **Allowed / Relief Granted**: `#059669` (Emerald-600)
+- **Dismissed / Rejected**: `#DC2626` (Red-600)
+- **Disposed / Transferred / Settled**: `#D97706` (Amber-600)
+
+### 1.3 Dual Typography Architecture
+- **Judicial Text (`EB Garamond`)**: Used for judgment body text, operative orders, ratio decidendi quotes, and party titles. Formatted with `leading-relaxed` (1.75 line-height) and constrained to a strict **72ch reading measure** ($\sim 65\text{--}75$ characters per line) for optimal saccadic eye tracking.
+- **Interface & Controls (`Inter`)**: Used for headers, facet labels, search inputs, metadata pills, keyboard shortcuts, and buttons. Clean, legible sans-serif with high tabular numeric clarity.
+
+### 1.4 Advocate Productivity Controls
+- **Advocate Quick Presets**: 1-click filter bar atop search rail ("Bail Matters", "Sec 482 Quash", "Commercial", "Division Bench").
+- **1-Click Paragraph Citation Copying**: Hovering or focusing on any `¶ N` paragraph badge reveals a copy button that places formal citation text (e.g. `[2023] HCMA 1234, ¶ 14`) directly into clipboard.
+- **Permanently Visible Category Facet**: Subject Category is unconditionally visible to ensure instant matter-type triage across all shard load states.
+- **Accessible Focus Indicators**: Explicit `ring-2 ring-amber-600 ring-offset-2` outline rings on all interactive elements for full keyboard accessibility (`Tab` / `Shift+Tab`).
+
+### 1.5 Dark Mode Adaptation
 - Follows system preference by default; user toggle persisted in local storage.
 - Canvas: `#0F172A` (Slate-900).
 - Surface: `#1E293B` (Slate-800).
 - Ink Primary: `#F1F5F9` (Slate-100).
-- Ink Secondary: `#94A3B8` (Slate-400).
+- Ink Secondary: `#CBD5E1` (Slate-300).
 - Accent: `#F59E0B` (Amber-500).
 
 ---

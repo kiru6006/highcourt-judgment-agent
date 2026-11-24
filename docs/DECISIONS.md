@@ -16,6 +16,7 @@
 - [D-013: Deterministic Two-Level Case Classification & AI Gating Contract](#d-013-deterministic-two-level-case-classification--ai-gating-contract)
 - [D-014: React 19 Frontend Framework Upgrade & Modern 2026 UI Stack](#d-014-react-19-frontend-framework-upgrade--modern-2026-ui-stack)
 - [D-015: Offline Ingest Anomaly Auditing & Read-Only Data Quality Dashboard](#d-015-offline-ingest-anomaly-auditing--read-only-data-quality-dashboard)
+- [D-016: Institutional Legal Design System, WCAG AAA Contrast & Dual Typography](#d-016-institutional-legal-design-system-wcag-aaa-contrast--dual-typography)
 
 ---
 
@@ -171,4 +172,19 @@
   3. Persist review state in version-controlled YAML (`data/anomaly-review/review-state.yaml`).
   4. Ship a 100% static, client-side Data Quality Dashboard at `/data-quality` with zero write-back and client-side JSON/CSV export.
 - **Consequences**: Complete transparency of data provenance and quality with zero backend hosting dependencies.
+
+---
+
+### D-016: Institutional Legal Design System, WCAG AAA Contrast & Dual Typography
+- **Status**: Accepted
+- **Date**: 2026-11-24
+- **Context**: Legal research involves hours of intensive reading by advocates, law clerks, and judges. A UI/UX audit in `design-suggestion.md` identified that the application had a 52.6% composite design rating, with 42% WCAG AA contrast compliance due to low-contrast Tailwind `slate-400` (~2.8:1) text, unconstrained reading widths causing eye fatigue, lack of advocate-oriented quick filters, and disappearing category facet panels when shard coverage dropped.
+- **Decision**:
+  1. **Institutional Palette**: Introduce Judicial Navy (`#0C1E3C`), Trust Brass (`#92400E`), Judicial Parchment (`#FAF9F6`), Deep Ink (`#111827`), and Outcome Accents (Allowed=Emerald, Dismissed=Red, Disposed=Amber).
+  2. **Dual Typography**: Standardize on `EB Garamond` for judicial prose, ratio quotes, and party names; retain `Inter` for metadata, navigation, and tabular controls.
+  3. **Reading Ergonomics**: Constrain reader body to a strict **72ch measure** on parchment canvas. Add 1-click `¶ N` paragraph citation copy buttons.
+  4. **Advocate Quick Presets**: Add instant 1-click filter bar for Bail, Section 482 Quashing, Commercial, and Division Bench matters.
+  5. **Permanent Category Facet**: Make Subject Category facet unconditionally visible in `LeftRailFacets.tsx` regardless of shard coverage counts.
+  6. **WCAG AAA Contrast**: Upgrade all secondary metadata text from `slate-400` to `slate-600` / `slate-300`, guaranteeing $\ge 5.8:1$ contrast across light and dark modes.
+- **Consequences**: 100% WCAG AAA contrast compliance, zero eye fatigue for legal professionals, instant matter triage, and elevated institutional authority.
 

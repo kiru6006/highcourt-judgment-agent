@@ -145,23 +145,28 @@ This section guides practicing advocates, judicial law clerks, and students on u
 2. The app loads statically in your browser. All search indexing, vector retrieval, and data processing run locally inside Web Workers without transmitting queries to a backend server.
 
 ### 5.2 Searching Case Law & Utilizing Facet Filters
-1. **Search Modes**:
+1. **Advocate Quick Presets**: At the top of the left rail, click any quick preset ("Bail Matters", "Sec 482 Quash", "Commercial", "Division Bench") to instantly configure multi-facet criteria in one click.
+2. **Search Modes**:
    - **Hybrid (RRF)** *(Default)*: Fuses BM25 keyword matching with 384-dimensional dense semantic vectors. Best for conceptual legal questions like *"quashing FIR when dispute is purely civil"*.
    - **Keyword**: Strict lexical search with field boosting (`cnr: 6x`, `case_no: 3.5x`, `title: 3x`).
    - **Semantic**: Pure dense vector similarity.
-2. **Left-Rail Facets**:
+3. **Left-Rail Facets**:
    - **High Court & Bench**: Select Madras High Court (Principal Seat or Madurai Bench), Karnataka, Delhi, or Bombay.
    - **Decision Year**: Filter by specific year or range using preset pills (2022–2024) or custom input.
-   - **Category & Disposal**: Narrow down to Criminal, Commercial, or Writ; filter by Allowed or Dismissed.
-3. **Multi-Source External Fallback**: If a query yields zero results in the local Madras HC sample, click the pre-filled **Indian Kanoon**, **eCourts**, or **High Court Portal** buttons directly inside the zero-result view to launch immediate external searches.
+   - **Category (Always Visible)**: Instantly filter by Criminal, Commercial, Writ, Civil, Tax, or Service.
+   - **Outcome Visual Triage**: Scan result cards instantly using left outcome accent strips (Green=Allowed, Red=Dismissed, Ochre=Disposed).
+4. **Multi-Source External Fallback**: If a query yields zero results in the local Madras HC sample, click the pre-filled **Indian Kanoon**, **eCourts**, or **High Court Portal** buttons directly inside the zero-result view to launch immediate external searches.
 
-### 5.3 Verifiable Grounded AI (Demo Mode vs BYOK Gemini)
-1. **Demo Mode**: Requires no API key. Automatically answers common bench questions (*"What is the ratio decidendi?"*, *"What are petitioner's submissions?"*) with pre-verified paragraph citations.
-2. **BYOK Gemini**:
+### 5.3 Reader Ergonomics & Verifiable Grounded AI
+1. **72ch Reading Canvas & Citation Copying**:
+   - Judgment text is set in `EB Garamond` serif over an eye-friendly parchment canvas (`#FAF9F6`), constrained to 72 characters per line.
+   - Hover or click any `¶ N` paragraph badge to copy formal legal citation text directly to the clipboard (e.g., `[2023] HCMA 1234, ¶ 14`).
+2. **Demo Mode**: Requires no API key. Automatically answers common bench questions (*"What is the ratio decidendi?"*, *"What are petitioner's submissions?"*) with pre-verified paragraph citations.
+3. **BYOK Gemini**:
    - Click **Key Manager** in the top navigation or copilot drawer.
    - Paste a Google AI Studio Gemini API key.
    - *Security Guarantee*: The key is saved strictly in browser `localStorage`. It is never uploaded, transmitted to any proxy, or stored on servers.
-3. **Verification Contract**:
+4. **Verification Contract**:
    - Every claim must have an exact verbatim quote matching a retrieved paragraph.
    - Claims failing verification are removed and displayed in the **Dropped Claims** disclosure tab.
 
