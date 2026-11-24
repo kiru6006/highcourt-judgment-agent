@@ -6,17 +6,34 @@
   html {
     scroll-behavior: smooth;
   }
+
+  body {
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  /* High-contrast focus rings for accessibility */
+  *:focus-visible {
+    outline: 2px solid #92400E;
+    outline-offset: 2px;
+  }
 }
 
 .legal-prose {
+  font-family: "EB Garamond", Merriweather, Georgia, serif;
   font-feature-settings: "cv02", "cv03", "cv04", "cv11";
-  line-height: 1.75;
+  line-height: 1.85;
+  font-size: 1.0625rem;
+  color: #111827;
+}
+
+.dark .legal-prose {
+  color: #F8FAFC;
 }
 
 /* Flash highlight animation for jumping to cited paragraph */
 @keyframes amberFlash {
-  0% { background-color: rgba(245, 158, 11, 0.4); }
-  50% { background-color: rgba(245, 158, 11, 0.2); }
+  0% { background-color: rgba(180, 83, 9, 0.45); }
+  50% { background-color: rgba(180, 83, 9, 0.2); }
   100% { background-color: transparent; }
 }
 
@@ -24,12 +41,14 @@
   animation: amberFlash 2.5s ease-out;
 }
 
-/* Advocate Court Memorandum Print Styles */
+/* Advocate Court Memorandum & High Court Paper Book Print Styles */
 @media print {
   body {
     background: white !important;
     color: black !important;
     font-size: 11pt !important;
+    font-family: "EB Garamond", "Times New Roman", serif !important;
+    line-height: 1.5 !important;
   }
 
   header,
@@ -49,7 +68,9 @@
     width: 100% !important;
   }
 
-  .max-w-3xl {
+  .max-w-3xl,
+  .max-w-4xl,
+  .max-w-7xl {
     max-width: 100% !important;
     border: none !important;
     box-shadow: none !important;
@@ -62,13 +83,15 @@
   }
 
   th, td {
-    border: 1px solid #cbd5e1 !important;
+    border: 1px solid #94a3b8 !important;
     page-break-inside: avoid;
+    padding: 6px 8px !important;
   }
 
   p {
     orphans: 3;
     widows: 3;
+    page-break-inside: avoid;
   }
 
   @page {

@@ -147,19 +147,56 @@ export const LeftRailFacets: React.FC<LeftRailFacetsProps> = ({
     <aside className="w-full md:w-72 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 p-4 space-y-6 text-sm">
       {/* Header */}
       <div className="flex items-center justify-between pb-3 border-b border-slate-200 dark:border-slate-800">
-        <div className="flex items-center gap-2 font-semibold text-slate-900 dark:text-slate-100">
-          <Filter className="w-4 h-4 text-amber-600" />
-          <span>Filters</span>
+        <div className="flex items-center gap-2 font-semibold text-slate-900 dark:text-slate-100 font-serif">
+          <Filter className="w-4 h-4 text-amber-700 dark:text-amber-400" />
+          <span>Procedural Filters</span>
         </div>
         {hasActiveFilters && (
           <button
             onClick={clearAll}
-            className="text-xs text-amber-600 dark:text-amber-400 hover:underline flex items-center gap-1 font-medium"
+            className="text-xs text-amber-700 dark:text-amber-400 hover:underline flex items-center gap-1 font-semibold"
           >
             <X className="w-3.5 h-3.5" />
             Clear all
           </button>
         )}
+      </div>
+
+      {/* Quick-Action Legal Presets */}
+      <div className="p-2.5 rounded-lg bg-amber-500/10 border border-amber-500/20 space-y-1.5">
+        <div className="text-[10px] font-bold uppercase tracking-wider text-amber-800 dark:text-amber-300">
+          Advocate Quick Presets
+        </div>
+        <div className="flex flex-wrap gap-1">
+          <button
+            type="button"
+            onClick={() => onChange({ ...filters, categories: ['Criminal'], query: filters.query || 'bail' })}
+            className="px-2 py-0.5 rounded text-[11px] font-medium bg-white dark:bg-slate-800 border border-amber-300 dark:border-slate-700 text-amber-900 dark:text-amber-200 hover:bg-amber-100/60 transition"
+          >
+            Bail Matters
+          </button>
+          <button
+            type="button"
+            onClick={() => onChange({ ...filters, categories: ['Criminal'], query: filters.query || 'quashing 482' })}
+            className="px-2 py-0.5 rounded text-[11px] font-medium bg-white dark:bg-slate-800 border border-amber-300 dark:border-slate-700 text-amber-900 dark:text-amber-200 hover:bg-amber-100/60 transition"
+          >
+            Sec 482 Quash
+          </button>
+          <button
+            type="button"
+            onClick={() => onChange({ ...filters, categories: ['Commercial'] })}
+            className="px-2 py-0.5 rounded text-[11px] font-medium bg-white dark:bg-slate-800 border border-amber-300 dark:border-slate-700 text-amber-900 dark:text-amber-200 hover:bg-amber-100/60 transition"
+          >
+            Commercial
+          </button>
+          <button
+            type="button"
+            onClick={() => onChange({ ...filters, coramTypes: ['Division Bench'] })}
+            className="px-2 py-0.5 rounded text-[11px] font-medium bg-white dark:bg-slate-800 border border-amber-300 dark:border-slate-700 text-amber-900 dark:text-amber-200 hover:bg-amber-100/60 transition"
+          >
+            Division Bench
+          </button>
+        </div>
       </div>
 
       {/* High Court Filter */}
@@ -198,7 +235,7 @@ export const LeftRailFacets: React.FC<LeftRailFacetsProps> = ({
                       {court.name}
                     </span>
                   </div>
-                  <span className="text-[11px] font-mono text-slate-400">
+                  <span className="text-[11px] font-mono text-slate-600 dark:text-slate-300 font-medium">
                     {count}
                   </span>
                 </label>
@@ -245,7 +282,7 @@ export const LeftRailFacets: React.FC<LeftRailFacetsProps> = ({
                     </span>
                   </div>
                   {count > 0 && (
-                    <span className="text-[11px] font-mono text-slate-400">
+                    <span className="text-[11px] font-mono text-slate-600 dark:text-slate-300 font-medium">
                       {count}
                     </span>
                   )}
@@ -371,7 +408,7 @@ export const LeftRailFacets: React.FC<LeftRailFacetsProps> = ({
                     {cat}
                   </span>
                 </div>
-                <span className="text-[11px] font-mono text-slate-400">
+                <span className="text-[11px] font-mono text-slate-600 dark:text-slate-300 font-medium">
                   {count}
                 </span>
               </label>
@@ -416,7 +453,7 @@ export const LeftRailFacets: React.FC<LeftRailFacetsProps> = ({
                       {disp}
                     </span>
                   </div>
-                  <span className="text-[11px] font-mono text-slate-400">
+                  <span className="text-[11px] font-mono text-slate-600 dark:text-slate-300 font-medium">
                     {count}
                   </span>
                 </label>
@@ -462,7 +499,7 @@ export const LeftRailFacets: React.FC<LeftRailFacetsProps> = ({
                       {coram}
                     </span>
                   </div>
-                  <span className="text-[11px] font-mono text-slate-400">
+                  <span className="text-[11px] font-mono text-slate-600 dark:text-slate-300 font-medium">
                     {count}
                   </span>
                 </label>
