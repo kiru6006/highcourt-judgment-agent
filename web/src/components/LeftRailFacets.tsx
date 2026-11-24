@@ -49,15 +49,15 @@ export const LeftRailFacets: React.FC<LeftRailFacetsProps> = ({
     });
   };
 
-  // Coverage statistics computation across corpus
-  const totalDocs = corpus.length || 1;
-  const courtCoverage = Math.round((corpus.filter(d => !!d.court_code).length / totalDocs) * 100);
-  const benchCoverage = Math.round((corpus.filter(d => !!d.bench_code || !!d.bench_name).length / totalDocs) * 100);
-  const yearCoverage = Math.round((corpus.filter(d => !!d.decision_date).length / totalDocs) * 100);
-  const categoryCoverage = Math.round((corpus.filter(d => !!d.category).length / totalDocs) * 100);
-  const disposalCoverage = Math.round((corpus.filter(d => !!d.disposal_nature).length / totalDocs) * 100);
-  const coramCoverage = Math.round((corpus.filter(d => !!d.coram_type).length / totalDocs) * 100);
-  const caseTypeCoverage = Math.round((corpus.filter(d => !!d.case_type).length / totalDocs) * 100);
+  // Coverage statistics computation across corpus (defaults to 100% when shards/distribution loaded without full raw corpus)
+  const totalDocs = corpus && corpus.length > 0 ? corpus.length : 50;
+  const courtCoverage = corpus && corpus.length > 0 ? Math.round((corpus.filter(d => !!d.court_code).length / totalDocs) * 100) : 100;
+  const benchCoverage = corpus && corpus.length > 0 ? Math.round((corpus.filter(d => !!d.bench_code || !!d.bench_name).length / totalDocs) * 100) : 100;
+  const yearCoverage = corpus && corpus.length > 0 ? Math.round((corpus.filter(d => !!d.decision_date).length / totalDocs) * 100) : 100;
+  const categoryCoverage = corpus && corpus.length > 0 ? Math.round((corpus.filter(d => !!d.category).length / totalDocs) * 100) : 100;
+  const disposalCoverage = corpus && corpus.length > 0 ? Math.round((corpus.filter(d => !!d.disposal_nature).length / totalDocs) * 100) : 100;
+  const coramCoverage = corpus && corpus.length > 0 ? Math.round((corpus.filter(d => !!d.coram_type).length / totalDocs) * 100) : 100;
+  const caseTypeCoverage = corpus && corpus.length > 0 ? Math.round((corpus.filter(d => !!d.case_type).length / totalDocs) * 100) : 100;
 
   // Live count lookup maps from facetDistribution if available
   const courtCountMap = React.useMemo(() => {
@@ -336,51 +336,49 @@ export const LeftRailFacets: React.FC<LeftRailFacetsProps> = ({
         </div>
       )}
 
-      {/* Subject Category */}
-      {categoryCoverage >= 5 && (
-        <div>
-          <div className="flex items-center justify-between mb-2.5">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
-              Subject Category
-            </h4>
-            <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-500" title="Corpus non-null coverage">
-              {categoryCoverage}%
-            </span>
-          </div>
-          <div className="space-y-1.5">
-            {APP_CONFIG.CATEGORIES.map(cat => {
-              const count = getCategoryCount(cat);
-              const isChecked = filters.categories.includes(cat);
-              return (
-                <label
-                  key={cat}
-                  className="flex items-center justify-between text-xs cursor-pointer py-1 px-1.5 rounded hover:bg-slate-50 dark:hover:bg-slate-800/50"
-                >
-                  <div className="flex items-center gap-2">
-                    <input
-                      type="checkbox"
-                      checked={isChecked}
-                      onChange={() =>
-                        onChange({
-                          ...filters,
-                          categories: toggleItem(filters.categories, cat),
-                        })
-                      }
-                      className="rounded border-slate-300 dark:border-slate-700 text-amber-600 focus:ring-amber-500/30"
-                    />
-                    <span className={isChecked ? 'font-medium text-amber-600 dark:text-amber-400' : 'text-slate-700 dark:text-slate-300'}>
-                      {cat}
-                    </span>
-                  </div>
-                  <span className="text-[11px] font-mono text-slate-400">
-                    {count}
-                  </span>
-                </label>
-              );
-            })}
-          </div>
+      {/* Subject Category (Always Visible) */}
+      <div>
+        <div className="flex items-center justify-between mb-2.5">
+          <h4 className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+            Subject Category
+          </h4>
+          <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-500" title="Corpus non-null coverage">
+            {categoryCoverage}%
+          </span>
         </div>
-      )}
+        <div className="space-y-1.5">
+          {APP_CONFIG.CATEGORIES.map(cat => {
+            const count = getCategoryCount(cat);
+            const isChecked = filters.categories.includes(cat);
+            return (
+              <label
+                key={cat}
+                className="flex items-center justify-between text-xs cursor-pointer py-1 px-1.5 rounded hover:bg-slate-50 dark:hover:bg-slate-800/50"
+              >
+                <div className="flex items-center gap-2">
+                  <input
+                    type="checkbox"
+                    checked={isChecked}
+                    onChange={() =>
+                      onChange({
+                        ...filters,
+                        categories: toggleItem(filters.categories, cat),
+                      })
+                    }
+                    className="rounded border-slate-300 dark:border-slate-700 text-amber-600 focus:ring-amber-500/30"
+                  />
+                  <span className={isChecked ? 'font-medium text-amber-600 dark:text-amber-400' : 'text-slate-700 dark:text-slate-300'}>
+                    {cat}
+                  </span>
+                </div>
+                <span className="text-[11px] font-mono text-slate-400">
+                  {count}
+                </span>
+              </label>
+            );
+          })}
+        </div>
+      </div>
 
       {/* Disposal Nature */}
       {disposalCoverage >= 5 && (

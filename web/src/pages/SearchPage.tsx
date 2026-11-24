@@ -221,7 +221,7 @@ export const SearchPage: React.FC<SearchPageProps> = ({
         <LeftRailFacets
           filters={filters}
           onChange={handleFilterChangeInternal}
-          corpus={isShardsLoaded ? undefined : SYNTHETIC_JUDGMENTS}
+          corpus={SYNTHETIC_JUDGMENTS}
           facetDistribution={searchResponse?.facets}
         />
       </div>
