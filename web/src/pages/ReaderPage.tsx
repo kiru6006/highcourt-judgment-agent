@@ -19,6 +19,7 @@ import {
 import { JudgmentDocument } from '../types/schema';
 import { fetchJudgmentDocument } from '../reader/doc-loader';
 import { ExtractiveBrief } from '../components/ExtractiveBrief';
+import { CaseIntelligencePanel } from '../components/CaseIntelligencePanel';
 import { StatuteBridgeDrawer } from '../components/StatuteBridgeDrawer';
 import { CitationsDrawer } from '../components/CitationsDrawer';
 import { GroundedCopilot } from '../components/GroundedCopilot';
@@ -335,6 +336,12 @@ export const ReaderPage: React.FC = () => {
                 <span className="font-semibold text-emerald-600">{judgment.disposal_nature}</span>
               </div>
             </div>
+
+            {/* Case Classification & Legal Intelligence Panel (M6) */}
+            <CaseIntelligencePanel
+              judgment={judgment}
+              onJumpToPara={scrollToPara}
+            />
 
             {/* Structured Brief View vs Original Paragraph Stream */}
             {viewMode === 'brief' ? (

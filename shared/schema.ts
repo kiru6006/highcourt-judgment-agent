@@ -16,6 +16,10 @@ export interface ClassificationRecord {
   evidenceParagraphs: number[];
   reviewStatus: "pending" | "reviewed" | "unknown";
   ruleId?: string;
+  status?: "verified" | "unverified" | "unknown";
+  normalizedCaseType?: string;
+  officialDescription?: string;
+  sourceUrl?: string;
 }
 
 export interface ClassificationMetadata {

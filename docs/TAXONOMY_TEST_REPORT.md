@@ -1,7 +1,7 @@
 # Nyaya AI Reader — Taxonomy & Rule Classification Test Report
 
 **Specification:** NyayaReader v1.2.0 Milestone M3  
-**Evaluated At:** 2026-11-24T03:30:18Z  
+**Evaluated At:** 2026-11-24T03:52:26Z  
 **Evaluation Set:** `eval/eval_taxonomy_50.json` (50 hand-labelled judgments)  
 **Status:** ALL GATES PASSED (Levels 1 & 2 Deterministic Verification)
 
