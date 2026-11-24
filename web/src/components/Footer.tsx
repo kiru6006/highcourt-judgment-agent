@@ -14,6 +14,10 @@ export const Footer: React.FC = () => {
             Dataset Status & Privacy
           </Link>
           <span>•</span>
+          <Link to="/coverage" className="hover:text-amber-600 dark:hover:text-amber-400 transition font-medium">
+            Corpus Coverage (25 High Courts)
+          </Link>
+          <span>•</span>
           <Link to="/data-quality" className="hover:text-amber-600 dark:hover:text-amber-400 transition">
             Data Quality & Anomalies
           </Link>

@@ -115,4 +115,53 @@ describe('SearchEngine (BM25 + Facet Oracle)', () => {
     const res = engine.search('Section 482 CrPC');
     expect(res.executionTimeMs).toBeLessThan(50);
   });
+
+  it('filters by exact phrase across title and excerpt', () => {
+    const res = engine.search('', { exactPhrase: 'quash the charge sheet' });
+    expect(res.total).toBe(1);
+    expect(res.results[0].jid).toBe('j1');
+  });
+
+  it('filters by normalized case number ignoring spacing variance', () => {
+    const res = engine.search('', { caseNumber: 'crlop12342022' });
+    expect(res.total).toBe(1);
+    expect(res.results[0].jid).toBe('j1');
+  });
+
+  it('filters by judge name', () => {
+    const res = engine.search('', { judgeName: 'Saravanan' });
+    expect(res.total).toBe(1);
+    expect(res.results[0].jid).toBe('j2');
+  });
+
+  it('filters by date range boundaries', () => {
+    const res = engine.search('', { dateFrom: '2022-01-01', dateTo: '2022-03-31' });
+    expect(res.total).toBe(1);
+    expect(res.results[0].jid).toBe('j1');
+  });
+
+  it('sorts results by newest first (date_desc)', () => {
+    const res = engine.search('', { sortBy: 'date_desc' });
+    expect(res.results[0].date).toBe('2022-04-20');
+    expect(res.results[1].date).toBe('2022-03-15');
+    expect(res.results[2].date).toBe('2021-11-10');
+  });
+
+  it('sorts results by oldest first (date_asc)', () => {
+    const res = engine.search('', { sortBy: 'date_asc' });
+    expect(res.results[0].date).toBe('2021-11-10');
+    expect(res.results[1].date).toBe('2022-03-15');
+    expect(res.results[2].date).toBe('2022-04-20');
+  });
+
+  it('combines cross-facet AND with intra-facet OR', () => {
+    // Courts: 33_10 OR 7_26; Categories: Criminal AND YearFrom: 2022
+    const res = engine.search('', {
+      courts: ['33_10', '7_26'],
+      categories: ['Criminal'],
+      yearFrom: 2022
+    });
+    expect(res.total).toBe(1);
+    expect(res.results[0].jid).toBe('j1');
+  });
 });

@@ -7,14 +7,33 @@ export interface SearchShardRecord {
   cnr?: string;
   title: string;
   case_no: string;
+  raw_case_type?: string;
+  normalized_case_type?: string;
   court_code: string;
   bench_code: string;
+  bench_name?: string;
+  jurisdiction_type?: string;
+  coram_type?: string;
   year: number;
   date: string;
   category: string;
+  subjects?: string[];
   disposal: string;
+  outcome?: string;
+  document_type?: string;
   judges: string[];
+  advocates?: string[];
+  parties?: {
+    petitioner?: string;
+    respondent?: string;
+  };
   statutes: string[];
+  statute_sections?: string[];
+  cited_cases?: string[];
+  source_provider?: string;
+  source_verified?: boolean;
+  has_full_text?: boolean;
+  has_pdf?: boolean;
   excerpt: string;
   has_structured_brief?: boolean;
 }
@@ -62,9 +81,14 @@ export interface FacetItem {
 
 export interface FacetDistribution {
   courts: FacetItem[];
+  benches?: FacetItem[];
   years: FacetItem[];
   categories: FacetItem[];
+  caseTypes?: FacetItem[];
+  corams?: FacetItem[];
   disposals: FacetItem[];
+  outcomes?: FacetItem[];
+  documentTypes?: FacetItem[];
   statutes: FacetItem[];
 }
 

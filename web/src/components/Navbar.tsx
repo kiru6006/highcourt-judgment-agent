@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Scale, Search, Link2, FolderLock, Info, Sun, Moon, ShieldAlert } from 'lucide-react';
+import { Scale, Search, Link2, FolderLock, Info, Sun, Moon, ShieldAlert, BarChart3 } from 'lucide-react';
 import { APP_CONFIG } from '../constants/app.constants';
 
 interface NavbarProps {
@@ -84,6 +84,14 @@ export const Navbar: React.FC<NavbarProps> = ({
 
           {/* Right Navigation & Tools */}
           <div className="flex items-center gap-1 sm:gap-2 text-slate-300">
+            <Link
+              to="/coverage"
+              title="Corpus Coverage Dashboard (All 25 High Courts)"
+              aria-label="Corpus Coverage Dashboard"
+              className="p-2 text-slate-300 hover:text-white hover:bg-white/10 rounded-lg transition"
+            >
+              <BarChart3 className="w-5 h-5" aria-hidden="true" />
+            </Link>
             <Link
               to="/folders"
               title="Advocate Case Folders & Matrix"

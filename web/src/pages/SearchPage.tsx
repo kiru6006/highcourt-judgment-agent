@@ -40,7 +40,7 @@ export const SearchPage: React.FC<SearchPageProps> = ({
       courts.length !== filters.courts.length ||
       benches.length !== filters.benches.length ||
       categories.length !== filters.categories.length ||
-      disposals.length !== filters.disposals.length ||
+      disposals.length !== (filters.disposals?.length || 0) ||
       caseTypes.length !== filters.caseTypes.length ||
       yearFrom !== filters.yearFrom ||
       yearTo !== filters.yearTo
@@ -51,7 +51,7 @@ export const SearchPage: React.FC<SearchPageProps> = ({
         courts: courts.length > 0 ? courts : filters.courts,
         benches: benches.length > 0 ? benches : filters.benches,
         categories: categories.length > 0 ? categories : filters.categories,
-        disposals: disposals.length > 0 ? disposals : filters.disposals,
+        disposals: disposals.length > 0 ? disposals : (filters.disposals || []),
         caseTypes: caseTypes.length > 0 ? caseTypes : filters.caseTypes,
         yearFrom: yearFrom || filters.yearFrom,
         yearTo: yearTo || filters.yearTo,
@@ -66,7 +66,7 @@ export const SearchPage: React.FC<SearchPageProps> = ({
     newFilters.courts.forEach(c => params.append('court', c));
     newFilters.benches.forEach(b => params.append('bench', b));
     newFilters.categories.forEach(c => params.append('cat', c));
-    newFilters.disposals.forEach(d => params.append('disposal', d));
+    (newFilters.disposals || []).forEach(d => params.append('disposal', d));
     newFilters.caseTypes.forEach(ct => params.append('case_type', ct));
     if (newFilters.yearFrom) params.set('year_from', String(newFilters.yearFrom));
     if (newFilters.yearTo) params.set('year_to', String(newFilters.yearTo));
@@ -183,8 +183,8 @@ export const SearchPage: React.FC<SearchPageProps> = ({
       if (filters.categories.length > 0 && !filters.categories.includes(doc.category)) return false;
       if (filters.caseTypes.length > 0 && !filters.caseTypes.includes(doc.case_type)) return false;
       if (
-        filters.disposals.length > 0 &&
-        !filters.disposals.some(d => d.toLowerCase() === doc.disposal_nature.toLowerCase())
+        (filters.disposals?.length || 0) > 0 &&
+        !filters.disposals!.some(d => d.toLowerCase() === doc.disposal_nature.toLowerCase())
       ) {
         return false;
       }
@@ -251,6 +251,33 @@ export const SearchPage: React.FC<SearchPageProps> = ({
             </div>
 
             <div className="flex items-center gap-2">
+              {/* Sort Dropdown */}
+              <select
+                value={filters.sortBy || 'relevance'}
+                onChange={e => handleFilterChangeInternal({ ...filters, sortBy: e.target.value as any })}
+                className="text-xs px-2 py-1 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-medium"
+                aria-label="Sort search results"
+              >
+                <option value="relevance">Sort: Relevance</option>
+                <option value="date_desc">Sort: Newest First</option>
+                <option value="date_asc">Sort: Oldest First</option>
+                <option value="court">Sort: Court Name</option>
+                <option value="case_type">Sort: Case Type</option>
+              </select>
+
+              {/* Share URL Button */}
+              <button
+                type="button"
+                onClick={() => {
+                  navigator.clipboard.writeText(window.location.href);
+                  alert('Search URL copied to clipboard!');
+                }}
+                className="px-2 py-1 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-100 text-xs font-medium"
+                title="Copy current search URL with filters to clipboard"
+              >
+                Share
+              </button>
+
               {/* Search Mode Toggle */}
               <div className="flex items-center bg-slate-100 dark:bg-slate-800 rounded-lg p-0.5 text-[11px] font-medium">
                 <button
@@ -295,7 +322,7 @@ export const SearchPage: React.FC<SearchPageProps> = ({
           </div>
 
           {/* Active Filter Chips */}
-          {(filters.courts.length > 0 || filters.benches.length > 0 || filters.categories.length > 0 || filters.disposals.length > 0 || filters.caseTypes.length > 0 || filters.yearFrom || filters.yearTo || filters.query) && (
+          {(filters.courts.length > 0 || filters.benches.length > 0 || filters.categories.length > 0 || (filters.disposals?.length || 0) > 0 || filters.caseTypes.length > 0 || filters.yearFrom || filters.yearTo || filters.query) && (
             <div className="flex flex-wrap items-center gap-1.5 pb-2">
               {filters.query && (
                 <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-amber-50 dark:bg-amber-950/50 text-amber-800 dark:text-amber-300 text-xs font-mono">
@@ -342,11 +369,11 @@ export const SearchPage: React.FC<SearchPageProps> = ({
                   </button>
                 </span>
               ))}
-              {filters.disposals.map(d => (
+              {(filters.disposals || []).map(d => (
                 <span key={d} className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs">
                   <span>disp: {d}</span>
                   <button
-                    onClick={() => handleFilterChangeInternal({ ...filters, disposals: filters.disposals.filter(x => x !== d) })}
+                    onClick={() => handleFilterChangeInternal({ ...filters, disposals: (filters.disposals || []).filter(x => x !== d) })}
                     className="hover:text-slate-900 dark:hover:text-white"
                   >
                     <X className="w-2.5 h-2.5" />
@@ -394,7 +421,7 @@ export const SearchPage: React.FC<SearchPageProps> = ({
 
                 {/* Filter Recovery Actions */}
                 <div className="flex flex-wrap items-center justify-center gap-2 pt-2">
-                  {(filters.courts.length > 0 || filters.benches.length > 0 || filters.categories.length > 0 || filters.disposals.length > 0 || filters.caseTypes.length > 0 || filters.yearFrom || filters.yearTo) && filters.query && (
+                  {(filters.courts.length > 0 || filters.benches.length > 0 || filters.categories.length > 0 || (filters.disposals?.length || 0) > 0 || filters.caseTypes.length > 0 || filters.yearFrom || filters.yearTo) && filters.query && (
                     <button
                       onClick={() =>
                         handleFilterChangeInternal({

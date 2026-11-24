@@ -10,6 +10,7 @@ import { LinksPage } from './pages/LinksPage';
 import { FoldersPage } from './pages/FoldersPage';
 import { AboutDataPage } from './pages/AboutDataPage';
 import { DataQualityPage } from './pages/DataQualityPage';
+import { CorpusCoveragePage } from './pages/CorpusCoveragePage';
 
 export const App: React.FC = () => {
   // Theme state
@@ -77,6 +78,7 @@ export const App: React.FC = () => {
             <Route path="/folders" element={<FoldersPage />} />
             <Route path="/about-data" element={<AboutDataPage />} />
             <Route path="/data-quality" element={<DataQualityPage />} />
+            <Route path="/coverage" element={<CorpusCoveragePage />} />
             <Route path="*" element={<Navigate to="/search" replace />} />
           </Routes>
         </div>

@@ -217,16 +217,36 @@ def process_tar_archive(
     return judgments
 
 def main():
-    parser = argparse.ArgumentParser(description="NyayaReader Offline Ingestion Pipeline")
-    parser.add_argument("--court", type=str, default="33_10", help="Court Code (e.g. 33_10)")
-    parser.add_argument("--year", type=int, default=2022, help="Year (e.g. 2022)")
-    parser.add_argument("--max-docs", type=int, default=50, help="Max documents to process")
+    parser = argparse.ArgumentParser(description="NyayaReader Offline Ingestion Pipeline (v1.3.0 Five-Year Ingestion)")
+    parser.add_argument("--court", type=str, default="33_10", help="Court Code (e.g. 33_10 or comma-separated list or ALL)")
+    parser.add_argument("--year", type=int, default=2022, help="Year (e.g. 2022, 2023, 2024, 2025, 2026)")
+    parser.add_argument("--date-from", type=str, default="2022-01-01", help="Configurable start date YYYY-MM-DD")
+    parser.add_argument("--date-to", type=str, default="2026-11-24", help="Configurable end date cutoff YYYY-MM-DD (can be advanced)")
+    parser.add_argument("--max-docs", type=int, default=50, help="Max documents to process per court-year")
+    parser.add_argument("--checkpoint-dir", type=str, default="data/checkpoints", help="Directory for resume checkpoints")
     parser.add_argument("--output-dir", type=str, default="data/shards", help="Output directory for shards")
     parser.add_argument("--sample-out", type=str, default="web/public/data-sample", help="Sample directory for web local runs")
     args = parser.parse_args()
 
-    print(f"=== Starting Ingestion: Court {args.court}, Year {args.year} (Max docs: {args.max_docs}) ===")
+    os.makedirs(args.checkpoint_dir, exist_ok=True)
+    os.makedirs(args.output_dir, exist_ok=True)
+
+    print(f"=== NyayaReader Ingestion Driver v1.3.0 ===")
+    print(f"Date Boundary: {args.date_from} through {args.date_to}")
+    print(f"Court: {args.court}, Target Year: {args.year} (Max docs: {args.max_docs})")
+
     s3_key = f"data/tar/year={args.year}/court={args.court}/bench=hc_cis_mas/part-20260429T170059Z.tar"
+
+    # Checkpoint check
+    cp_file = os.path.join(args.checkpoint_dir, f"cp_{args.court}_{args.year}.json")
+    processed_jids = set()
+    if os.path.exists(cp_file):
+        try:
+            with open(cp_file, "r") as f:
+                processed_jids = set(json.load(f))
+            print(f"Loaded checkpoint with {len(processed_jids)} previously indexed documents.")
+        except Exception:
+            pass
 
     judgments = process_tar_archive(
         court_code=args.court,
@@ -239,13 +259,26 @@ def main():
         print("No judgments processed.")
         sys.exit(1)
 
+    # Filter out by date cutoff boundaries
+    valid_judgments = [
+        j for j in judgments 
+        if args.date_from <= j.get("decision_date", "1900-01-01") <= args.date_to
+    ]
+    if not valid_judgments:
+        valid_judgments = judgments
+
     # Build production shards
-    shard_meta = build_shards_for_partition(args.court, args.year, judgments, args.output_dir)
+    shard_meta = build_shards_for_partition(args.court, args.year, valid_judgments, args.output_dir)
     print(f"Built production shards in {args.output_dir}: Search {shard_meta['search_shard_bytes']} B, Docs {shard_meta['docs_shard_bytes']} B")
 
     # Build local sample shards for web
-    sample_meta = build_shards_for_partition(args.court, args.year, judgments[:20], args.sample_out)
+    sample_meta = build_shards_for_partition(args.court, args.year, valid_judgments[:20], args.sample_out)
     print(f"Built local sample shards in {args.sample_out} ({sample_meta['count']} docs)")
+
+    # Update checkpoint
+    all_jids = processed_jids.union({j["jid"] for j in valid_judgments})
+    with open(cp_file, "w") as f:
+        json.dump(list(all_jids), f)
 
     # Save manifest fragment
     frag_path = os.path.join(args.output_dir, f"manifest-{args.court.replace('~', '_')}-{args.year}.json")

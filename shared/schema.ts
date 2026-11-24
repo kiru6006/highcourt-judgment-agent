@@ -88,6 +88,49 @@ export interface ExtendedJudgmentDocument {
   classification_metadata?: ClassificationMetadata;
 }
 
+export interface SearchFilters {
+  query: string;
+  exactPhrase?: string;
+  caseNumber?: string;
+  cnr?: string;
+  partyName?: string;
+  advocateName?: string;
+  judgeName?: string;
+  citationQuery?: string;
+  
+  courts: string[];
+  benches: string[];
+  jurisdictionTypes?: string[];
+  coramTypes: string[];
+  
+  yearFrom?: number;
+  yearTo?: number;
+  dateFrom?: string;
+  dateTo?: string;
+  dateShortcut?: '30d' | '90d' | '12m' | 'all';
+  
+  categories: string[];
+  subjects?: string[];
+  caseTypes: string[];
+  
+  statuteActs?: string[];
+  statuteSections?: string[];
+  
+  documentTypes?: string[];
+  outcomes?: string[];
+  disposals: string[];
+  purposes: string[];
+  
+  citedCases?: string[];
+  
+  sourceProviders?: string[];
+  sourceVerifiedOnly?: boolean;
+  fullTextAvailableOnly?: boolean;
+  pdfAvailableOnly?: boolean;
+  
+  sortBy?: 'relevance' | 'date_desc' | 'date_asc' | 'court' | 'case_type';
+}
+
 /**
  * Migration helper: wraps any existing judgment document ensuring backward compatibility.
  * Default review status is "pending" with unmutated raw court strings.

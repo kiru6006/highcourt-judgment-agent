@@ -15,7 +15,10 @@
 ---
 
 ### Core Capabilities:
+- **Five-Year High Court Discovery (2022–2026)**: Comprehensive judgment discovery covering the latest 5 calendar years (2022, 2023, 2024, 2025, and 2026 through 24 November 2026) across all 25 Indian High Courts and official permanent/circuit benches.
+- **Unified 11-Group Advanced Search**: Comprehensive query interface across Basic Search (Exact Phrase, Case No, CNR, Party, Judge, Advocate), Court, Bench, 5-Year Dates, Case Types, 13 Legal Domains, Statutes, Document Types, Outcomes, Provenance, and Multi-Criteria Sorting.
 - **In-Browser Hybrid Retrieval**: Sub-4ms BM25 keyword search + 384-dimensional dense vector similarity fused via Reciprocal Rank Fusion (RRF) directly inside a client Web Worker over compact pre-indexed shards.
+- **Corpus Coverage Dashboard**: Real-time transparency dashboard (`/coverage`) displaying empirical indexed counts across courts, benches, years, domains, and statutory quarantine metrics.
 - **Institutional Legal Design & Dual Typography**: Custom judicial theme (Oxford Navy `#0C1E3C`, Trust Brass `#92400E`, Judicial Parchment `#FAF9F6`) with `EB Garamond` serif judicial prose, `Inter` metadata, 72ch reading measure, and 100% WCAG AAA contrast compliance.
 - **Advocate Quick Presets & Facet Search**: 1-click presets ("Bail Matters", "Sec 482 Quash", "Commercial", "Division Bench") and permanently visible Category facets alongside Court, Bench, Year, and Coram filters.
 - **Outcome Accent Strips & 1-Click Citation Copying**: Immediate visual outcome triage (Green=Allowed, Red=Dismissed, Ochre=Disposed) and 1-click `¶ 14` paragraph legal citation copying.
@@ -24,6 +27,7 @@
 - **Advocate Workspace & Court Memo Print**: Case folder organization, inline advocate hearing notes, 2–5 Precedent Comparison Matrix, and one-click clean A4 court memorandum printing.
 - **Multi-Source External Web Fallbacks**: Zero-key deep-link generator for official eCourts records, High Court portals, and Indian Kanoon when researching outside local corpus shards.
 
+> **Corpus Coverage & Ingestion Metrics**: Inspect the live [Corpus Coverage Dashboard](https://kiru6006.github.io/highcourt-judgment-agent/#/coverage) or read the [Five-Year Coverage Report](docs/CORPUS_COVERAGE_REPORT.md).
 > **Design Audit & Benchmarks**: Review the full UI/UX audit report, scorecard (52.6% Now $\to$ 96.3% Target), and design tokens in [design-suggestion.md](design-suggestion.md).
 > **Verifiable Legal AI**: Wondering how hallucinations are eliminated? Read our technical breakdown on [How Nyaya AI Reader Grounds AI Answers](docs/HOW_AI_GROUNDS.md) (or live at [`/how-ai-grounds`](https://kiru6006.github.io/highcourt-judgment-agent/#/how-ai-grounds)).
 
