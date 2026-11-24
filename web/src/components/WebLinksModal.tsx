@@ -107,7 +107,7 @@ export const WebLinksModal: React.FC<WebLinksModalProps> = ({
 
         {/* Footer */}
         <div className="p-3 bg-slate-50 dark:bg-slate-800/50 border-t border-slate-200 dark:border-slate-800 text-[11px] text-slate-500 text-center">
-          Zero-key verified deep link templates.
+          Zero-key verified deep links. Note: External court portals may require CAPTCHA or manual entry.
         </div>
       </div>
     </div>
