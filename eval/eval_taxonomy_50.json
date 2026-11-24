@@ -1,0 +1,757 @@
+[
+  {
+    "jid": "eval_bail_01",
+    "court_code": "33_10",
+    "case_type": "CRL.OP",
+    "case_number": "Crl.O.P. 1001/2023",
+    "expected_stated_domain": "domain_criminal",
+    "expected_rules": [
+      "RULE_CRIM_BAIL"
+    ],
+    "paragraphs": [
+      "This petition is filed by the petitioner/accused seeking regular bail in Crime No. 201/2023.",
+      "Heard the learned counsel for the petitioner and the learned Additional Public Prosecutor.",
+      "The petitioner moves this application for bail under Section 439 of the Code of Criminal Procedure for grant of regular bail.",
+      "Considering the period of incarceration, the petitioner is enlarged on bail subject to conditions."
+    ]
+  },
+  {
+    "jid": "eval_bail_02",
+    "court_code": "33_10",
+    "case_type": "CRL.OP",
+    "case_number": "Crl.O.P. 1002/2023",
+    "expected_stated_domain": "domain_criminal",
+    "expected_rules": [
+      "RULE_CRIM_BAIL"
+    ],
+    "paragraphs": [
+      "This petition is filed by the petitioner/accused seeking regular bail in Crime No. 202/2023.",
+      "Heard the learned counsel for the petitioner and the learned Additional Public Prosecutor.",
+      "The petitioner moves this application for bail under Section 439 of the Code of Criminal Procedure for grant of regular bail.",
+      "Considering the period of incarceration, the petitioner is enlarged on bail subject to conditions."
+    ]
+  },
+  {
+    "jid": "eval_bail_03",
+    "court_code": "33_10",
+    "case_type": "CRL.OP",
+    "case_number": "Crl.O.P. 1003/2023",
+    "expected_stated_domain": "domain_criminal",
+    "expected_rules": [
+      "RULE_CRIM_BAIL"
+    ],
+    "paragraphs": [
+      "This petition is filed by the petitioner/accused seeking regular bail in Crime No. 203/2023.",
+      "Heard the learned counsel for the petitioner and the learned Additional Public Prosecutor.",
+      "The petitioner moves this application for bail under Section 439 of the Code of Criminal Procedure for grant of regular bail.",
+      "Considering the period of incarceration, the petitioner is enlarged on bail subject to conditions."
+    ]
+  },
+  {
+    "jid": "eval_bail_04",
+    "court_code": "33_10",
+    "case_type": "CRL.OP",
+    "case_number": "Crl.O.P. 1004/2023",
+    "expected_stated_domain": "domain_criminal",
+    "expected_rules": [
+      "RULE_CRIM_BAIL"
+    ],
+    "paragraphs": [
+      "This petition is filed by the petitioner/accused seeking regular bail in Crime No. 204/2023.",
+      "Heard the learned counsel for the petitioner and the learned Additional Public Prosecutor.",
+      "The petitioner moves this application for bail under Section 439 of the Code of Criminal Procedure for grant of regular bail.",
+      "Considering the period of incarceration, the petitioner is enlarged on bail subject to conditions."
+    ]
+  },
+  {
+    "jid": "eval_bail_05",
+    "court_code": "33_10",
+    "case_type": "CRL.OP",
+    "case_number": "Crl.O.P. 1005/2023",
+    "expected_stated_domain": "domain_criminal",
+    "expected_rules": [
+      "RULE_CRIM_BAIL"
+    ],
+    "paragraphs": [
+      "This petition is filed by the petitioner/accused seeking regular bail in Crime No. 205/2023.",
+      "Heard the learned counsel for the petitioner and the learned Additional Public Prosecutor.",
+      "The petitioner moves this application for bail under Section 439 of the Code of Criminal Procedure for grant of regular bail.",
+      "Considering the period of incarceration, the petitioner is enlarged on bail subject to conditions."
+    ]
+  },
+  {
+    "jid": "eval_ant_bail_01",
+    "court_code": "1_1",
+    "case_type": "ABA",
+    "case_number": "ABA 201/2023",
+    "expected_stated_domain": "domain_criminal",
+    "expected_rules": [
+      "RULE_CRIM_ANT_BAIL"
+    ],
+    "paragraphs": [
+      "The applicant seeks pre-arrest protection apprehending arrest by the police.",
+      "This application for anticipatory bail is filed under Section 438 of the Code of Criminal Procedure.",
+      "In the event of arrest of the applicant in Crime No. 45/2023, he shall be released on bail."
+    ]
+  },
+  {
+    "jid": "eval_ant_bail_02",
+    "court_code": "1_1",
+    "case_type": "ABA",
+    "case_number": "ABA 202/2023",
+    "expected_stated_domain": "domain_criminal",
+    "expected_rules": [
+      "RULE_CRIM_ANT_BAIL"
+    ],
+    "paragraphs": [
+      "The applicant seeks pre-arrest protection apprehending arrest by the police.",
+      "This application for anticipatory bail is filed under Section 438 of the Code of Criminal Procedure.",
+      "In the event of arrest of the applicant in Crime No. 45/2023, he shall be released on bail."
+    ]
+  },
+  {
+    "jid": "eval_ant_bail_03",
+    "court_code": "1_1",
+    "case_type": "ABA",
+    "case_number": "ABA 203/2023",
+    "expected_stated_domain": "domain_criminal",
+    "expected_rules": [
+      "RULE_CRIM_ANT_BAIL"
+    ],
+    "paragraphs": [
+      "The applicant seeks pre-arrest protection apprehending arrest by the police.",
+      "This application for anticipatory bail is filed under Section 438 of the Code of Criminal Procedure.",
+      "In the event of arrest of the applicant in Crime No. 45/2023, he shall be released on bail."
+    ]
+  },
+  {
+    "jid": "eval_ant_bail_04",
+    "court_code": "1_1",
+    "case_type": "ABA",
+    "case_number": "ABA 204/2023",
+    "expected_stated_domain": "domain_criminal",
+    "expected_rules": [
+      "RULE_CRIM_ANT_BAIL"
+    ],
+    "paragraphs": [
+      "The applicant seeks pre-arrest protection apprehending arrest by the police.",
+      "This application for anticipatory bail is filed under Section 438 of the Code of Criminal Procedure.",
+      "In the event of arrest of the applicant in Crime No. 45/2023, he shall be released on bail."
+    ]
+  },
+  {
+    "jid": "eval_ant_bail_05",
+    "court_code": "1_1",
+    "case_type": "ABA",
+    "case_number": "ABA 205/2023",
+    "expected_stated_domain": "domain_criminal",
+    "expected_rules": [
+      "RULE_CRIM_ANT_BAIL"
+    ],
+    "paragraphs": [
+      "The applicant seeks pre-arrest protection apprehending arrest by the police.",
+      "This application for anticipatory bail is filed under Section 438 of the Code of Criminal Procedure.",
+      "In the event of arrest of the applicant in Crime No. 45/2023, he shall be released on bail."
+    ]
+  },
+  {
+    "jid": "eval_quash_01",
+    "court_code": "7_26",
+    "case_type": "CRL.M.C.",
+    "case_number": "Crl.M.C. 301/2023",
+    "expected_stated_domain": "domain_criminal",
+    "expected_rules": [
+      "RULE_CRIM_FIR_QUASH"
+    ],
+    "paragraphs": [
+      "The petitioner has approached this Court under Section 482 of the Code of Criminal Procedure to quash the FIR.",
+      "The dispute between the parties is purely civil and personal in nature.",
+      "Prayer to quash the first information report in FIR No. 81/2022 is allowed."
+    ]
+  },
+  {
+    "jid": "eval_quash_02",
+    "court_code": "7_26",
+    "case_type": "CRL.M.C.",
+    "case_number": "Crl.M.C. 302/2023",
+    "expected_stated_domain": "domain_criminal",
+    "expected_rules": [
+      "RULE_CRIM_FIR_QUASH"
+    ],
+    "paragraphs": [
+      "The petitioner has approached this Court under Section 482 of the Code of Criminal Procedure to quash the FIR.",
+      "The dispute between the parties is purely civil and personal in nature.",
+      "Prayer to quash the first information report in FIR No. 82/2022 is allowed."
+    ]
+  },
+  {
+    "jid": "eval_quash_03",
+    "court_code": "7_26",
+    "case_type": "CRL.M.C.",
+    "case_number": "Crl.M.C. 303/2023",
+    "expected_stated_domain": "domain_criminal",
+    "expected_rules": [
+      "RULE_CRIM_FIR_QUASH"
+    ],
+    "paragraphs": [
+      "The petitioner has approached this Court under Section 482 of the Code of Criminal Procedure to quash the FIR.",
+      "The dispute between the parties is purely civil and personal in nature.",
+      "Prayer to quash the first information report in FIR No. 83/2022 is allowed."
+    ]
+  },
+  {
+    "jid": "eval_quash_04",
+    "court_code": "7_26",
+    "case_type": "CRL.M.C.",
+    "case_number": "Crl.M.C. 304/2023",
+    "expected_stated_domain": "domain_criminal",
+    "expected_rules": [
+      "RULE_CRIM_FIR_QUASH"
+    ],
+    "paragraphs": [
+      "The petitioner has approached this Court under Section 482 of the Code of Criminal Procedure to quash the FIR.",
+      "The dispute between the parties is purely civil and personal in nature.",
+      "Prayer to quash the first information report in FIR No. 84/2022 is allowed."
+    ]
+  },
+  {
+    "jid": "eval_quash_05",
+    "court_code": "7_26",
+    "case_type": "CRL.M.C.",
+    "case_number": "Crl.M.C. 305/2023",
+    "expected_stated_domain": "domain_criminal",
+    "expected_rules": [
+      "RULE_CRIM_FIR_QUASH"
+    ],
+    "paragraphs": [
+      "The petitioner has approached this Court under Section 482 of the Code of Criminal Procedure to quash the FIR.",
+      "The dispute between the parties is purely civil and personal in nature.",
+      "Prayer to quash the first information report in FIR No. 85/2022 is allowed."
+    ]
+  },
+  {
+    "jid": "eval_land_01",
+    "court_code": "29_3",
+    "case_type": "MFA",
+    "case_number": "MFA 401/2022",
+    "expected_stated_domain": "domain_civil_property",
+    "expected_rules": [
+      "RULE_CIVIL_LAND_ACQ"
+    ],
+    "paragraphs": [
+      "This appeal arises from an award passed by the Reference Court under the Land Acquisition Act.",
+      "The claimant seeks enhancement of compensation for the acquired land situated in survey no. 120.",
+      "Notification under Section 4 of the Land Acquisition Act was issued on 15.01.2012."
+    ]
+  },
+  {
+    "jid": "eval_land_02",
+    "court_code": "29_3",
+    "case_type": "MFA",
+    "case_number": "MFA 402/2022",
+    "expected_stated_domain": "domain_civil_property",
+    "expected_rules": [
+      "RULE_CIVIL_LAND_ACQ"
+    ],
+    "paragraphs": [
+      "This appeal arises from an award passed by the Reference Court under the Land Acquisition Act.",
+      "The claimant seeks enhancement of compensation for the acquired land situated in survey no. 120.",
+      "Notification under Section 4 of the Land Acquisition Act was issued on 15.01.2012."
+    ]
+  },
+  {
+    "jid": "eval_land_03",
+    "court_code": "29_3",
+    "case_type": "MFA",
+    "case_number": "MFA 403/2022",
+    "expected_stated_domain": "domain_civil_property",
+    "expected_rules": [
+      "RULE_CIVIL_LAND_ACQ"
+    ],
+    "paragraphs": [
+      "This appeal arises from an award passed by the Reference Court under the Land Acquisition Act.",
+      "The claimant seeks enhancement of compensation for the acquired land situated in survey no. 120.",
+      "Notification under Section 4 of the Land Acquisition Act was issued on 15.01.2012."
+    ]
+  },
+  {
+    "jid": "eval_land_04",
+    "court_code": "29_3",
+    "case_type": "MFA",
+    "case_number": "MFA 404/2022",
+    "expected_stated_domain": "domain_civil_property",
+    "expected_rules": [
+      "RULE_CIVIL_LAND_ACQ"
+    ],
+    "paragraphs": [
+      "This appeal arises from an award passed by the Reference Court under the Land Acquisition Act.",
+      "The claimant seeks enhancement of compensation for the acquired land situated in survey no. 120.",
+      "Notification under Section 4 of the Land Acquisition Act was issued on 15.01.2012."
+    ]
+  },
+  {
+    "jid": "eval_land_05",
+    "court_code": "29_3",
+    "case_type": "MFA",
+    "case_number": "MFA 405/2022",
+    "expected_stated_domain": "domain_civil_property",
+    "expected_rules": [
+      "RULE_CIVIL_LAND_ACQ"
+    ],
+    "paragraphs": [
+      "This appeal arises from an award passed by the Reference Court under the Land Acquisition Act.",
+      "The claimant seeks enhancement of compensation for the acquired land situated in survey no. 120.",
+      "Notification under Section 4 of the Land Acquisition Act was issued on 15.01.2012."
+    ]
+  },
+  {
+    "jid": "eval_serv_01",
+    "court_code": "33_10",
+    "case_type": "WP",
+    "case_number": "W.P. 501/2023",
+    "expected_stated_domain": "domain_constitutional",
+    "expected_rules": [
+      "RULE_SERV_MATTERS",
+      "RULE_CONST_PETITION"
+    ],
+    "paragraphs": [
+      "The petitioner challenges the disciplinary proceedings initiated against him by the respondent corporation.",
+      "Writ of certiorari is sought under Article 226 of the Constitution of India.",
+      "Departmental enquiry was conducted in violation of principles of natural justice and compassionate appointment was withheld."
+    ]
+  },
+  {
+    "jid": "eval_serv_02",
+    "court_code": "33_10",
+    "case_type": "WP",
+    "case_number": "W.P. 502/2023",
+    "expected_stated_domain": "domain_constitutional",
+    "expected_rules": [
+      "RULE_SERV_MATTERS",
+      "RULE_CONST_PETITION"
+    ],
+    "paragraphs": [
+      "The petitioner challenges the disciplinary proceedings initiated against him by the respondent corporation.",
+      "Writ of certiorari is sought under Article 226 of the Constitution of India.",
+      "Departmental enquiry was conducted in violation of principles of natural justice and compassionate appointment was withheld."
+    ]
+  },
+  {
+    "jid": "eval_serv_03",
+    "court_code": "33_10",
+    "case_type": "WP",
+    "case_number": "W.P. 503/2023",
+    "expected_stated_domain": "domain_constitutional",
+    "expected_rules": [
+      "RULE_SERV_MATTERS",
+      "RULE_CONST_PETITION"
+    ],
+    "paragraphs": [
+      "The petitioner challenges the disciplinary proceedings initiated against him by the respondent corporation.",
+      "Writ of certiorari is sought under Article 226 of the Constitution of India.",
+      "Departmental enquiry was conducted in violation of principles of natural justice and compassionate appointment was withheld."
+    ]
+  },
+  {
+    "jid": "eval_serv_04",
+    "court_code": "33_10",
+    "case_type": "WP",
+    "case_number": "W.P. 504/2023",
+    "expected_stated_domain": "domain_constitutional",
+    "expected_rules": [
+      "RULE_SERV_MATTERS",
+      "RULE_CONST_PETITION"
+    ],
+    "paragraphs": [
+      "The petitioner challenges the disciplinary proceedings initiated against him by the respondent corporation.",
+      "Writ of certiorari is sought under Article 226 of the Constitution of India.",
+      "Departmental enquiry was conducted in violation of principles of natural justice and compassionate appointment was withheld."
+    ]
+  },
+  {
+    "jid": "eval_serv_05",
+    "court_code": "33_10",
+    "case_type": "WP",
+    "case_number": "W.P. 505/2023",
+    "expected_stated_domain": "domain_constitutional",
+    "expected_rules": [
+      "RULE_SERV_MATTERS",
+      "RULE_CONST_PETITION"
+    ],
+    "paragraphs": [
+      "The petitioner challenges the disciplinary proceedings initiated against him by the respondent corporation.",
+      "Writ of certiorari is sought under Article 226 of the Constitution of India.",
+      "Departmental enquiry was conducted in violation of principles of natural justice and compassionate appointment was withheld."
+    ]
+  },
+  {
+    "jid": "eval_tender_01",
+    "court_code": "7_26",
+    "case_type": "W.P.(C)",
+    "case_number": "W.P.(C) 601/2023",
+    "expected_stated_domain": "domain_constitutional",
+    "expected_rules": [
+      "RULE_COMM_TENDERS",
+      "RULE_CONST_PETITION"
+    ],
+    "paragraphs": [
+      "The petitioner assails the disqualification of its technical bid in the e-tender notice issued by the respondent authority.",
+      "Petition filed under Article 226 of the Constitution of India challenging tender notice conditions.",
+      "The notice inviting tender required financial bid qualifications that the petitioner met as L-1 bidder."
+    ]
+  },
+  {
+    "jid": "eval_tender_02",
+    "court_code": "7_26",
+    "case_type": "W.P.(C)",
+    "case_number": "W.P.(C) 602/2023",
+    "expected_stated_domain": "domain_constitutional",
+    "expected_rules": [
+      "RULE_COMM_TENDERS",
+      "RULE_CONST_PETITION"
+    ],
+    "paragraphs": [
+      "The petitioner assails the disqualification of its technical bid in the e-tender notice issued by the respondent authority.",
+      "Petition filed under Article 226 of the Constitution of India challenging tender notice conditions.",
+      "The notice inviting tender required financial bid qualifications that the petitioner met as L-1 bidder."
+    ]
+  },
+  {
+    "jid": "eval_tender_03",
+    "court_code": "7_26",
+    "case_type": "W.P.(C)",
+    "case_number": "W.P.(C) 603/2023",
+    "expected_stated_domain": "domain_constitutional",
+    "expected_rules": [
+      "RULE_COMM_TENDERS",
+      "RULE_CONST_PETITION"
+    ],
+    "paragraphs": [
+      "The petitioner assails the disqualification of its technical bid in the e-tender notice issued by the respondent authority.",
+      "Petition filed under Article 226 of the Constitution of India challenging tender notice conditions.",
+      "The notice inviting tender required financial bid qualifications that the petitioner met as L-1 bidder."
+    ]
+  },
+  {
+    "jid": "eval_tender_04",
+    "court_code": "7_26",
+    "case_type": "W.P.(C)",
+    "case_number": "W.P.(C) 604/2023",
+    "expected_stated_domain": "domain_constitutional",
+    "expected_rules": [
+      "RULE_COMM_TENDERS",
+      "RULE_CONST_PETITION"
+    ],
+    "paragraphs": [
+      "The petitioner assails the disqualification of its technical bid in the e-tender notice issued by the respondent authority.",
+      "Petition filed under Article 226 of the Constitution of India challenging tender notice conditions.",
+      "The notice inviting tender required financial bid qualifications that the petitioner met as L-1 bidder."
+    ]
+  },
+  {
+    "jid": "eval_tender_05",
+    "court_code": "7_26",
+    "case_type": "W.P.(C)",
+    "case_number": "W.P.(C) 605/2023",
+    "expected_stated_domain": "domain_constitutional",
+    "expected_rules": [
+      "RULE_COMM_TENDERS",
+      "RULE_CONST_PETITION"
+    ],
+    "paragraphs": [
+      "The petitioner assails the disqualification of its technical bid in the e-tender notice issued by the respondent authority.",
+      "Petition filed under Article 226 of the Constitution of India challenging tender notice conditions.",
+      "The notice inviting tender required financial bid qualifications that the petitioner met as L-1 bidder."
+    ]
+  },
+  {
+    "jid": "eval_mat_01",
+    "court_code": "32_1",
+    "case_type": "MAT.APPEAL",
+    "case_number": "Mat.Appeal 701/2023",
+    "expected_stated_domain": "domain_family_matrimonial",
+    "expected_rules": [
+      "RULE_FAM_MATRIMONIAL"
+    ],
+    "paragraphs": [
+      "This matrimonial appeal is directed against the judgment and decree of divorce granted by the Family Court.",
+      "The petition was filed under Section 13 of the Hindu Marriage Act seeking dissolution of marriage on ground of cruelty.",
+      "The Family Court rightly awarded permanent alimony to the respondent."
+    ]
+  },
+  {
+    "jid": "eval_mat_02",
+    "court_code": "32_1",
+    "case_type": "MAT.APPEAL",
+    "case_number": "Mat.Appeal 702/2023",
+    "expected_stated_domain": "domain_family_matrimonial",
+    "expected_rules": [
+      "RULE_FAM_MATRIMONIAL"
+    ],
+    "paragraphs": [
+      "This matrimonial appeal is directed against the judgment and decree of divorce granted by the Family Court.",
+      "The petition was filed under Section 13 of the Hindu Marriage Act seeking dissolution of marriage on ground of cruelty.",
+      "The Family Court rightly awarded permanent alimony to the respondent."
+    ]
+  },
+  {
+    "jid": "eval_mat_03",
+    "court_code": "32_1",
+    "case_type": "MAT.APPEAL",
+    "case_number": "Mat.Appeal 703/2023",
+    "expected_stated_domain": "domain_family_matrimonial",
+    "expected_rules": [
+      "RULE_FAM_MATRIMONIAL"
+    ],
+    "paragraphs": [
+      "This matrimonial appeal is directed against the judgment and decree of divorce granted by the Family Court.",
+      "The petition was filed under Section 13 of the Hindu Marriage Act seeking dissolution of marriage on ground of cruelty.",
+      "The Family Court rightly awarded permanent alimony to the respondent."
+    ]
+  },
+  {
+    "jid": "eval_mat_04",
+    "court_code": "32_1",
+    "case_type": "MAT.APPEAL",
+    "case_number": "Mat.Appeal 704/2023",
+    "expected_stated_domain": "domain_family_matrimonial",
+    "expected_rules": [
+      "RULE_FAM_MATRIMONIAL"
+    ],
+    "paragraphs": [
+      "This matrimonial appeal is directed against the judgment and decree of divorce granted by the Family Court.",
+      "The petition was filed under Section 13 of the Hindu Marriage Act seeking dissolution of marriage on ground of cruelty.",
+      "The Family Court rightly awarded permanent alimony to the respondent."
+    ]
+  },
+  {
+    "jid": "eval_mat_05",
+    "court_code": "32_1",
+    "case_type": "MAT.APPEAL",
+    "case_number": "Mat.Appeal 705/2023",
+    "expected_stated_domain": "domain_family_matrimonial",
+    "expected_rules": [
+      "RULE_FAM_MATRIMONIAL"
+    ],
+    "paragraphs": [
+      "This matrimonial appeal is directed against the judgment and decree of divorce granted by the Family Court.",
+      "The petition was filed under Section 13 of the Hindu Marriage Act seeking dissolution of marriage on ground of cruelty.",
+      "The Family Court rightly awarded permanent alimony to the respondent."
+    ]
+  },
+  {
+    "jid": "eval_arb_01",
+    "court_code": "7_26",
+    "case_type": "ARB.P.",
+    "case_number": "Arb.P. 801/2023",
+    "expected_stated_domain": "domain_commercial_corporate",
+    "expected_rules": [
+      "RULE_COMM_ARBITRATION"
+    ],
+    "paragraphs": [
+      "Petition under Section 11(6) of the Arbitration and Conciliation Act 1996 for appointment of sole arbitrator.",
+      "Clause 24 of the commercial agreement contains an arbitration clause governing disputes.",
+      "Arbitration and Conciliation Act mandates referral to arbitration when a valid agreement exists."
+    ]
+  },
+  {
+    "jid": "eval_arb_02",
+    "court_code": "7_26",
+    "case_type": "ARB.P.",
+    "case_number": "Arb.P. 802/2023",
+    "expected_stated_domain": "domain_commercial_corporate",
+    "expected_rules": [
+      "RULE_COMM_ARBITRATION"
+    ],
+    "paragraphs": [
+      "Petition under Section 11(6) of the Arbitration and Conciliation Act 1996 for appointment of sole arbitrator.",
+      "Clause 24 of the commercial agreement contains an arbitration clause governing disputes.",
+      "Arbitration and Conciliation Act mandates referral to arbitration when a valid agreement exists."
+    ]
+  },
+  {
+    "jid": "eval_arb_03",
+    "court_code": "7_26",
+    "case_type": "ARB.P.",
+    "case_number": "Arb.P. 803/2023",
+    "expected_stated_domain": "domain_commercial_corporate",
+    "expected_rules": [
+      "RULE_COMM_ARBITRATION"
+    ],
+    "paragraphs": [
+      "Petition under Section 11(6) of the Arbitration and Conciliation Act 1996 for appointment of sole arbitrator.",
+      "Clause 24 of the commercial agreement contains an arbitration clause governing disputes.",
+      "Arbitration and Conciliation Act mandates referral to arbitration when a valid agreement exists."
+    ]
+  },
+  {
+    "jid": "eval_arb_04",
+    "court_code": "7_26",
+    "case_type": "ARB.P.",
+    "case_number": "Arb.P. 804/2023",
+    "expected_stated_domain": "domain_commercial_corporate",
+    "expected_rules": [
+      "RULE_COMM_ARBITRATION"
+    ],
+    "paragraphs": [
+      "Petition under Section 11(6) of the Arbitration and Conciliation Act 1996 for appointment of sole arbitrator.",
+      "Clause 24 of the commercial agreement contains an arbitration clause governing disputes.",
+      "Arbitration and Conciliation Act mandates referral to arbitration when a valid agreement exists."
+    ]
+  },
+  {
+    "jid": "eval_arb_05",
+    "court_code": "7_26",
+    "case_type": "ARB.P.",
+    "case_number": "Arb.P. 805/2023",
+    "expected_stated_domain": "domain_commercial_corporate",
+    "expected_rules": [
+      "RULE_COMM_ARBITRATION"
+    ],
+    "paragraphs": [
+      "Petition under Section 11(6) of the Arbitration and Conciliation Act 1996 for appointment of sole arbitrator.",
+      "Clause 24 of the commercial agreement contains an arbitration clause governing disputes.",
+      "Arbitration and Conciliation Act mandates referral to arbitration when a valid agreement exists."
+    ]
+  },
+  {
+    "jid": "eval_ibc_01",
+    "court_code": "1_1",
+    "case_type": "COMMS",
+    "case_number": "COMMS 901/2023",
+    "expected_stated_domain": "domain_commercial_corporate",
+    "expected_rules": [
+      "RULE_COMM_INSOLVENCY"
+    ],
+    "paragraphs": [
+      "The corporate debtor is subject to proceedings under the Insolvency and Bankruptcy Code (IBC 2016).",
+      "An application under Section 7 of the IBC was admitted and corporate insolvency resolution process (CIRP) commenced.",
+      "Moratorium under Section 14 IBC bars institution of suits against corporate debtor."
+    ]
+  },
+  {
+    "jid": "eval_ibc_02",
+    "court_code": "1_1",
+    "case_type": "COMMS",
+    "case_number": "COMMS 902/2023",
+    "expected_stated_domain": "domain_commercial_corporate",
+    "expected_rules": [
+      "RULE_COMM_INSOLVENCY"
+    ],
+    "paragraphs": [
+      "The corporate debtor is subject to proceedings under the Insolvency and Bankruptcy Code (IBC 2016).",
+      "An application under Section 7 of the IBC was admitted and corporate insolvency resolution process (CIRP) commenced.",
+      "Moratorium under Section 14 IBC bars institution of suits against corporate debtor."
+    ]
+  },
+  {
+    "jid": "eval_ibc_03",
+    "court_code": "1_1",
+    "case_type": "COMMS",
+    "case_number": "COMMS 903/2023",
+    "expected_stated_domain": "domain_commercial_corporate",
+    "expected_rules": [
+      "RULE_COMM_INSOLVENCY"
+    ],
+    "paragraphs": [
+      "The corporate debtor is subject to proceedings under the Insolvency and Bankruptcy Code (IBC 2016).",
+      "An application under Section 7 of the IBC was admitted and corporate insolvency resolution process (CIRP) commenced.",
+      "Moratorium under Section 14 IBC bars institution of suits against corporate debtor."
+    ]
+  },
+  {
+    "jid": "eval_ibc_04",
+    "court_code": "1_1",
+    "case_type": "COMMS",
+    "case_number": "COMMS 904/2023",
+    "expected_stated_domain": "domain_commercial_corporate",
+    "expected_rules": [
+      "RULE_COMM_INSOLVENCY"
+    ],
+    "paragraphs": [
+      "The corporate debtor is subject to proceedings under the Insolvency and Bankruptcy Code (IBC 2016).",
+      "An application under Section 7 of the IBC was admitted and corporate insolvency resolution process (CIRP) commenced.",
+      "Moratorium under Section 14 IBC bars institution of suits against corporate debtor."
+    ]
+  },
+  {
+    "jid": "eval_ibc_05",
+    "court_code": "1_1",
+    "case_type": "COMMS",
+    "case_number": "COMMS 905/2023",
+    "expected_stated_domain": "domain_commercial_corporate",
+    "expected_rules": [
+      "RULE_COMM_INSOLVENCY"
+    ],
+    "paragraphs": [
+      "The corporate debtor is subject to proceedings under the Insolvency and Bankruptcy Code (IBC 2016).",
+      "An application under Section 7 of the IBC was admitted and corporate insolvency resolution process (CIRP) commenced.",
+      "Moratorium under Section 14 IBC bars institution of suits against corporate debtor."
+    ]
+  },
+  {
+    "jid": "eval_neg_01",
+    "court_code": "33_10",
+    "case_type": "CS",
+    "case_number": "C.S. 101/2023",
+    "expected_stated_domain": "domain_civil_property",
+    "expected_rules": [],
+    "paragraphs": [
+      "This is an ordinary civil suit for partition of ancestral joint family property.",
+      "The plaintiff claims 1/4th share in the schedule mentioned properties.",
+      "The defendants filed written statement claiming prior oral partition in the year 1995."
+    ]
+  },
+  {
+    "jid": "eval_neg_02",
+    "court_code": "33_10",
+    "case_type": "CS",
+    "case_number": "C.S. 102/2023",
+    "expected_stated_domain": "domain_civil_property",
+    "expected_rules": [],
+    "paragraphs": [
+      "This is an ordinary civil suit for partition of ancestral joint family property.",
+      "The plaintiff claims 1/4th share in the schedule mentioned properties.",
+      "The defendants filed written statement claiming prior oral partition in the year 1995."
+    ]
+  },
+  {
+    "jid": "eval_neg_03",
+    "court_code": "33_10",
+    "case_type": "CS",
+    "case_number": "C.S. 103/2023",
+    "expected_stated_domain": "domain_civil_property",
+    "expected_rules": [],
+    "paragraphs": [
+      "This is an ordinary civil suit for partition of ancestral joint family property.",
+      "The plaintiff claims 1/4th share in the schedule mentioned properties.",
+      "The defendants filed written statement claiming prior oral partition in the year 1995."
+    ]
+  },
+  {
+    "jid": "eval_neg_04",
+    "court_code": "33_10",
+    "case_type": "CS",
+    "case_number": "C.S. 104/2023",
+    "expected_stated_domain": "domain_civil_property",
+    "expected_rules": [],
+    "paragraphs": [
+      "This is an ordinary civil suit for partition of ancestral joint family property.",
+      "The plaintiff claims 1/4th share in the schedule mentioned properties.",
+      "The defendants filed written statement claiming prior oral partition in the year 1995."
+    ]
+  },
+  {
+    "jid": "eval_neg_05",
+    "court_code": "33_10",
+    "case_type": "CS",
+    "case_number": "C.S. 105/2023",
+    "expected_stated_domain": "domain_civil_property",
+    "expected_rules": [],
+    "paragraphs": [
+      "This is an ordinary civil suit for partition of ancestral joint family property.",
+      "The plaintiff claims 1/4th share in the schedule mentioned properties.",
+      "The defendants filed written statement claiming prior oral partition in the year 1995."
+    ]
+  }
+]

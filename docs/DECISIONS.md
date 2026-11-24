@@ -135,3 +135,15 @@
 - **Decision**: Adopt **Playwright with Chromium headless-shell** via scripted journey (`scripts/screenshots.ts` and `scripts/generate-social-preview.ts`). Screenshots execute against the compiled `web/dist` static production build served on an ephemeral local server with SPA fallback. Social preview is generated via high-DPI HTML canvas rendering.
 - **Consequences**: Automated screenshot regeneration in CI (`.github/workflows/screenshots.yml`), 100% reproducible visual assets, zero manually edited graphic files.
 
+---
+
+### D-013: Deterministic Two-Level Case Classification & AI Gating Contract
+- **Status**: Accepted
+- **Date**: 2026-11-24
+- **Context**: v1.2.0 requires structured case intelligence across an 8-domain legal hierarchy. In-browser or CI LLM classification carries hallucination risk, token cost, and non-deterministic tag drift.
+- **Decision**: Implement a strict two-level deterministic classification pipeline:
+  1. **Level 1 (Registry Metadata)**: Strictly deterministic lookup against verified court registries (Madras, Karnataka, Kerala, Delhi, Bombay). Unverified codes default to `unknown` with raw string preserved and 0.0 confidence. Never guess.
+  2. **Level 2 (Rule-Based Evidence Grounding)**: Narrow 10-rule procedural suite (Bail, Quashing, Arbitration, Tenders, Matrimonial, etc.). Invariant: A rule fires *only* if its evidence paragraph anchor index is retrievable. Zero evidence -> zero label.
+  3. **Level 3 (AI Inference) Gate**: Strictly gated and deferred until Levels 1 & 2 pass audited precision on benchmark fixtures.
+- **Consequences**: Zero hallucination, 100% reproducible legal tagging, full backward compatibility with v1.0.0 schema, and measurable per-rule precision reported in `docs/TAXONOMY_TEST_REPORT.md`.
+
