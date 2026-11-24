@@ -1,0 +1,23 @@
+# Nyaya AI Reader — Version-Controlled Anomaly Review State
+# Format:
+# <documentId>:
+#   <ruleId>:
+#     status: reviewed | suppressed | pending
+#     reviewedBy: string
+#     reviewedAt: ISO8601
+#     note: string
+#     history:
+#       - action: string
+#         timestamp: ISO8601
+#         user: string
+
+sample_reviewed_doc_001:
+  A05_UNMAPPED_CASE_CODE:
+    status: reviewed
+    reviewedBy: Senior Legal Architect
+    reviewedAt: '2026-11-24T00:00:00Z'
+    note: Verified as historic writ petition code. Added to registry queue.
+    history:
+      - action: reviewed
+        timestamp: '2026-11-24T00:00:00Z'
+        user: Senior Legal Architect
